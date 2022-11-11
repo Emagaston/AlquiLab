@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">AlquiLab</string>
+    <string name="title_login">AlquiLab</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="title_forgotPass">¿Olvidó la contraseña?</string>
+    <string name="title_register">Registrarse</string>
+    <string name="hint_fullname">Nombre</string>
+    <string name="btn_register">Crear cuenta</string>
+    <string name="btn_reset">Cambiar contraseña</string>
+
+    <!-- GroupRoles-->
+    <string name="title_Role">¿Qué busca hacer?</string>
+    <string name="radioButtonLocador">Colocar alquiler</string>
+    <string name="radioButtonInquilino">Buscar alquiler</string>
+
+    <string name="titleRol_toolbar">AlquiLab</string>
+
+    <string name="btnRole">Elegir</string>
+
+    <!-- Spinner -->
+    <string name="spinnerRol">Rol</string>
+    <string-array name="OpcionesRol">
+        <item>Seleccione una opcion</item>
+        <item>Buscar alquiler</item>
+        <item>Colocar alquiler</item>
+    </string-array>
+
+
+</resources>
