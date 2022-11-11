@@ -127,6 +127,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                                 editTextRegisterName.setText("");
                                                 editTextRegisterEmail.setText("");
                                                 editTextRegisterPassword.setText("");
+                                                startActivity(new Intent(RegisterUser.this,MainActivity.class));
                                             }else {
                                                 Toast.makeText(RegisterUser.this, "Se ha producido un error al registrarse! Intentelo de nuevo!", Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
