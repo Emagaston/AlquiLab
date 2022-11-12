@@ -4,11 +4,15 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -27,6 +31,7 @@ import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
 
+    public static int RC_PHOTO_PICKER = 0;
     private EditText description, address;
     private Button btn_add;
     private ImageView view_img;
@@ -88,17 +93,34 @@ public class NuevoAlquiler extends AppCompatActivity {
         View.OnClickListener imgListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Muestro mensaje de agregado
-                Toast.makeText(NuevoAlquiler.this, "Subir imagen!!", Toast.LENGTH_LONG).show();
-                //camaraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
-                camaraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
-            }
-        };
+                final CharSequence[] opciones ={"Tomar foto","Cargar imagen","Cancelar"};
+                final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(NuevoAlquiler.this);
+                alertOpciones.setTitle("Seleccione una opción:");
+                alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (opciones[i].equals("Tomar foto")) {
+                            Toast.makeText(NuevoAlquiler.this, "Tomar foto!!", Toast.LENGTH_LONG).show();
+                            camaraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
+                        } else {
+                            if (opciones[i].equals("Cargar imagen")) {
+                                Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.setType("image/jpg");
+                                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                                galleryLauncher.launch(intent);
 
+                            } else {
+                                dialogInterface.dismiss();
+                            }
+                        }
+                    }
+                });
+                alertOpciones.show();
+            };
+        };
         btn_add.setOnClickListener(addListener);
         view_img.setOnClickListener(imgListener);
-
-
     }
 
     private void inicializarFirebase() {
@@ -114,6 +136,17 @@ public class NuevoAlquiler extends AppCompatActivity {
                 Bundle extras = result.getData().getExtras();
                 Bitmap bitmap = (Bitmap) extras.get("data");
                 view_img.setImageBitmap(bitmap);
+            }
+        }
+    });
+
+    ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode()== RESULT_OK){
+                Intent data = result.getData();
+                Uri uri = data.getData();
+                view_img.setImageURI(uri);
             }
         }
     });
