@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.core.Tag;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,14 +28,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnLogin;
 
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
     private ProgressBar progressBar;
+    private static final String TAG = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mAuth = FirebaseAuth.getInstance();
 
         register = findViewById(R.id.register);
         register.setOnClickListener(this);
@@ -47,6 +50,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
+        
+        inicialize();
+    }
+
+    private void inicialize() {
+        mAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null){
+                    Log.w(TAG, "onAuthStateChanged -Logueado");
+                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
+                }else{
+                    Log.w(TAG,"onAuthStateChanged - Cerro sesion");
+                    startActivity(new Intent(MainActivity.this,MainActivity.class));
+                }
+
+            }
+        };
     }
 
     @Override

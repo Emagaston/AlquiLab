@@ -76,7 +76,7 @@
         android:backgroundTint="@color/btn_login"
         android:text="@string/btn_register"
         android:textColor="@color/white"
-        android:textSize="26sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
