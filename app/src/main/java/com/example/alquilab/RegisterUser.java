@@ -122,11 +122,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-                                                SharedPreferences sharedPref = getSharedPreferences("mykey",MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = sharedPref.edit();
-                                                editor.putString("email",email);
-                                                editor.putString("password",password);
-                                                editor.apply();
                                                 Toast.makeText(RegisterUser.this, "Has sido registrado satisfactoriamente!", Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                                 editTextRegisterName.setText("");

@@ -58,25 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
 
-        setupFirebaseListener();
 
-    }
-    public void setupFirebaseListener(){
-        Log.d(Tag,"setupFirebaseListener: Settingup the auth state listener");
-        authStateListener= new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (firebaseAuth.getCurrentUser() != null){
-                    Log.d(Tag,"Ya LLego");
-                    SharedPreferences sharedPref = getSharedPreferences("mykey", Context.MODE_PRIVATE);
-                    String email = sharedPref.getString("email", "");
-                    String pass = sharedPref.getString("password","");
-                }else {
-                    Log.d(Tag,"onAuthStateChanged: Sign out");
-                }
-            }
-        };
     }
 
     @Override
