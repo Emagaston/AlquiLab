@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -81,7 +82,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String password = editTextRegisterPassword.getText().toString().trim();
         String rol = spinnerRol.getSelectedItem().toString();
 
-
         if (nombre.isEmpty()){
             editTextRegisterName.setError("Ingrese un nombre!");
             editTextRegisterName.requestFocus();
@@ -122,6 +122,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
+                                                SharedPreferences sharedPref = getSharedPreferences("mykey",MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPref.edit();
+                                                editor.putString("email",email);
+                                                editor.putString("password",password);
+                                                editor.apply();
                                                 Toast.makeText(RegisterUser.this, "Has sido registrado satisfactoriamente!", Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                                 editTextRegisterName.setText("");

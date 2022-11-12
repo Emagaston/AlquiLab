@@ -3,7 +3,9 @@ package com.example.alquilab;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -23,12 +25,15 @@ import com.google.firebase.database.core.Tag;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String Tag = "MainActivity";
+
     private TextView register, forgotPassword;
     private EditText editEmailLogin, editpasswordLogin;
     private Button btnLogin;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+
     private ProgressBar progressBar;
     private static final String TAG = null;
 
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
 
         register = findViewById(R.id.register);
         register.setOnClickListener(this);
@@ -50,25 +57,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
-        
-        inicialize();
+
+        setupFirebaseListener();
+
     }
-
-    private void inicialize() {
-        mAuth = FirebaseAuth.getInstance();
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-
+    public void setupFirebaseListener(){
+        Log.d(Tag,"setupFirebaseListener: Settingup the auth state listener");
+        authStateListener= new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser != null){
-                    Log.w(TAG, "onAuthStateChanged -Logueado");
-                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
-                }else{
-                    Log.w(TAG,"onAuthStateChanged - Cerro sesion");
-                    startActivity(new Intent(MainActivity.this,MainActivity.class));
-                }
 
+                if (firebaseAuth.getCurrentUser() != null){
+                    Log.d(Tag,"Ya LLego");
+                    SharedPreferences sharedPref = getSharedPreferences("mykey", Context.MODE_PRIVATE);
+                    String email = sharedPref.getString("email", "");
+                    String pass = sharedPref.getString("password","");
+                }else {
+                    Log.d(Tag,"onAuthStateChanged: Sign out");
+                }
             }
         };
     }
@@ -124,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     progressBar.setVisibility(View.GONE);
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
+                    finish();
                     
                 }else {
                     Toast.makeText(MainActivity.this, "Error al iniciar sesion!, Por favor verifique sus datos! ", Toast.LENGTH_LONG).show();
@@ -132,5 +139,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            Intent intent = new Intent(MainActivity.this,HomePropietario.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        super.onStart();
     }
 }
