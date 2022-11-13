@@ -3,8 +3,11 @@ package com.example.alquilab;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,15 +20,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.core.Tag;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String Tag = "MainActivity";
 
     private TextView register, forgotPassword;
     private EditText editEmailLogin, editpasswordLogin;
     private Button btnLogin;
 
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     private ProgressBar progressBar;
+    private static final String TAG = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
+
+
+
     }
 
     @Override
@@ -101,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     progressBar.setVisibility(View.GONE);
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
+                    finish();
                     
                 }else {
                     Toast.makeText(MainActivity.this, "Error al iniciar sesion!, Por favor verifique sus datos! ", Toast.LENGTH_LONG).show();
@@ -109,5 +123,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            Intent intent = new Intent(MainActivity.this,HomePropietario.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        super.onStart();
     }
 }

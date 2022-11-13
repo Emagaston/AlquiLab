@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -80,7 +81,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String email = editTextRegisterEmail.getText().toString().trim();
         String password = editTextRegisterPassword.getText().toString().trim();
         String rol = spinnerRol.getSelectedItem().toString();
-
 
         if (nombre.isEmpty()){
             editTextRegisterName.setError("Ingrese un nombre!");
