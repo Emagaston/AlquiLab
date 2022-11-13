@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbarHome"
+        layout="@layout/toolbar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alquileroferta_list"
         android:name="com.example.alquilab.AlquilerOfertaListFragment"
@@ -18,8 +22,5 @@
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/alquileroferta_list_content" />
 
-    <include
-        android:id="@+id/toolbarHome"
-        layout="@layout/toolbar"/>
 
 </RelativeLayout>
