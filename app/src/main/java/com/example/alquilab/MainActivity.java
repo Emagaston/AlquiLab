@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            Intent intent = new Intent(MainActivity.this,HomePropietario.class);
+            Intent intent = new Intent(MainActivity.this,AlquilerOfertaDetailHostActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
