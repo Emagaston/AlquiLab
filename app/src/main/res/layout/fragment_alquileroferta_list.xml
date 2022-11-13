@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbarHome"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -17,10 +17,10 @@
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
         tools:context="com.example.alquilab.AlquilerOfertaDetailHostActivity"
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/alquileroferta_list_content" />
+
 
 
 </RelativeLayout>

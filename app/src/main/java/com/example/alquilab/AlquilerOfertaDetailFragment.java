@@ -7,6 +7,8 @@ import android.view.DragEvent;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -77,6 +79,7 @@ public class AlquilerOfertaDetailFragment extends Fragment {
         // Show the placeholder content as text in a TextView & in the toolbar if available.
         return rootView;
     }
+
 
     @Override
     public void onDestroyView() {
