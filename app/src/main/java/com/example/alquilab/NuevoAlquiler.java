@@ -4,8 +4,10 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -15,6 +17,8 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +28,15 @@ import android.widget.Toast;
 
 import com.example.alquilab.model.Casa;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
+
+    Toolbar mToolbar;
 
     public static int RC_PHOTO_PICKER = 0;
     private EditText description, address;
@@ -47,6 +54,9 @@ public class NuevoAlquiler extends AppCompatActivity {
         view_img = (ImageView) findViewById(R.id.view_img);
         description = (EditText) findViewById(R.id.description);
         address = (EditText) findViewById(R.id.address);
+
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         inicializarFirebase();
         
@@ -122,6 +132,28 @@ public class NuevoAlquiler extends AppCompatActivity {
         btn_add.setOnClickListener(addListener);
         view_img.setOnClickListener(imgListener);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.btnAdd:
+                startActivity(new Intent(this,NuevoAlquiler.class));
+                finish();
+                break;
+            case R.id.btnLogout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this,MainActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(this);

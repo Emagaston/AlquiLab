@@ -6,21 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/alquileroferta_list"
         android:name="com.example.alquilab.AlquilerOfertaListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="-2dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.example.alquilab.AlquilerOfertaDetailHostActivity"
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/alquileroferta_list_content" />
-
 
 
 </RelativeLayout>

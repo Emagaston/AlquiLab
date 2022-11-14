@@ -26,8 +26,10 @@
         <item>Buscar alquiler</item>
         <item>Colocar alquiler</item>
     </string-array>
+
     <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
     </string>
+
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
     <string name="title_new">Nuevo Alquiler</string>
@@ -35,6 +37,10 @@
     <string name="btn_add">Agregar Alquiler</string>
     <string name="hint_address">Ingrese la direccion</string>
     <string name="btn_img">Subir Foto</string>
+
+    <!-- Menu -->
+    <string name="logOut">Cerrar sesión</string>
+    <string name="settings">Ajustes</string>
 
 
 </resources>
