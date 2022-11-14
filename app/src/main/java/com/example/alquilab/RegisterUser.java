@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -134,8 +135,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                             }
                                         }
                                     });
+                            FirebaseAuth.getInstance().signOut();
                         }else {
-                            Toast.makeText(RegisterUser.this, "Ya has sido registrado!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUser.this, "Usuario registrado anteriormente!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
