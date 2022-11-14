@@ -144,6 +144,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.btnAdd:
                 startActivity(new Intent(this,NuevoAlquiler.class));
+                finish();
                 break;
             case R.id.btnLogout:
                 FirebaseAuth.getInstance().signOut();
