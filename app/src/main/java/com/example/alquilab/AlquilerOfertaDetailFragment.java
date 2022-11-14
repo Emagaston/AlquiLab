@@ -7,6 +7,8 @@ import android.view.DragEvent;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -72,14 +74,12 @@ public class AlquilerOfertaDetailFragment extends Fragment {
         binding = FragmentAlquilerofertaDetailBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
 
-        mToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
         mTextView = binding.alquilerofertaDetail;
 
         // Show the placeholder content as text in a TextView & in the toolbar if available.
-        updateContent();
-        rootView.setOnDragListener(dragListener);
         return rootView;
     }
+
 
     @Override
     public void onDestroyView() {

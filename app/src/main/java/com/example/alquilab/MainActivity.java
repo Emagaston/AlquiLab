@@ -25,17 +25,14 @@ import com.google.firebase.database.core.Tag;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String Tag = "MainActivity";
-
     private TextView register, forgotPassword;
     private EditText editEmailLogin, editpasswordLogin;
     private Button btnLogin;
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     private ProgressBar progressBar;
-    private static final String TAG = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
-
-
-
     }
 
     @Override
@@ -128,12 +122,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onStart() {
+        super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            Intent intent = new Intent(MainActivity.this,AlquilerOfertaDetailHostActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            startActivity(new Intent(MainActivity.this,AlquilerOfertaDetailHostActivity.class));
+            finish();
         }
-        super.onStart();
     }
 }

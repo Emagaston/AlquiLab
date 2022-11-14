@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/NuevoAlquiler"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    android:theme="@style/Theme.AlquiLab">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,15 +23,25 @@
             android:layout_marginLeft="10dp"
             android:text="@string/titleRol_toolbar"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/add_btn"
-            android:layout_width="60dp"
+            android:layout_width="30dp"
             android:layout_height="60dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="50dp"
             android:onClick="onClick"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/logout_btn"
+            android:layout_width="30dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp"
+            android:onClick="onClick"
+            app:srcCompat="@drawable/ic_logout"/>
+
+
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>
