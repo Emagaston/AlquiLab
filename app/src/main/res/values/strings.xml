@@ -38,5 +38,9 @@
     <string name="hint_address">Ingrese la direccion</string>
     <string name="btn_img">Subir Foto</string>
 
+    <!-- Menu -->
+    <string name="logOut">Cerrar sesión</string>
+    <string name="settings">Ajustes</string>
+
 
 </resources>

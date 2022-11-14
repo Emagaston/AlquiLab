@@ -21,9 +21,9 @@
         <menu>
             <item
                 android:id="@+id/btnLogout"
-                android:title="Cerrar sesión"/>
+                android:title="@string/logOut"/>
             <item
-                android:title="Ajustes"/>
+                android:title="@string/settings"/>
         </menu>
 
 
