@@ -53,7 +53,7 @@ public class AlquilerOfertaDetailHostActivity extends AppCompatActivity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                Toast.makeText(AlquilerOfertaDetailHostActivity.this, "Se achico", Toast.LENGTH_LONG).show();
+                Toast.makeText(AlquilerOfertaDetailHostActivity.this, "El search se cerró", Toast.LENGTH_LONG).show();
                 return true;
             }
         };
