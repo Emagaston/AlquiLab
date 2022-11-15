@@ -21,14 +21,11 @@
         <menu>
             <item
                 android:id="@+id/btnLogout"
-                android:title="@string/logOut"
-                app:showAsAction="ifRoom"/>
+                android:title="@string/logOut"/>
             <item
                 android:id="@+id/btnSettings"
-                android:title="@string/settings"
-                app:showAsAction="ifRoom"/>
+                android:title="@string/settings"/>
         </menu>
     </item>
-
 
 </menu>
