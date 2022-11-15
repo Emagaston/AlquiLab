@@ -44,5 +44,9 @@
 
     <string name="textLanguajes">Idioma de la aplicación</string>
 
+    <string name="hintSearch">Buscar…</string>
+
+    <string name="titleBtnSearch">Buscar</string>
+
 
 </resources>

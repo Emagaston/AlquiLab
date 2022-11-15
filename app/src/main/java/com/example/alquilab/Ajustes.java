@@ -39,7 +39,6 @@ public class Ajustes extends AppCompatActivity {
         imageToolbar=findViewById(R.id.imageToolbar1);
         imageToolbar.setOnClickListener(view -> {
             startActivity(new Intent(Ajustes.this,AlquilerOfertaDetailHostActivity.class));
-            finish();
         });
 
 

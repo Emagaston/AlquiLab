@@ -44,4 +44,7 @@
     <string name="settings">Réglages</string>
 
     <string name="textLanguajes">Idioma de lapplication</string>
+
+    <string name="hintSearch">Rechercher…</string>
+    <string name="titleBtnSearch">Buscar</string>
 </resources>
