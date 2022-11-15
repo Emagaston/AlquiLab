@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AlquiLab</string>
+    <string name="title_login">AlquiLab</string>
+    <string name="hint_email">Courrier électronique</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="btn_login">Commencer la session</string>
+    <string name="title_forgotPass">Mot de passe oublié?</string>
+    <string name="title_register">Enregistrement</string>
+    <string name="hint_fullname">Nom</string>
+    <string name="btn_register">Créer un compte</string>
+    <string name="btn_reset">Changer le mot de passe</string>
+
+    <!-- GroupRoles-->
+    <string name="title_Role">Choisis une option</string>
+    <string name="radioButtonLocador">Placer le loyer</string>
+    <string name="radioButtonInquilino">Rechercher une location</string>
+
+    <string name="titleRol_toolbar">AlquiLab</string>
+
+    <string name="btnRole">Choisir</string>
+
+    <!-- Spinner -->
+    <string name="spinnerRol">Rôle</string>
+    <string-array name="OpcionesRol">
+        <item>Choisis une option</item>
+        <item>Placer le loyer</item>
+        <item>Rechercher une location</item>
+    </string-array>
+
+    <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
+    </string>
+
+    <string name="title_alquileroferta_list">AlquilerOfertas</string>
+    <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
+    <string name="title_new">Nouvelle location</string>
+    <string name="description">Entrez une description</string>
+    <string name="btn_add">Ajouter une location</string>
+    <string name="hint_address">Entrez ladresse</string>
+    <string name="btn_img">Envoyer la photo</string>
+
+    <!-- Menu -->
+    <string name="logOut">Se déconnecter</string>
+    <string name="settings">Réglages</string>
+
+    <string name="textLanguajes">Idioma de lapplication</string>
+</resources>

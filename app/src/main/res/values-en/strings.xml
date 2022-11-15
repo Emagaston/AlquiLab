@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AlquiLab</string>
+    <string name="title_login">AlquiLab</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="title_forgotPass">Forgot password?</string>
+    <string name="title_register">Register</string>
+    <string name="hint_fullname">Name</string>
+    <string name="btn_register">Create Count</string>
+    <string name="btn_reset">Change password</string>
+
+    <!-- GroupRoles-->
+    <string name="title_Role">Choose an option?</string>
+    <string name="radioButtonLocador">Place rent</string>
+    <string name="radioButtonInquilino">Search for rent</string>
+
+    <string name="titleRol_toolbar">AlquiLab</string>
+
+    <string name="btnRole">Choose</string>
+
+    <!-- Spinner -->
+    <string name="spinnerRol">Rol</string>
+    <string-array name="OpcionesRol">
+        <item>Choose an option</item>
+        <item>Place rent</item>
+        <item>Search for rent</item>
+    </string-array>
+
+    <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
+    </string>
+
+    <string name="title_alquileroferta_list">AlquilerOfertas</string>
+    <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
+    <string name="title_new">New Rent</string>
+    <string name="description">Enter a description</string>
+    <string name="btn_add">Add Rental</string>
+    <string name="hint_address">Enter the address</string>
+    <string name="btn_img">Upload photo</string>
+
+    <!-- Menu -->
+    <string name="logOut">Logout</string>
+    <string name="settings">Settings</string>
+
+    <string name="textLanguajes">App language</string>
+
+</resources>

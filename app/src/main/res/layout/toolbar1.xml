@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar1"
     android:minHeight="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,21 +15,22 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageToolbar"
-            android:layout_width="48dp"
+            android:id="@+id/imageToolbar1"
+            android:layout_width="30dp"
             android:layout_height="55dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_arrow_back"
+            android:onClick="onClick"/>
 
         <TextView
             android:id="@+id/titleToolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="4dp"
-            android:text="@string/titleRol_toolbar"
+            android:layout_marginStart="20dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             android:textColor="@color/white"/>
 
     </LinearLayout>
+
 </androidx.appcompat.widget.Toolbar>

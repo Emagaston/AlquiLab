@@ -51,6 +51,9 @@ public class AlquilerOfertaDetailHostActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this,MainActivity.class));
                 break;
+            case R.id.btnSettings:
+                startActivity(new Intent(this,Ajustes.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

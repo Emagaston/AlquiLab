@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AlquiLab</string>
     <string name="title_login">AlquiLab</string>
@@ -39,10 +40,9 @@
     <string name="btn_img">Subir Foto</string>
 
     <!-- Menu -->
-    <string name="logOut">Logout</string>
-    <string name="settings">Settings</string>
+    <string name="logOut">Cerrar sesión</string>
+    <string name="settings">Ajustes</string>
 
     <string name="textLanguajes">Idioma de la aplicación</string>
-
 
 </resources>
