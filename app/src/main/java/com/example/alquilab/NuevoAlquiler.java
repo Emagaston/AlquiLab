@@ -29,32 +29,47 @@ import android.widget.Toast;
 import com.example.alquilab.model.Casa;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
 
     Toolbar mToolbar;
 
-    public static int RC_PHOTO_PICKER = 0;
-    private EditText description, address;
+//    public static int RC_PHOTO_PICKER = 0;
+    public static final int File = 1;
+
+    private Uri uri;
+    private EditText nombre, descripcion, direccion, barrio, habitaciones, precio;
+    private String nom,des,dir,bar,hab,pre;
     private Button btn_add;
     private ImageView view_img;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-
+    DatabaseReference databaseReference, myref;
+    private FirebaseAuth mAuth;
+    String idUser;
+    private Casa casa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_alquiler);
 
         btn_add = (Button)findViewById(R.id.btn_add);
-        view_img = (ImageView) findViewById(R.id.view_img);
-        description = (EditText) findViewById(R.id.description);
-        address = (EditText) findViewById(R.id.address);
 
+        nombre = (EditText) findViewById(R.id.edit_nom);
+        descripcion = (EditText) findViewById(R.id.edit_des);
+        direccion = (EditText) findViewById(R.id.edit_dir);
+        barrio = (EditText) findViewById(R.id.edit_bar);
+        habitaciones = (EditText) findViewById(R.id.edit_hab);
+        precio = (EditText) findViewById(R.id.edit_pre);
+
+        view_img = (ImageView) findViewById(R.id.view_img);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -63,70 +78,69 @@ public class NuevoAlquiler extends AppCompatActivity {
         View.OnClickListener addListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String desc = description.getText().toString();
-                String addr = address.getText().toString();
-                //Image img = view_img.get
-                if (desc.equals("") || addr.equals("")){
+                nom = nombre.getText().toString();
+                des = descripcion.getText().toString();
+                dir = direccion.getText().toString();
+                bar = barrio.getText().toString();
+                hab = habitaciones.getText().toString();
+                pre = precio.getText().toString();
+
+                if (nom.equals("") || des.equals("") || dir.equals("")|| bar.equals("") || hab.equals("") ){
                     validacion();
                 }else {
-                    Casa casa = new Casa();
-                    casa.setId(UUID.randomUUID().toString());
-                    casa.setDescription(desc);
-                    casa.setAddress(addr);
-                    //casa.setImagen();
-
-                    databaseReference.child("Casa").child(casa.getId()).setValue(casa);
-                    //Muestro mensaje de agregado
                     Toast.makeText(NuevoAlquiler.this, "Agregado!!", Toast.LENGTH_LONG).show();
                     limpiarCajas();
+                    startActivity(new Intent(NuevoAlquiler.this, MainActivity.class));
                 }
-
             }
 
             private void limpiarCajas() {
-                description.setText("");
-                address.setText("");
+                nombre.setText("");
+                descripcion.setText("");
+                direccion.setText("");
+                barrio.setText("");
+                habitaciones.setText("");
+                precio.setText("");
+                uri =null;
             }
 
             private void validacion() {
-                String desc = description.getText().toString();
-                String addr = address.getText().toString();
-                if (desc.equals("")){
-                    description.setError("Requerido");
+                String nom = nombre.getText().toString();
+                String des = descripcion.getText().toString();
+                String dir = direccion.getText().toString();
+                String bar = barrio.getText().toString();
+                String hab = habitaciones.getText().toString();
+                String pre = precio.getText().toString();
+                if (nom.equals("")){
+                    nombre.setError("Requerido");
                 }
-                if (addr.equals("")){
-                    address.setError("Requerido");
+                if (des.equals("")){
+                    descripcion.setError("Requerido");
                 }
+                if (dir.equals("")){
+                    direccion.setError("Requerido");
+                }
+                if (bar.equals("")){
+                    barrio.setError("Requerido");
+                }
+                if (hab.equals("")){
+                    habitaciones.setError("Requerido");
+                }
+                if (pre.equals("")){
+                    precio.setError("Requerido");
+                }
+
             }
         };
 
         View.OnClickListener imgListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] opciones ={"Tomar foto","Cargar imagen","Cancelar"};
-                final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(NuevoAlquiler.this);
-                alertOpciones.setTitle("Seleccione una opción:");
-                alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (opciones[i].equals("Tomar foto")) {
-                            Toast.makeText(NuevoAlquiler.this, "Tomar foto!!", Toast.LENGTH_LONG).show();
-                            camaraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
-                        } else {
-                            if (opciones[i].equals("Cargar imagen")) {
-                                Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                intent.setType("image/jpg");
-                                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                                galleryLauncher.launch(intent);
-
-                            } else {
-                                dialogInterface.dismiss();
-                            }
-                        }
-                    }
-                });
-                alertOpciones.show();
+                Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/jpg");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                galleryLauncher.launch(intent);
             };
         };
         btn_add.setOnClickListener(addListener);
@@ -157,33 +171,44 @@ public class NuevoAlquiler extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference();//myref
+        mAuth = FirebaseAuth.getInstance();
+        idUser = mAuth.getCurrentUser().getUid();
     }
-
-    ActivityResultLauncher<Intent> camaraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if (result.getResultCode()== RESULT_OK){
-                Bundle extras = result.getData().getExtras();
-                Bitmap bitmap = (Bitmap) extras.get("data");
-                view_img.setImageBitmap(bitmap);
-            }
-        }
-    });
 
     ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
             if (result.getResultCode()== RESULT_OK){
-                Intent data = result.getData();
-                Uri uri = data.getData();
+                uri = result.getData().getData();
                 view_img.setImageURI(uri);
+                //definimos el path
+                StorageReference Folder = FirebaseStorage.getInstance().getReference().child("fotos");
+                //definimos el nombre de la imagen
+                final StorageReference file_name = Folder.child("file"+uri.getLastPathSegment());
+                file_name.putFile(uri).addOnSuccessListener(taskSnapshot -> file_name.getDownloadUrl().addOnSuccessListener(uri1 -> {
+                    crearCasa();
+                    casa.setUrlFoto(String.valueOf(uri1));
+                    databaseReference.child("Casa").child(casa.getId()).setValue(casa);
+                }));
             }
         }
     });
 
+    private void crearCasa() {
+        casa = new Casa();
+        casa.setId(UUID.randomUUID().toString());
+        casa.setNombre(nom);
+        casa.setDescripcion(des);
+        casa.setDireccion(dir);
+        casa.setBarrio(bar);
+        casa.setHabitaciones(hab);
+        casa.setPrecio(pre);
+        casa.setIdUser(idUser);
+    }
+
 }
+

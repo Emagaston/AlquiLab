@@ -47,6 +47,10 @@
     <string name="hintSearch">Buscar…</string>
 
     <string name="titleBtnSearch">Buscar</string>
+    <string name="nombre">Ingrese un nombre</string>
+    <string name="hint_habitaciones">Ingrese el n° de habitaciones</string>
+    <string name="hint_barrio">Ingrese el barrio</string>
+    <string name="hint_precio">Ingrese el precio mensual</string>
 
 
 </resources>
