@@ -63,13 +63,13 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         String email = emailReset.getText().toString().trim();
 
         if (email.isEmpty()){
-            emailReset.setError("Ingrese un correo electrónico!");
+            emailReset.setError(getResources().getString(R.string.errorEmail));
             emailReset.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailReset.setError("Ingrese un correo electrónico válido!");
+            emailReset.setError(getResources().getString(R.string.errorEmailValid));
             emailReset.requestFocus();
             return;
         }
@@ -78,14 +78,20 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this, "Verifique su correo electrónico!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPassword.this, getResources().getString(R.string.ToastForgot), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                     startActivity(new Intent(ForgotPassword.this, MainActivity.class));
                 }else {
-                    Toast.makeText(ForgotPassword.this, "Se ha producido un error! Inténtelo de nuevo!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPassword.this, getResources().getString(R.string.ToastErrorForgot), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ForgotPassword.this,MainActivity.class));
     }
 }

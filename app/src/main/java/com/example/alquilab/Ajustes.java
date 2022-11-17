@@ -4,8 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -83,13 +85,16 @@ public class Ajustes extends AppCompatActivity {
                                         }
                                     }
                                 }
+                                SharedPreferences preferences=getSharedPreferences("Opcion",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("opcion", (String) opciones[i]);
+                                editor.apply();
                             }
                         });
                 alertaOpciones.show();
             }
         });
 }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

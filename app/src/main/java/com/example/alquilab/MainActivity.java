@@ -2,11 +2,15 @@ package com.example.alquilab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
@@ -25,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.core.Tag;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView register, forgotPassword;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar progressBar;
 
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
+
         editEmailLogin = findViewById(R.id.emailLogin);
         editpasswordLogin = findViewById(R.id.passwordLogin);
 
@@ -56,6 +64,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
+
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                startActivity(getIntent());
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+        cargarPreferencias();
+    }
+
+
+    private void cargarPreferencias() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("opcion","");
+        if (language.equals("Español")) {
+            Locale idiom_es = new Locale("es", "ES");
+            Locale.setDefault(idiom_es);
+            Configuration config_es = new Configuration();
+            config_es.locale = idiom_es;
+            getBaseContext().getResources().updateConfiguration(config_es, getBaseContext().getResources().getDisplayMetrics());
+        }else{
+            if (language.equals("English")) {
+                Locale idiom_en = new Locale("en", "EN");
+                Locale.setDefault(idiom_en);
+                Configuration config_en = new Configuration();
+                config_en.locale = idiom_en;
+                getBaseContext().getResources().updateConfiguration(config_en, getBaseContext().getResources().getDisplayMetrics());
+            } else {
+                if (language.equals("French")) {
+                    Locale idiom_fr = new Locale("fr", "FR");
+                    Locale.setDefault(idiom_fr);
+                    Configuration config_fr = new Configuration();
+                    config_fr.locale = idiom_fr;
+                    getBaseContext().getResources().updateConfiguration(config_fr, getBaseContext().getResources().getDisplayMetrics());
+                }
+            }
+        }
     }
 
     @Override
@@ -78,22 +127,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String passLogin = editpasswordLogin.getText().toString().trim();
 
         if (emailLogin.isEmpty()){
-            editEmailLogin.setError("Ingrese un correo electrónico!");
+            editEmailLogin.setError(getResources().getString(R.string.errorEmail));
             editEmailLogin.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches()){
-            editEmailLogin.setError("Ingrese un correo electrónico válido!");
+            editEmailLogin.setError(getResources().getString(R.string.errorEmailValid));
             editEmailLogin.requestFocus();
             return;
         }
         if (passLogin.isEmpty()){
-            editpasswordLogin.setError("Ingrese una contraseña!");
+            editpasswordLogin.setError(getResources().getString(R.string.errorPassword));
             editpasswordLogin.requestFocus();
             return;
         }
         if (passLogin.length() < 6){
-            editpasswordLogin.setError("La contraseña debe contener mas de 6 caracteres!");
+            editpasswordLogin.setError(getResources().getString(R.string.errorPasswordValid));
             editpasswordLogin.requestFocus();
             return;
         }
@@ -113,9 +162,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     finish();
                     
                 }else {
-                    Toast.makeText(MainActivity.this, "Error al iniciar sesion!, Por favor verifique sus datos! ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
-
                 }
             }
         });

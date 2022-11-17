@@ -9,6 +9,7 @@
     <string name="hint_fullname">Nombre</string>
     <string name="btn_register">Crear cuenta</string>
     <string name="btn_reset">Cambiar contraseña</string>
+    <string name="hint_numberContact">Número de contacto</string>
 
     <!-- GroupRoles-->
     <string name="title_Role">¿Qué busca hacer?</string>
@@ -30,6 +31,7 @@
     <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
     </string>
 
+    <!-- Nuevo Alquiler -->
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
     <string name="title_new">Nuevo Alquiler</string>
@@ -47,6 +49,23 @@
     <string name="hintSearch">Buscar…</string>
 
     <string name="titleBtnSearch">Buscar</string>
+
+    <!-- Validaciones -->
+    <string name="errorEmail">Ingrese un correo electronico!</string>
+    <string name="errorEmailValid">Ingrese un correo electrónico valido!</string>
+    <string name="errorPassword">Ingrese un correo electrónico válido!</string>
+    <string name="errorPasswordValid">La contraseña debe contener mas de 6 caracteres!</string>
+    <string name="errorName">Ingrese un nombre!</string>
+    <string name="errorNumber">Ingrese un número!</string>
+    <string name="errorNumberValid">Tiene que contener más de 8 números!</string>
+
+    <string name="ToastLogin">Error al iniciar sesion!, Por favor verifique sus datos!</string>
+    <string name="ToastForgot">Verifique su correo electrónico!</string>
+    <string name="ToastErrorForgot">Se ha producido un error! Inténtelo de nuevo!</string>
+
+    <string name="ToastRegister">Has sido registrado satisfactoriamente!</string>
+    <string name="ToastRegisterError">Se ha producido un error al registrarse! Intentelo de nuevo!</string>
+    <string name="ToastRegisterExistent">Usuario registrado anteriormente!</string>
 
 
 </resources>
