@@ -22,15 +22,15 @@
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/banner"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/hint_fullname"
-        android:textSize="24sp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/hint_fullname"
+        android:inputType="text"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/emailRegister"
@@ -62,6 +62,21 @@
         android:layout_marginTop="27dp"
         android:layout_marginEnd="15dp"/>
 
+    <EditText
+        android:id="@+id/NumberContactRegister"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordRegister"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="15dp"
+        android:ems="10"
+        android:hint="@string/hint_numberContact"
+        android:textSize="24sp"
+        android:inputType="phone"/>
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
@@ -70,8 +85,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="33dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginTop="169dp"
+        android:layout_marginEnd="33dp"
         android:backgroundTint="@color/btn_login"
         android:text="@string/btn_register"
         android:textColor="@color/white"
@@ -82,10 +97,10 @@
         android:id="@+id/titleRole"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordRegister"
+        android:layout_below="@+id/NumberContactRegister"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="31dp"
         android:text="@string/spinnerRol"
         android:textSize="25dp"
         android:textStyle="bold" />
@@ -94,9 +109,9 @@
         android:id="@+id/spinnerRol"
         android:layout_width="268dp"
         android:layout_height="54dp"
-        android:layout_below="@+id/passwordRegister"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="22dp"
+        android:layout_below="@+id/NumberContactRegister"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="26dp"
         android:layout_toEndOf="@+id/titleRole" />
 
     <ProgressBar

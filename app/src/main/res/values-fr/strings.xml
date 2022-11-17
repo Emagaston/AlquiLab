@@ -10,6 +10,7 @@
     <string name="hint_fullname">Nom</string>
     <string name="btn_register">Créer un compte</string>
     <string name="btn_reset">Changer le mot de passe</string>
+    <string name="hint_numberContact">Numéro de contact</string>
 
     <!-- GroupRoles-->
     <string name="title_Role">Choisis une option</string>
@@ -47,4 +48,20 @@
 
     <string name="hintSearch">Rechercher…</string>
     <string name="titleBtnSearch">Buscar</string>
+
+    <string name="errorEmail">Entrer un email!</string>
+    <string name="errorEmailValid">Entrer une adresse mail valide!</string>
+    <string name="errorPassword">Entrer un mot de passe valide!</string>
+    <string name="errorPasswordValid">Le mot de passe doit contenir plus de 6 caractères!</string>
+    <string name="errorName">Entrer un nom!</string>
+    <string name="errorNumber">Entrer un numéro!</string>
+    <string name="errorNumberValid">Il doit contenir plus de 8 chiffres!</string>
+
+    <string name="ToastLogin">Erreur lors de la connexion, Veuillez vérifier vos données!</string>
+    <string name="ToastForgot">Vérifiez votre email!</string>
+    <string name="ToastErrorForgot">Une erreur sest produite. Veuillez réessayer!</string>
+
+    <string name="ToastRegister">Vous avez bien été enregistré!</string>
+    <string name="ToastRegisterError">Une erreur sest produite lors de lenregistrement Réessayez!</string>
+    <string name="ToastRegisterExistent">Utilisateur précédemment enregistré!</string>
 </resources>
