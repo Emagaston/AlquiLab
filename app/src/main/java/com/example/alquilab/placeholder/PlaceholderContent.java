@@ -19,16 +19,16 @@ public class PlaceholderContent {
     /**
      * An array of sample (placeholder) items.
      */
-    public static final List<PlaceholderItem> ITEMS = new ArrayList<PlaceholderItem>();
+    public static final List<PlaceholderItem> ITEMS = new ArrayList<>();
 
     /**
      * A map of sample (placeholder) items, by ID.
      */
-    public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<String, PlaceholderItem>();
+    public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 5;
 
-    static {
+    static  {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
             addItem(createPlaceholderItem(i));

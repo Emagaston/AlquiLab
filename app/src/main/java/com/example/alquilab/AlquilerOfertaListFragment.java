@@ -2,30 +2,22 @@ package com.example.alquilab;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Debug;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.alquilab.databinding.FragmentAlquilerofertaListBinding;
-import com.example.alquilab.databinding.AlquilerofertaListContentBinding;
 
+import com.example.alquilab.model.Casa;
 import com.example.alquilab.placeholder.PlaceholderContent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -49,31 +41,6 @@ import java.util.List;
 
 public class AlquilerOfertaListFragment extends Fragment {
 
-    /**
-     * Method to intercept global key events in the
-     * item list fragment to trigger keyboard shortcuts
-     * Currently provides a toast when Ctrl + Z and Ctrl + F
-     * are triggered
-     */
-    ViewCompat.OnUnhandledKeyEventListenerCompat unhandledKeyEventListenerCompat = (v, event) -> {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_Z && event.isCtrlPressed()) {
-            Toast.makeText(
-                    v.getContext(),
-                    "Undo (Ctrl + Z) shortcut triggered",
-                    Toast.LENGTH_LONG
-            ).show();
-            return true;
-        } else if (event.getKeyCode() == KeyEvent.KEYCODE_F && event.isCtrlPressed()) {
-            Toast.makeText(
-                    v.getContext(),
-                    "Find (Ctrl + F) shortcut triggered",
-                    Toast.LENGTH_LONG
-            ).show();
-            return true;
-        }
-        return false;
-    };
-
     private FragmentAlquilerofertaListBinding binding;
 
     @Override
@@ -88,9 +55,7 @@ public class AlquilerOfertaListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat);
-
-        RecyclerView recyclerView = binding.alquilerofertaList;
+        RecyclerView recyclerView = view.findViewById(R.id.alquileroferta_list);
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
@@ -130,7 +95,7 @@ public class AlquilerOfertaListFragment extends Fragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v =LayoutInflater.from(parent.getContext()).inflate(R.layout.view_list_alquileres,parent,false);
+            View v =LayoutInflater.from(parent.getContext()).inflate(R.layout.alquileroferta_list_content,parent,false);
             return new ViewHolder(v);
         }
 

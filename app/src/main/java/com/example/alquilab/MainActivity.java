@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 
                 if (task.isSuccessful()){
                     //startActivity(new Intent(MainActivity.this, HomePropietario.class));
-                    startActivity(new Intent(MainActivity.this, AlquilerOfertaDetailHostActivity.class));
+                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
                     progressBar.setVisibility(View.GONE);
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(MainActivity.this,AlquilerOfertaDetailHostActivity.class));
+            startActivity(new Intent(MainActivity.this,HomePropietario.class));
             finish();
         }
     }
