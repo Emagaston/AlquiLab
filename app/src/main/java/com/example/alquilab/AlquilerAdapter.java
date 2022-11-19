@@ -1,6 +1,8 @@
 package com.example.alquilab;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +59,23 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                root.child(Mid).removeValue();
+                new AlertDialog.Builder(context)
+                        .setTitle(R.string.AlertTitle)
+                        .setMessage(R.string.AlertMessage)
+                                .setPositiveButton(R.string.AlertDeleteYes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        root.child(Mid).removeValue();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.AlertDeleteNo, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.d("Mensaje","Se cancelo la accion");
+                            }
+                        })
+                        .show();
             }
         });
         String photoAl = casa.getUrlFoto();

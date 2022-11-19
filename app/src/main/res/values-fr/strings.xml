@@ -64,4 +64,13 @@
     <string name="ToastRegister">Vous avez bien été enregistré!</string>
     <string name="ToastRegisterError">Une erreur sest produite lors de lenregistrement Réessayez!</string>
     <string name="ToastRegisterExistent">Utilisateur précédemment enregistré!</string>
+
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="btn_map">Mapa</string>
+    <string name="btn_save">Confirmar ubicacion</string>
+
+    <string name="AlertTitle">Supprimer le loyer</string>
+    <string name="AlertMessage">Voulez-vous supprimer le loyer?</string>
+    <string name="AlertDeleteYes">Oui</string>
+    <string name="AlertDeleteNo">Non</string>
 </resources>

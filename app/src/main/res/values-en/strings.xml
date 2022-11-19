@@ -65,4 +65,13 @@
     <string name="ToastRegisterError">There was an error registering!, Try again!</string>
     <string name="ToastRegisterExistent">Previously registered user!</string>
 
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="btn_map">Mapa</string>
+    <string name="btn_save">Confirmar ubicacion</string>
+
+    <string name="AlertTitle">Delete rent</string>
+    <string name="AlertMessage">Do you want to delete the rent?</string>
+    <string name="AlertDeleteYes">Yes</string>
+    <string name="AlertDeleteNo">No</string>
+
 </resources>
