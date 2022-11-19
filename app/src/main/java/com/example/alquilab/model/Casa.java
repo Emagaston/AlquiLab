@@ -28,15 +28,15 @@ public class Casa {
         setLatitud("");
         setLongitud("");
     }*/
-    public String getId() {return id;    }
-    public String getNombre() {return nombre;    }
-    public String getEstado() {return estado;    }
-    public String getDescripcion() {return descripcion;    }
-    public String getDireccion() {return direccion;    }
-    public String getBarrio() {return barrio;    }
-    public String getHabitaciones() {return habitaciones;    }
-    public String getPrecio() {return precio;    }
-    public String getIdUser() {return idUser;    }
+    public String getId() {return id;}
+    public String getNombre() {return nombre;}
+    public String getEstado() {return estado;}
+    public String getDescripcion() {return descripcion;}
+    public String getDireccion() {return direccion;}
+    public String getBarrio() {return barrio;}
+    public String getHabitaciones() {return habitaciones;}
+    public String getPrecio() {return precio;}
+    public String getIdUser() {return idUser;}
     public String getUrlFoto() {return urlFoto;}
     public String getLatitud() {return latitud;}
     public String getLongitud() {return longitud;}

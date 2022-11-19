@@ -13,4 +13,5 @@
     <color name="windowBackground">#BBBBBB</color>
     <color name="btn_login">#096235</color>
     <color name="btn_img">#00BCD4</color>
+    <color name="btn_map">#00BCD4</color>
 </resources>

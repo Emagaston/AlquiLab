@@ -124,39 +124,37 @@
             android:inputType="text"
             tools:layout_editor_absoluteX="15dp"
             tools:layout_editor_absoluteY="257dp"/>
+        <Button
+            android:id="@+id/btn_map"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/edit_pre"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="14dp"
+            android:backgroundTint="@color/btn_map"
+            android:text="@string/btn_map"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/view_img"
             android:layout_marginTop="10dp"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_below="@+id/edit_pre"
+            android:layout_below="@+id/btn_map"
             android:layout_alignRight="@id/banner"
             android:layout_alignLeft="@id/banner"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
 
-        <Button
-            android:id="@+id/btn_map"
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:layout_below="@+id/view_img"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="14dp"
-            android:backgroundTint="@color/btn_login"
-            android:text="@string/btn_map"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btn_add"
             android:layout_width="380dp"
             android:layout_height="70dp"
-            android:layout_below="@+id/btn_map"
+            android:layout_below="@+id/view_img"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="16dp"

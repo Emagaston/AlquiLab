@@ -184,11 +184,15 @@ public class NuevoAlquiler extends AppCompatActivity {
         View.OnClickListener imgListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpg");
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                galleryLauncher.launch(intent);
+                if (longitudP == 0.0){
+                    Toast.makeText(NuevoAlquiler.this, "Primero el mapa!!", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/jpg");
+                    intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                    galleryLauncher.launch(intent);
+                }
             };
         };
 
