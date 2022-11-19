@@ -11,45 +11,37 @@ public class Casa {
     private String precio="";
     private String idUser="";
     private String urlFoto;
+    private String latitud="";
+    private String longitud="";
 
-    public String getId() {
-        return id;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public String getEstado() {
-        return estado;
-    }
-    public String getDescripcion() {
-        return descripcion;
-    }
-    public String getDireccion() {
-        return direccion;
-    }
-    public String getBarrio() {
-        return barrio;
-    }
-    public String getHabitaciones() {
-        return habitaciones;
-    }
-    public String getPrecio() {
-        return precio;
-    }
-    public String getIdUser() {
-        return idUser;
-    }
-    public String getUrlFoto() {
-        return urlFoto;
-    }
+    /*public Casa(){
+        setId("");
+        setNombre("");
+        setEstado("");
+        setDescripcion("");
+        setDireccion("");
+        setBarrio("");
+        setHabitaciones("");
+        setPrecio("");
+        setIdUser("");
+        setUrlFoto("");
+        setLatitud("");
+        setLongitud("");
+    }*/
+    public String getId() {return id;    }
+    public String getNombre() {return nombre;    }
+    public String getEstado() {return estado;    }
+    public String getDescripcion() {return descripcion;    }
+    public String getDireccion() {return direccion;    }
+    public String getBarrio() {return barrio;    }
+    public String getHabitaciones() {return habitaciones;    }
+    public String getPrecio() {return precio;    }
+    public String getIdUser() {return idUser;    }
+    public String getUrlFoto() {return urlFoto;}
+    public String getLatitud() {return latitud;}
+    public String getLongitud() {return longitud;}
 
-    /*public Image getImagen() {
-        return imagen;
-    }
-*/
-    public void setId(String id) {
-        this.id=id ;
-    };
+    public void setId(String id) {this.id=id;};
     public void setNombre(String nombre) {this.nombre=nombre;};
     public void setEstado(String estado) {this.estado=estado;};
     public void setDescripcion(String descripcion) {this.descripcion=descripcion;};
@@ -59,13 +51,10 @@ public class Casa {
     public void setPrecio(String precio) {this.precio=precio;};
     public void setIdUser(String idUser) {this.idUser=idUser;};
     public void setUrlFoto(String urlFoto) {this.urlFoto=urlFoto;};
-
-
-  /*  public void setImagen(Image img) {
-        this.imagen=img;
-    };*/
-
+    public void setLatitud(String latitud) {this.latitud =latitud;};
+    public void setLongitud(String longitud) {this.longitud = longitud;};
 }
+
 
 
 

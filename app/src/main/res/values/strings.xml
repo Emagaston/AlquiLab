@@ -72,6 +72,7 @@
     <string name="ToastRegisterExistent">Usuario registrado anteriormente!</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="btn_map">Ubicacion</string>
+    <string name="btn_save">Confirmar ubicacion</string>
 
 
 </resources>
