@@ -8,15 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +32,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alquilab.model.Casa;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,27 +48,33 @@ import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
 
+
+
     Toolbar mToolbar;
 
-//    public static int RC_PHOTO_PICKER = 0;
+    //    public static int RC_PHOTO_PICKER = 0;
     public static final int File = 1;
 
     private Uri uri;
     private EditText nombre, descripcion, direccion, barrio, habitaciones, precio;
-    private String nom,des,dir,bar,hab,pre;
-    private Button btn_add;
+    private String nom, des, dir, bar, hab, pre;
+    private Button btn_add,btn_map;
     private ImageView view_img;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, myref;
     private FirebaseAuth mAuth;
     String idUser;
     private Casa casa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_nuevo_alquiler);
 
         btn_add = (Button)findViewById(R.id.btn_add);
+        btn_map = (Button)findViewById(R.id.btn_map);
 
         nombre = (EditText) findViewById(R.id.edit_nom);
         descripcion = (EditText) findViewById(R.id.edit_des);
@@ -89,7 +103,7 @@ public class NuevoAlquiler extends AppCompatActivity {
                     validacion();
                 }else {
                     Toast.makeText(NuevoAlquiler.this, "Agregado!!", Toast.LENGTH_LONG).show();
-                    limpiarCajas();
+                    //limpiarCajas();
                     startActivity(new Intent(NuevoAlquiler.this, MainActivity.class));
                 }
             }
@@ -143,9 +157,19 @@ public class NuevoAlquiler extends AppCompatActivity {
                 galleryLauncher.launch(intent);
             };
         };
+
+        View.OnClickListener mapListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NuevoAlquiler.this, MapsActivity.class));
+            }
+        };
         btn_add.setOnClickListener(addListener);
         view_img.setOnClickListener(imgListener);
+        btn_map.setOnClickListener(mapListener);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
