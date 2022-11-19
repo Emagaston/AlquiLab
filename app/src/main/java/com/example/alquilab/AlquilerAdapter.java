@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,11 +53,11 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.barrio.setText(casa.getBarrio());
         holder.precio.setText(casa.getPrecio());
         holder.estado.setText(casa.getEstado());
-        String userID = mAuth.getUid();
+        String Mid = casa.getId();
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                root.child(userID).removeValue();
+                root.child(Mid).removeValue();
             }
         });
         String photoAl = casa.getUrlFoto();
