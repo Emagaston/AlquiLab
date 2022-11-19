@@ -17,5 +17,4 @@
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/alquileroferta_list_content" />
 
-
 </RelativeLayout>

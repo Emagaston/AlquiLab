@@ -89,8 +89,8 @@ public class NuevoAlquiler extends AppCompatActivity {
                     validacion();
                 }else {
                     Toast.makeText(NuevoAlquiler.this, "Agregado!!", Toast.LENGTH_LONG).show();
-                    limpiarCajas();
-                    startActivity(new Intent(NuevoAlquiler.this, MainActivity.class));
+                    //limpiarCajas();
+                    startActivity(new Intent(NuevoAlquiler.this, HomePropietario.class));
                 }
             }
 

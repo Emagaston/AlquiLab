@@ -5,25 +5,26 @@ import android.content.ClipDescription;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.core.view.ViewCompat;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.alquilab.databinding.FragmentAlquilerofertaListBinding;
-import com.example.alquilab.databinding.AlquilerofertaListContentBinding;
 
+import com.example.alquilab.model.Casa;
 import com.example.alquilab.placeholder.PlaceholderContent;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -40,31 +41,6 @@ import java.util.List;
 
 public class AlquilerOfertaListFragment extends Fragment {
 
-    /**
-     * Method to intercept global key events in the
-     * item list fragment to trigger keyboard shortcuts
-     * Currently provides a toast when Ctrl + Z and Ctrl + F
-     * are triggered
-     */
-    ViewCompat.OnUnhandledKeyEventListenerCompat unhandledKeyEventListenerCompat = (v, event) -> {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_Z && event.isCtrlPressed()) {
-            Toast.makeText(
-                    v.getContext(),
-                    "Undo (Ctrl + Z) shortcut triggered",
-                    Toast.LENGTH_LONG
-            ).show();
-            return true;
-        } else if (event.getKeyCode() == KeyEvent.KEYCODE_F && event.isCtrlPressed()) {
-            Toast.makeText(
-                    v.getContext(),
-                    "Find (Ctrl + F) shortcut triggered",
-                    Toast.LENGTH_LONG
-            ).show();
-            return true;
-        }
-        return false;
-    };
-
     private FragmentAlquilerofertaListBinding binding;
 
     @Override
@@ -79,9 +55,7 @@ public class AlquilerOfertaListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat);
-
-        RecyclerView recyclerView = binding.alquilerofertaList;
+        RecyclerView recyclerView = view.findViewById(R.id.alquileroferta_list);
 
         // Leaving this not using view binding as it relies on if the view is visible the current
         // layout configuration (layout, layout-sw600dp)
@@ -121,48 +95,34 @@ public class AlquilerOfertaListFragment extends Fragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-            AlquilerofertaListContentBinding binding =
-                    AlquilerofertaListContentBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-            return new ViewHolder(binding);
-
+            View v =LayoutInflater.from(parent.getContext()).inflate(R.layout.alquileroferta_list_content,parent,false);
+            return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            DatabaseReference mDatabase;
+            FirebaseAuth mAuth;
+            mAuth = FirebaseAuth.getInstance();
+            String userID = mAuth.getCurrentUser().getUid();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("Casa").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String nombre = snapshot.child("estado").getValue(String.class);
+                        String barrio = snapshot.child("barrio").getValue(String.class);
+                        holder.nombre.setText(nombre);
+                        holder.barrio.setText(barrio);
+                    }
+                }
 
-            holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(itemView -> {
-                PlaceholderContent.PlaceholderItem item =
-                        (PlaceholderContent.PlaceholderItem) itemView.getTag();
-                Bundle arguments = new Bundle();
-                arguments.putString(AlquilerOfertaDetailFragment.ARG_ITEM_ID, item.id);
-                if (mItemDetailFragmentContainer != null) {
-                    Navigation.findNavController(mItemDetailFragmentContainer)
-                            .navigate(R.id.fragment_alquileroferta_detail, arguments);
-                } else {
-                    Navigation.findNavController(itemView).navigate(R.id.show_alquileroferta_detail, arguments);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    System.out.println("Fallo la lectura: " + error.getCode());
                 }
             });
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                /*
-                 * Context click listener to handle Right click events
-                 * from mice and trackpad input to provide a more native
-                 * experience on larger screen devices
-                 */
-                holder.itemView.setOnContextClickListener(v -> {
-                    PlaceholderContent.PlaceholderItem item =
-                            (PlaceholderContent.PlaceholderItem) holder.itemView.getTag();
-                    Toast.makeText(
-                            holder.itemView.getContext(),
-                            "Context click of item " + item.id,
-                            Toast.LENGTH_LONG
-                    ).show();
-                    return true;
-                });
-            }
+
             holder.itemView.setOnLongClickListener(v -> {
                 // Setting the item id as the clip data so that the drop target is able to
                 // identify the id of the content
@@ -198,15 +158,16 @@ public class AlquilerOfertaListFragment extends Fragment {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
+            TextView nombre, barrio, precio;
+            ImageView photo;
 
-            ViewHolder(AlquilerofertaListContentBinding binding) {
-                super(binding.getRoot());
-                mIdView = binding.idText;
-                mContentView = binding.content;
+            public ViewHolder(@NonNull View v) {
+                super(v);
+                nombre = v.findViewById(R.id.nombreView);
+                barrio = v.findViewById(R.id.barrioView);
+                precio = v.findViewById(R.id.precioView);
+                photo = v.findViewById(R.id.photo);
             }
-
         }
     }
 }

@@ -7,23 +7,15 @@
     tools:context=".HomePropietario">
 
     <include
-        android:id="@+id/toolbarHome"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <Button
-        android:id="@+id/LogOut"
-        android:layout_width="349dp"
-        android:layout_height="50dp"
-        android:textSize="20sp"
-        android:text="LogOut"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_below="@+id/toolbarHome"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="32dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="8dp" />
 
 
 </RelativeLayout>

@@ -23,11 +23,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.alquilab.databinding.ActivityAlquilerofertaDetailBinding;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Locale;
 
 public class AlquilerOfertaDetailHostActivity extends AppCompatActivity {
