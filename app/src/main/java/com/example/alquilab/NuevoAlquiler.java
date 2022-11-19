@@ -128,7 +128,6 @@ public class NuevoAlquiler extends AppCompatActivity {
                 if (nom.equals("") || des.equals("") || dir.equals("")|| bar.equals("") || hab.equals("") ){//latitud =0
                     validacion();
                 }else {
-
                     if (uriG != null){
                         crearCasa();
                         databaseReference.child("Casa").child(casa.getId()).setValue(casa);

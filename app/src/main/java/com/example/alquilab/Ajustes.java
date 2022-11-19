@@ -40,7 +40,7 @@ public class Ajustes extends AppCompatActivity {
 
         imageToolbar=findViewById(R.id.imageToolbar1);
         imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(Ajustes.this,AlquilerOfertaDetailHostActivity.class));
+            startActivity(new Intent(Ajustes.this,HomePropietario.class));
         });
 
 
@@ -98,6 +98,6 @@ public class Ajustes extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(Ajustes.this,AlquilerOfertaDetailHostActivity.class));
+        startActivity(new Intent(Ajustes.this,HomePropietario.class));
     }
 }

@@ -1,7 +1,7 @@
 package com.example.alquilab.model;
 
 public class Casa {
-    private String id;
+    public String id;
     private String nombre="";
     private String estado="Disponible";
     private String descripcion ="";
