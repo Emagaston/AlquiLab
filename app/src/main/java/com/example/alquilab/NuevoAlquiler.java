@@ -66,7 +66,6 @@ public class NuevoAlquiler extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_nuevo_alquiler);
 
         btn_add = (Button)findViewById(R.id.btn_add);

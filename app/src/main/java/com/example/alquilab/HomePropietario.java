@@ -34,10 +34,8 @@ public class HomePropietario extends AppCompatActivity {
 
     Toolbar mToolbar;
     SharedPreferences sharedPreferences;
-    Button btnViewDelete;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String userID = mAuth.getCurrentUser().getUid();
     private RecyclerView recyclerView;
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("Casa");
@@ -67,13 +65,10 @@ public class HomePropietario extends AppCompatActivity {
                     Casa casa = dataSnapshot.getValue(Casa.class);
                     list.add(casa);
                 }
-
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
