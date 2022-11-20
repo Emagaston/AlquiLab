@@ -101,8 +101,8 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 intent.putExtra("descripcion",detail);
                 intent.putExtra("direccion",direccion);
                 intent.putExtra("habitaciones",habitaciones);
-                intent.putExtra("longitud",longitud);
-                intent.putExtra("latitud",latitud);
+                intent.putExtra("longitud1",longitud);
+                intent.putExtra("latitud1",latitud);
                 context.startActivity(intent);
             }
         });

@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -62,8 +63,8 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            longitudMap = bundle.getDouble("longitud");
-            latitudMap = bundle.getDouble("latitud");
+            longitudMap = bundle.getDouble("longitud1");
+            latitudMap = bundle.getDouble("latitud1");
             nom = bundle.getString("nom");
             barr = bundle.getString("barrio");
             pre = bundle.getString("precio");
@@ -84,6 +85,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        Bundle bundle1 = getIntent().getExtras();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -95,16 +97,16 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                latitudMap = location.getLatitude();
-                longitudMap = location.getLongitude();
-                LatLng miUbicacion = new LatLng(location.getLatitude(),location.getLongitude());
+                latitudMap = Double.parseDouble(bundle1.getString("latitud1"));
+                longitudMap = Double.parseDouble(bundle1.getString("longitud1"));
+                LatLng miUbicacion = new LatLng(latitudMap,longitudMap);
                 mMap.addMarker(new MarkerOptions().position(miUbicacion).title("Acá estoy!"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
                 CameraPosition cameraPosition =new CameraPosition.Builder()
                         .target(miUbicacion)
-                        .zoom(14)
+                        .zoom(15)
                         .bearing(90)
-                        .tilt(45)
+                        .tilt(0)
                         .build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
