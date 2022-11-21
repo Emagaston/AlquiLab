@@ -105,7 +105,7 @@
             android:ems="10"
             android:hint="@string/hint_habitaciones"
             android:textSize="24sp"
-            android:inputType="text"
+            android:inputType="number"
             tools:layout_editor_absoluteX="15dp"
             tools:layout_editor_absoluteY="257dp"/>
 
@@ -121,7 +121,7 @@
             android:ems="10"
             android:hint="@string/hint_precio"
             android:textSize="24sp"
-            android:inputType="text"
+            android:inputType="number"
             tools:layout_editor_absoluteX="15dp"
             tools:layout_editor_absoluteY="257dp"/>
         <Button

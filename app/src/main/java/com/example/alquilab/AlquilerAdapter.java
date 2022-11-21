@@ -3,15 +3,16 @@ package com.example.alquilab;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,15 +22,16 @@ import com.example.alquilab.model.Casa;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHolder> {
 
     ArrayList<Casa> list;
+
     Context context;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
@@ -39,6 +41,11 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
     public AlquilerAdapter(Context context, ArrayList<Casa> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void filterList(ArrayList<Casa> filterlist) {
+        list = filterlist;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -55,6 +62,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.barrio.setText(casa.getBarrio());
         holder.precio.setText(casa.getPrecio());
         holder.estado.setText(casa.getEstado());
+
         String Mid = casa.getId();
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +74,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         root.child(Mid).removeValue();
-
                                     }
                                 })
                         .setNegativeButton(R.string.AlertDeleteNo, new DialogInterface.OnClickListener() {
@@ -79,16 +86,37 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
             }
         });
         String photoAl = casa.getUrlFoto();
-        Glide.with(context)
-                        .load(photoAl)
-                        .centerCrop()
-                        .into(holder.photo);
+        Glide.with(context).load(photoAl).centerCrop().into(holder.photo);
+
+        String detail = casa.getDescripcion();
+        String direccion = casa.getDireccion();
+        String habitaciones = casa.getHabitaciones();
+        String latitud = casa.getLatitud();
+        String longitud = casa.getLongitud();
+
+        holder.photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,DetalleAlquiler.class);
+                intent.putExtra("nom",holder.nombre.getText());
+                intent.putExtra("barrio",holder.barrio.getText());
+                intent.putExtra("precio",holder.precio.getText());
+                intent.putExtra("imagen",photoAl);
+                intent.putExtra("descripcion",detail);
+                intent.putExtra("direccion",direccion);
+                intent.putExtra("habitaciones",habitaciones);
+                intent.putExtra("longitud1",longitud);
+                intent.putExtra("latitud1",latitud);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         Button delete, update;
