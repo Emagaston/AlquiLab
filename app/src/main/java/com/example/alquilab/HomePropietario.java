@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +36,6 @@ public class HomePropietario extends AppCompatActivity {
     Toolbar mToolbar;
     SharedPreferences sharedPreferences;
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private RecyclerView recyclerView;
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("Casa");
@@ -109,20 +109,20 @@ public class HomePropietario extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
 
-        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                return true;
-            }
-        };
-        menu.findItem(R.id.btn_Menu_Search).setOnActionExpandListener(onActionExpandListener);
-        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
-        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
+//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+//                return true;
+//            }
+//        };
+//        menu.findItem(R.id.btn_Menu_Search).setOnActionExpandListener(onActionExpandListener);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
+//        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
         return super.onCreateOptionsMenu(menu);
     }
 

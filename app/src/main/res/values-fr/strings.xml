@@ -44,6 +44,8 @@
     <string name="logOut">Se déconnecter</string>
     <string name="settings">Réglages</string>
 
+    <string name="toolbartitledetail">Détails</string>
+
     <string name="textLanguajes">Idioma de lapplication</string>
 
     <string name="hintSearch">Rechercher…</string>
@@ -73,4 +75,12 @@
     <string name="AlertMessage">Voulez-vous supprimer le loyer?</string>
     <string name="AlertDeleteYes">Oui</string>
     <string name="AlertDeleteNo">Non</string>
+
+    <string name="detail_btn_delete">Effacer</string>
+    <string name="detail_btn_edit">Éditer</string>
+
+    <string name="detailnumHabitaciones">N° Chambres:</string>
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Emplacement:</string>
+    <string name="detailImagenes">Images:</string>
 </resources>

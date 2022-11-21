@@ -81,20 +81,20 @@ public class AlquilerOfertaDetailHostActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
 
-        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                return true;
-            }
-        };
-        menu.findItem(R.id.btn_Menu_Search).setOnActionExpandListener(onActionExpandListener);
-        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
-        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
+//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+//                return true;
+//            }
+//        };
+//        menu.findItem(R.id.btn_Menu_Search).setOnActionExpandListener(onActionExpandListener);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
+//        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
         return super.onCreateOptionsMenu(menu);
     }
 

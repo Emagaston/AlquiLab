@@ -39,6 +39,9 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
     private Button btn_map;
     private Double latitudMap, longitudMap;
 
+    TextView textToolbar;
+    ImageView imageToolbar;
+
     String nom,barr,pre,img,det,direc,hab;
 
     @Override
@@ -53,6 +56,15 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         habitaciones = findViewById(R.id.detail_hab);
         precio = findViewById(R.id.detail_pre);
         view_img = findViewById(R.id.detail_view_img);
+
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.toolbartitledetail);
+        textToolbar.setText(titleToolbar);
+
+        imageToolbar=findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(DetalleAlquiler.this, HomePropietario.class));
+        });
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

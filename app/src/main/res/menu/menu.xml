@@ -8,12 +8,12 @@
         android:title="agregar"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/btn_Menu_Search"
-        android:icon="@drawable/ic_search"
-        android:title="@string/titleBtnSearch"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+<!--    <item-->
+<!--        android:id="@+id/btn_Menu_Search"-->
+<!--        android:icon="@drawable/ic_search"-->
+<!--        android:title="@string/titleBtnSearch"-->
+<!--        app:showAsAction="always|collapseActionView"-->
+<!--        app:actionViewClass="androidx.appcompat.widget.SearchView"/>-->
 
     <item
         android:icon="@drawable/ic_more"

@@ -44,6 +44,8 @@
     <string name="logOut">Cerrar sesión</string>
     <string name="settings">Ajustes</string>
 
+    <string name="toolbartitledetail">Detalles</string>
+
     <string name="textLanguajes">Idioma de la aplicación</string>
 
     <string name="hintSearch">Buscar…</string>
@@ -73,5 +75,13 @@
     <string name="AlertMessage">¿Desea borrar el alquiler?</string>
     <string name="AlertDeleteYes">Si</string>
     <string name="AlertDeleteNo">No</string>
+
+    <string name="detail_btn_delete">Borrar</string>
+    <string name="detail_btn_edit">Editar</string>
+
+    <string name="detailnumHabitaciones">N° Habitaciones:</string>
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Ubicación:</string>
+    <string name="detailImagenes">Imágenes:</string>
 
 </resources>

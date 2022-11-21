@@ -44,6 +44,8 @@
     <string name="logOut">Logout</string>
     <string name="settings">Settings</string>
 
+    <string name="toolbartitledetail">Details</string>
+
     <string name="textLanguajes">App language</string>
 
     <string name="hintSearch">Search…</string>
@@ -73,5 +75,13 @@
     <string name="AlertMessage">Do you want to delete the rent?</string>
     <string name="AlertDeleteYes">Yes</string>
     <string name="AlertDeleteNo">No</string>
+
+    <string name="detail_btn_delete">Delete</string>
+    <string name="detail_btn_edit">Edit</string>
+
+    <string name="detailnumHabitaciones">N° Rooms:</string>
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Location:</string>
+    <string name="detailImagenes">Images:</string>
 
 </resources>

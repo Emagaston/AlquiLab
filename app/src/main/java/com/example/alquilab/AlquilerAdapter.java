@@ -4,19 +4,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,15 +22,16 @@ import com.example.alquilab.model.Casa;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHolder> {
 
     ArrayList<Casa> list;
+
     Context context;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
@@ -112,6 +111,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
     public int getItemCount() {
         return list.size();
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         Button delete, update;
