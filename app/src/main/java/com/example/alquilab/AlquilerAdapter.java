@@ -43,6 +43,11 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         this.list = list;
     }
 
+    public void filterList(ArrayList<Casa> filterlist) {
+        list = filterlist;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -108,22 +108,35 @@ public class HomePropietario extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
-
-//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-//                return true;
-//            }
-//        };
-//        menu.findItem(R.id.btn_Menu_Search).setOnActionExpandListener(onActionExpandListener);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
-//        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
+        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
+        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void filter(String text) {
+        ArrayList<Casa> filteredlist = new ArrayList<Casa>();
+        for (Casa item: list){
+            if (item.getNombre().toLowerCase().contains(text.toLowerCase())){
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()){
+            Toast.makeText(this, "No se encontró", Toast.LENGTH_SHORT).show();
+        }else {
+            adapter.filterList(filteredlist);
+        }
+
     }
 
     @Override
