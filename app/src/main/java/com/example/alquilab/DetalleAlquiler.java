@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -54,7 +55,7 @@ import java.io.OutputStream;
 
 public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCallback {
 
-    private static final int REQUEST_CODE = 100;
+    private static final int REQUEST_CODE = 1;
     private static final String CHANNEL_ID = "NOTIFICACION";
     private final static int IDunica = 0;
     Toolbar mToolbar;
@@ -124,20 +125,19 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
                 new AlertDialog.Builder(DetalleAlquiler.this)
                         .setTitle("Descargar imagen")
                         .setMessage("¿Desea guardar la imagen?")
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.AlertDeleteYes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (ContextCompat.checkSelfPermission(DetalleAlquiler.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                                    saveImage();
-                                } else {
-                                    askPermission();
+                                    //saveImage();
+                                    testsave();
                                 }
+                                askPermission();
                                 crearCanalNotificacion();
                                 crearNotifcacion();
                             }
-
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.AlertDeleteNo, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Log.d("Mensaje", "Se cancelo la accioón");
@@ -158,25 +158,24 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void crearNotifcacion() {
-//        Intent intent = new Intent();
-//        Uri pathUri= Uri.parse(Environment.getExternalStorageDirectory().getPath()
-//                + "/SaveImage/");
-//        intent.setDataAndType(pathUri, "file/*");
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
-            builder.setSmallIcon(R.drawable.ic_image);
-            builder.setContentTitle("Descarga de imagen");
-            builder.setContentText("Se ha descargado la imagen!");
-            builder.setContentInfo("4");
-            builder.setTicker("Descarga!");
-            builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-            notificationManagerCompat.notify(IDunica, builder.build());
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/SaveImage";
+        Uri uri = Uri.parse(path);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(uri, "*/*");
+       // startActivity(intent);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_image);
+        builder.setContentTitle("Descarga de imagen");
+        builder.setContentText("Se ha descargado la imagen!");
+        builder.setContentInfo("4");
+        builder.setTicker("Descarga!");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(IDunica, builder.build());
         }
 
         private void askPermission () {
             ActivityCompat.requestPermissions(DetalleAlquiler.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-
         }
 
         @Override
@@ -184,44 +183,74 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         @NonNull int[] grantResults){
             if (requestCode == REQUEST_CODE) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    saveImage();
+//                    saveImage();
+                   //testsave();
                 } else {
                     Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
                 }
             }
-
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        private void saveImage () {
-            File dir = new File(Environment.getExternalStorageDirectory(), "SaveImage");
+        private void testsave(){
+
+            File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File dir = new File(file.getAbsolutePath() + "/SaveImage");
             if (!dir.exists()) {
                 dir.mkdir();
             }
-            BitmapDrawable drawable = (BitmapDrawable) view_img.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
+            BitmapDrawable draw = (BitmapDrawable)  view_img.getDrawable();
+            Bitmap bitmap = draw.getBitmap();
 
-            File file = new File(dir, System.currentTimeMillis() + ".jpg");
+            String fileName = String.format("%d.png", System.currentTimeMillis());
+            File outFile = new File(dir, fileName);
             try {
-                outputStream = new FileOutputStream(file);
-            } catch (FileNotFoundException e) {
+                outputStream = new FileOutputStream(outFile);
+            }catch (Exception e){
                 e.printStackTrace();
             }
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             Toast.makeText(this, "Se guardó exitosamente", Toast.LENGTH_SHORT).show();
-
             try {
                 outputStream.flush();
-            } catch (IOException e) {
+            }catch (Exception e){
                 e.printStackTrace();
             }
             try {
                 outputStream.close();
-            } catch (IOException e) {
+            }catch (Exception e){
                 e.printStackTrace();
             }
-
         }
+
+//        private void saveImage () {
+//            File dir = new File(Environment.getExternalStorageDirectory(), "SaveImage");
+//            if (!dir.exists()) {
+//               dir.mkdir();
+//            }
+//            BitmapDrawable drawable = (BitmapDrawable) view_img.getDrawable();
+//            Bitmap bitmap = drawable.getBitmap();
+//
+//            File file = new File(dir, System.currentTimeMillis() + ".PNG");
+//            try {
+//                outputStream = new FileOutputStream(file);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+//            Toast.makeText(this, "Se guardó exitosamente", Toast.LENGTH_SHORT).show();
+//
+//            try {
+//                outputStream.flush();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                outputStream.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         @Override
         public void onMapReady (@NonNull GoogleMap googleMap){
