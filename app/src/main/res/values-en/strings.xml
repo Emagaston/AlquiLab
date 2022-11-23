@@ -98,4 +98,14 @@
     <string name="detail_btn_delete">Delete</string>
     <string name="detail_btn_edit">Edit</string>
 
+    <string name="edit_alq">Edit Rent</string>
+    <string name="btn_saveE">Save</string>
+    <string name="spinnerEstado">Status</string>
+
+    <string-array name="OpcionesEstado">
+        <item>Available</item>
+        <item>Rented</item>
+        <item>Slow</item>
+    </string-array>
+
 </resources>
