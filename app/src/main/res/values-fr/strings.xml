@@ -85,6 +85,6 @@
 
     <string name="detailnumHabitaciones">N° Chambres:</string>
     <string name="symbolPrice">$</string>
-    <string name="detailUbicacion">Emplacement:</string>
-    <string name="detailImagenes">Images:</string>
+    <string name="detailUbicacion">Emplacement</string>
+    <string name="detailImagenes">Images</string>
 </resources>

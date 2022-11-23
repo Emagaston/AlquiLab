@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
-    android:background="@drawable/fondo_nuevo_alquiler">
+    android:background="@drawable/fondo_app_negro">
 
 <RelativeLayout
     android:layout_width="match_parent"

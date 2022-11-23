@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar progressBar;
 
-    SwipeRefreshLayout swipeRefreshLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,16 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
-
-        swipeRefreshLayout = findViewById(R.id.refreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                startActivity(getIntent());
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
 
         cargarPreferencias();
     }

@@ -294,5 +294,11 @@ public class NuevoAlquiler extends AppCompatActivity {
         casa.setUrlFoto(String.valueOf(uriG));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(NuevoAlquiler.this,HomePropietario.class));
+        finish();
+    }
 }
 
