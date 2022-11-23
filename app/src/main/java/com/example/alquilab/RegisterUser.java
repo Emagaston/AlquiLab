@@ -83,7 +83,15 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String email = editTextRegisterEmail.getText().toString().trim();
         String password = editTextRegisterPassword.getText().toString().trim();
         String number = editTextRegisterNumber.getText().toString().trim();
-        String rol = spinnerRol.getSelectedItem().toString();
+        String rol="1";
+        //= spinnerRol.getSelectedItem().toString();
+
+        switch ((int) spinnerRol.getSelectedItemId()){
+//            case 0: rol="0"; break;
+            case 1: rol="1"; break;
+            case 2: rol="2"; break;
+        }
+
 
         if (nombre.isEmpty()){
             editTextRegisterName.setError(getResources().getString(R.string.errorName));
@@ -121,13 +129,20 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        if (spinnerRol.getSelectedItemId()==0){
+            //
+            Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastSelectRole), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
+        String finalRol = rol;
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            User user = new User(nombre, email, rol, number);
+                            User user = new User(nombre, email, finalRol, number);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

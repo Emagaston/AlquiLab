@@ -21,12 +21,17 @@
 
     <string name="btnRole">Choisir</string>
 
+    <string name="edit_alq">Modifier la location</string>
+    <string name="btn_saveE">Sauvegarder</string>
+    <string name="spinnerEstado">Condition</string>
+
+
     <!-- Spinner -->
     <string name="spinnerRol">Rôle</string>
     <string-array name="OpcionesRol">
         <item>Choisis une option</item>
-        <item>Placer le loyer</item>
-        <item>Rechercher une location</item>
+        <item>Recherche location</item>
+        <item>Offrir un loyer</item>
     </string-array>
 
     <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
@@ -87,4 +92,5 @@
     <string name="symbolPrice">$</string>
     <string name="detailUbicacion">Emplacement</string>
     <string name="detailImagenes">Images</string>
+    <string name="ToastSelectRole">Sélectionnez un rôle</string>
 </resources>
