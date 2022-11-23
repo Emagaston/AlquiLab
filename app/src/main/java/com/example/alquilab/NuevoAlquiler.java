@@ -54,7 +54,8 @@ public class NuevoAlquiler extends AppCompatActivity {
     private Uri uri, uriG;
     private EditText nombre, descripcion, direccion, barrio, habitaciones, precio;
     private String nom, des, dir, bar, hab, pre;
-    private Button btn_add,btn_map;
+    private Button btn_add;
+    private TextView btn_map;
     private ImageView view_img;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, myref;
@@ -69,7 +70,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         setContentView(R.layout.activity_nuevo_alquiler);
 
         btn_add = (Button)findViewById(R.id.btn_add);
-        btn_map = (Button)findViewById(R.id.btn_map);
+        btn_map = (TextView) findViewById(R.id.btn_map);
         nombre = (EditText) findViewById(R.id.edit_nom);
         descripcion = (EditText) findViewById(R.id.edit_des);
         direccion = (EditText) findViewById(R.id.edit_dir);

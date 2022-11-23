@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:background="@drawable/fondo_nuevo_alquiler">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MapsActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <TextView
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/title_new"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        android:textStyle="bold"/>
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_marginTop="15dp"
         android:layout_width="280dp"
         android:layout_height="450dp"
         tools:context=".MapsActivity"
@@ -33,6 +30,23 @@
         android:layout_alignRight="@id/banner"
         android:layout_alignLeft="@id/banner"
         />
+
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="0dp"
+        android:fontFamily="serif"
+        android:text="Localización"
+        android:textAlignment="center"
+        android:textColor="#0D872C"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_save"
@@ -51,3 +65,4 @@
         android:textStyle="bold"/>
 
 </RelativeLayout>
+</ScrollView>
