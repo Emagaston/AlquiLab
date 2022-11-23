@@ -11,7 +11,9 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.hardware.camera2.CameraAccessException;
 import android.location.Location;
 import android.location.LocationListener;
@@ -33,6 +35,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.alquilab.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationClient;
@@ -92,6 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(saveUbication);
+        cargarPreferencias();
     }
 
     private boolean subirLatLongFirebase() {
@@ -143,5 +148,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
+    }
+
+    private void cargarPreferencias() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("opcion","");
+        if (language.equals("Español")) {
+            Locale idiom_es = new Locale("es", "ES");
+            Locale.setDefault(idiom_es);
+            Configuration config_es = new Configuration();
+            config_es.locale = idiom_es;
+            getBaseContext().getResources().updateConfiguration(config_es, getBaseContext().getResources().getDisplayMetrics());
+        }else{
+            if (language.equals("English")) {
+                Locale idiom_en = new Locale("en", "EN");
+                Locale.setDefault(idiom_en);
+                Configuration config_en = new Configuration();
+                config_en.locale = idiom_en;
+                getBaseContext().getResources().updateConfiguration(config_en, getBaseContext().getResources().getDisplayMetrics());
+            } else {
+                if (language.equals("French")) {
+                    Locale idiom_fr = new Locale("fr", "FR");
+                    Locale.setDefault(idiom_fr);
+                    Configuration config_fr = new Configuration();
+                    config_fr.locale = idiom_fr;
+                    getBaseContext().getResources().updateConfiguration(config_fr, getBaseContext().getResources().getDisplayMetrics());
+                }
+            }
+        }
     }
 }

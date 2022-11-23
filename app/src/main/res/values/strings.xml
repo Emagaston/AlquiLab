@@ -51,10 +51,26 @@
     <string name="hintSearch">Buscar…</string>
 
     <string name="titleBtnSearch">Buscar</string>
-    <string name="nombre">Ingrese un nombre</string>
-    <string name="hint_habitaciones">Ingrese el n° de habitaciones</string>
-    <string name="hint_barrio">Ingrese el barrio</string>
-    <string name="hint_precio">Ingrese el precio mensual</string>
+
+    <string name="new_add_nombre">Nombre:</string>
+    <string name="new_add_direccion">Dirección:</string>
+    <string name="new_add_descripcion">Descripción:</string>
+    <string name="new_add_habitaciones">N° Habitaciones:</string>
+    <string name="new_add_barrio">Barrio:</string>
+    <string name="new_add_precio">Precio mensual:</string>
+
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Ubicación</string>
+    <string name="detailImagenes">Imágenes</string>
+
+    <string name="nombre">Nombre</string>
+    <string name="title_direccion">Dirección</string>
+    <string name="title_descripcion">Descripción</string>
+    <string name="title_habitaciones">N° Habitaciones</string>
+    <string name="title_barrio">Barrio</string>
+    <string name="title_precio">Precio mensual</string>
+    <string name="title_imagen">Imagen</string>
+    <string name="title_location">Localización</string>
 
     <!-- Validaciones -->
     <string name="errorEmail">Ingrese un correo electronico!</string>
@@ -101,5 +117,4 @@
 
     <string name="detailUbicacion">Ubicación</string>
     <string name="detailImagenes">Imágenes</string>
-
 </resources>
