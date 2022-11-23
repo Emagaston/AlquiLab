@@ -20,12 +20,25 @@
 
     <string name="btnRole">Elegir</string>
 
+
+    <string name="edit_alq">Editar Alquiler</string>
+    <string name="btn_saveE">Guardar</string>
+    <string name="spinnerEstado">Estado</string>
+
+
     <!-- Spinner -->
     <string name="spinnerRol">Rol</string>
     <string-array name="OpcionesRol">
         <item>Seleccione una opcion</item>
         <item>Buscar alquiler</item>
-        <item>Colocar alquiler</item>
+        <item>Ofrecer alquiler</item>
+    </string-array>
+
+
+    <string-array name="OpcionesEstado">
+        <item>Disponible</item>
+        <item>Alquilado</item>
+        <item>Pausado</item>
     </string-array>
 
     <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
@@ -100,6 +113,14 @@
 
     <string name="detail_btn_delete">Borrar</string>
     <string name="detail_btn_edit">Editar</string>
+
+    <string name="detailnumHabitaciones">N° Habitaciones:</string>
+    <string name="symbolPrice">$</string>
+
+    <string name="detailUbicacion">Ubicación:</string>
+    <string name="detailImagenes">Imágenes:</string>
+    <string name="ToastSelectRole">Seleccione un rol</string>
+
 
     <string name="edit_alq">Editar Alquiler</string>
     <string name="btn_saveE">Guardar</string>

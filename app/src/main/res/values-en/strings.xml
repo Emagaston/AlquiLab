@@ -21,12 +21,16 @@
 
     <string name="btnRole">Choose</string>
 
+    <string name="edit_alq">Edit Rent</string>
+    <string name="btn_saveE">Save</string>
+    <string name="spinnerEstado">State</string>
+
     <!-- Spinner -->
     <string name="spinnerRol">Rol</string>
     <string-array name="OpcionesRol">
         <item>Choose an option</item>
-        <item>Place rent</item>
         <item>Search for rent</item>
+        <item>Offer rent</item>
     </string-array>
 
     <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
@@ -98,6 +102,11 @@
     <string name="detail_btn_delete">Delete</string>
     <string name="detail_btn_edit">Edit</string>
 
+    <string name="detailnumHabitaciones">N° Rooms:</string>
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Location</string>
+    <string name="detailImagenes">Images</string>
+    <string name="ToastSelectRole">Select a role</string>
     <string name="edit_alq">Edit Rent</string>
     <string name="btn_saveE">Save</string>
     <string name="spinnerEstado">Status</string>
