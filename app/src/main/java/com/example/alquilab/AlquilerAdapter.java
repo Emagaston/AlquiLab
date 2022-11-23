@@ -85,6 +85,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                         .show();
             }
         });
+
         String photoAl = casa.getUrlFoto();
         Glide.with(context).load(photoAl).centerCrop().into(holder.photo);
 
@@ -93,6 +94,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         String habitaciones = casa.getHabitaciones();
         String latitud = casa.getLatitud();
         String longitud = casa.getLongitud();
+        String estado = casa.getEstado();
 
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +109,17 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 intent.putExtra("habitaciones",habitaciones);
                 intent.putExtra("longitud1",longitud);
                 intent.putExtra("latitud1",latitud);
+                context.startActivity(intent);
+            }
+        });
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,EditarAlquiler.class);
+                intent.putExtra("Mid",Mid);
+                intent.putExtra("nom",holder.nombre.getText());
+                intent.putExtra("des",detail);
+                intent.putExtra("est",estado);
                 context.startActivity(intent);
             }
         });
