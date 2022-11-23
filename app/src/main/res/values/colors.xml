@@ -10,7 +10,8 @@
     <color name="colorPrimary">#096235</color>
     <color name="colorPrimaryDark">#FF000000</color>
     <color name="colorAccent">#096235</color>
-    <color name="windowBackground">#BBBBBB</color>
+<!--    <color name="windowBackground">#BBBBBB</color>-->
+    <color name="windowBackground">#0F1219</color>
     <color name="btn_login">#096235</color>
     <color name="btn_img">#00BCD4</color>
     <color name="btn_map">#00BCD4</color>

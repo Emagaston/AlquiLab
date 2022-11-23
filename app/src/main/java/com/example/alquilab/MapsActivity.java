@@ -87,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 intent.putExtra("habp", habp);
                 intent.putExtra("prep", prep);
                 startActivity(intent);
+                finish();
             }
         };
         btn_save = (Button)findViewById(R.id.btn_save);

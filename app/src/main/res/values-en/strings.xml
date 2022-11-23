@@ -50,6 +50,10 @@
 
     <string name="hintSearch">Search…</string>
     <string name="titleBtnSearch">Buscar</string>
+    <string name="nombre">Enter a name</string>
+    <string name="hint_habitaciones">Enter N° Rooms</string>
+    <string name="hint_barrio">Enter the neighborhood</string>
+    <string name="hint_precio">Enter the monthly price</string>
 
     <string name="errorEmail">Enter a email!</string>
     <string name="errorEmailValid">Enter a valid email!</string>
@@ -68,8 +72,8 @@
     <string name="ToastRegisterExistent">Previously registered user!</string>
 
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="btn_map">Mapa</string>
-    <string name="btn_save">Confirmar ubicacion</string>
+    <string name="btn_map">Add Location</string>
+    <string name="btn_save">Confirm location</string>
 
     <string name="AlertTitle">Delete rent</string>
     <string name="AlertMessage">Do you want to delete the rent?</string>
@@ -81,7 +85,7 @@
 
     <string name="detailnumHabitaciones">N° Rooms:</string>
     <string name="symbolPrice">$</string>
-    <string name="detailUbicacion">Location:</string>
-    <string name="detailImagenes">Images:</string>
+    <string name="detailUbicacion">Location</string>
+    <string name="detailImagenes">Images</string>
 
 </resources>

@@ -275,7 +275,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
                     CameraPosition cameraPosition = new CameraPosition.Builder()
                             .target(miUbicacion)
                             .zoom(15)
-                            .bearing(90)
+                            .bearing(0)
                             .tilt(0)
                             .build();
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
