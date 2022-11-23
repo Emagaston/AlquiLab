@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:background="@drawable/fondo_app_negro">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".RegisterUser">
 
     <TextView
@@ -13,6 +21,7 @@
         android:layout_marginTop="60dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/title_login"
+        android:textColor="@color/colorPrimary"
         android:textAlignment="center"
         android:textSize="60sp"
         android:textStyle="bold"/>
@@ -29,6 +38,9 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/hint_fullname"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:inputType="text"
         android:textSize="24sp" />
 
@@ -44,6 +56,9 @@
         android:layout_marginEnd="15dp"
         android:ems="10"
         android:hint="@string/hint_email"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:inputType="textEmailAddress"
         android:textSize="24sp" />
 
@@ -54,6 +69,9 @@
         android:ems="10"
         android:inputType="textPassword"
         android:hint="@string/hint_password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:textSize="24sp"
         android:layout_below="@+id/emailRegister"
         android:layout_alignParentStart="true"
@@ -74,6 +92,9 @@
         android:layout_marginEnd="15dp"
         android:ems="10"
         android:hint="@string/hint_numberContact"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:textSize="24sp"
         android:inputType="phone"/>
 
@@ -102,6 +123,7 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="31dp"
         android:text="@string/spinnerRol"
+        android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold" />
 
@@ -110,8 +132,8 @@
         android:layout_width="268dp"
         android:layout_height="54dp"
         android:layout_below="@+id/NumberContactRegister"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="25dp"
         android:layout_toEndOf="@+id/titleRole" />
 
     <ProgressBar
@@ -122,3 +144,4 @@
         android:visibility="gone"/>
 
 </RelativeLayout>
+</ScrollView>
