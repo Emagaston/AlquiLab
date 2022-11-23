@@ -50,6 +50,10 @@
 
     <string name="hintSearch">Rechercher…</string>
     <string name="titleBtnSearch">Buscar</string>
+    <string name="nombre">Entrez un nom</string>
+    <string name="hint_habitaciones">Entrez le nombre de chambres</string>
+    <string name="hint_barrio">Entrez dans le quartier</string>
+    <string name="hint_precio">Entrez le prix mensuel</string>
 
     <string name="errorEmail">Entrer un email!</string>
     <string name="errorEmailValid">Entrer une adresse mail valide!</string>
@@ -68,8 +72,8 @@
     <string name="ToastRegisterExistent">Utilisateur précédemment enregistré!</string>
 
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="btn_map">Mapa</string>
-    <string name="btn_save">Confirmar ubicacion</string>
+    <string name="btn_map">Ajouter emplacement</string>
+    <string name="btn_save">Confirmer lemplacement</string>
 
     <string name="AlertTitle">Supprimer le loyer</string>
     <string name="AlertMessage">Voulez-vous supprimer le loyer?</string>

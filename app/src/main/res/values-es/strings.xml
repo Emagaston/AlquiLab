@@ -50,6 +50,10 @@
 
     <string name="hintSearch">Buscar…</string>
     <string name="titleBtnSearch">Buscar</string>
+    <string name="nombre">Ingrese un nombre</string>
+    <string name="hint_habitaciones">Ingrese el n° de habitaciones</string>
+    <string name="hint_barrio">Ingrese el barrio</string>
+    <string name="hint_precio">Ingrese el precio mensual</string>
 
     <string name="errorEmail">Ingrese un correo electronico!</string>
     <string name="errorEmailValid">Ingrese un correo electrónico valido!</string>
@@ -68,7 +72,7 @@
     <string name="ToastRegisterExistent">Usuario registrado anteriormente!</string>
 
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="btn_map">Mapa</string>
+    <string name="btn_map">Añadir Localización</string>
     <string name="btn_save">Confirmar ubicacion</string>
 
     <string name="AlertTitle">Borrar alquiler</string>
