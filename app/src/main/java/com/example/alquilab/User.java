@@ -13,6 +13,5 @@ public class User {
         this.email = email;
         this.rol = rol;
         this.number = number;
-
     }
 }
