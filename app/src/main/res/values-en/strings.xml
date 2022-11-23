@@ -54,10 +54,25 @@
 
     <string name="hintSearch">Search…</string>
     <string name="titleBtnSearch">Buscar</string>
-    <string name="nombre">Enter a name</string>
-    <string name="hint_habitaciones">Enter N° Rooms</string>
-    <string name="hint_barrio">Enter the neighborhood</string>
-    <string name="hint_precio">Enter the monthly price</string>
+    <string name="nombre">Name</string>
+    <string name="title_direccion">Address</string>
+    <string name="title_descripcion">Description</string>
+    <string name="title_habitaciones">N° Rooms</string>
+    <string name="title_barrio">Neighborhood</string>
+    <string name="title_precio">Monthly price</string>
+    <string name="title_imagen">Image</string>
+    <string name="title_location">Location</string>
+
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Location</string>
+    <string name="detailImagenes">Images</string>
+
+    <string name="new_add_nombre">Name:</string>
+    <string name="new_add_direccion">Address:</string>
+    <string name="new_add_descripcion">Description:</string>
+    <string name="new_add_habitaciones">N° Rooms:</string>
+    <string name="new_add_barrio">Neighborhood:</string>
+    <string name="new_add_precio">Monthly price:</string>
 
     <string name="errorEmail">Enter a email!</string>
     <string name="errorEmailValid">Enter a valid email!</string>
@@ -92,5 +107,14 @@
     <string name="detailUbicacion">Location</string>
     <string name="detailImagenes">Images</string>
     <string name="ToastSelectRole">Select a role</string>
+    <string name="edit_alq">Edit Rent</string>
+    <string name="btn_saveE">Save</string>
+    <string name="spinnerEstado">Status</string>
+
+    <string-array name="OpcionesEstado">
+        <item>Available</item>
+        <item>Rented</item>
+        <item>Slow</item>
+    </string-array>
 
 </resources>

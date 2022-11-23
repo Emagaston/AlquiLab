@@ -55,10 +55,25 @@
 
     <string name="hintSearch">Rechercher…</string>
     <string name="titleBtnSearch">Buscar</string>
-    <string name="nombre">Entrez un nom</string>
-    <string name="hint_habitaciones">Entrez le nombre de chambres</string>
-    <string name="hint_barrio">Entrez dans le quartier</string>
-    <string name="hint_precio">Entrez le prix mensuel</string>
+    <string name="nombre">Nom</string>
+    <string name="title_direccion">Adresse</string>
+    <string name="title_descripcion">La description</string>
+    <string name="title_habitaciones">N° Chambres</string>
+    <string name="title_barrio">Quartier</string>
+    <string name="title_precio">Prix mensuel</string>
+    <string name="title_imagen">Image</string>
+    <string name="title_location">Emplacement</string>
+
+    <string name="symbolPrice">$</string>
+    <string name="detailUbicacion">Emplacement</string>
+    <string name="detailImagenes">Images</string>
+
+    <string name="new_add_nombre">Nom:</string>
+    <string name="new_add_direccion">Adresse:</string>
+    <string name="new_add_descripcion">La description:</string>
+    <string name="new_add_habitaciones">N° Chambres:</string>
+    <string name="new_add_barrio">Quartier:</string>
+    <string name="new_add_precio">Prix mensuel:</string>
 
     <string name="errorEmail">Entrer un email!</string>
     <string name="errorEmailValid">Entrer une adresse mail valide!</string>
@@ -88,9 +103,22 @@
     <string name="detail_btn_delete">Effacer</string>
     <string name="detail_btn_edit">Éditer</string>
 
+
     <string name="detailnumHabitaciones">N° Chambres:</string>
     <string name="symbolPrice">$</string>
     <string name="detailUbicacion">Emplacement</string>
     <string name="detailImagenes">Images</string>
     <string name="ToastSelectRole">Sélectionnez un rôle</string>
+
+    <string name="edit_alq">Modifier la location</string>
+    <string name="btn_saveE">Sauvegarder</string>
+    <string name="spinnerEstado">Condition</string>
+
+    <string-array name="OpcionesEstado">
+        <item>Disponible</item>
+        <item>Loué</item>
+        <item>Lent</item>
+    </string-array>
+
+
 </resources>
