@@ -103,16 +103,7 @@
     <string name="detail_btn_delete">Effacer</string>
     <string name="detail_btn_edit">Éditer</string>
 
-
-    <string name="detailnumHabitaciones">N° Chambres:</string>
-    <string name="symbolPrice">$</string>
-    <string name="detailUbicacion">Emplacement</string>
-    <string name="detailImagenes">Images</string>
     <string name="ToastSelectRole">Sélectionnez un rôle</string>
-
-    <string name="edit_alq">Modifier la location</string>
-    <string name="btn_saveE">Sauvegarder</string>
-    <string name="spinnerEstado">Condition</string>
 
     <string-array name="OpcionesEstado">
         <item>Disponible</item>
