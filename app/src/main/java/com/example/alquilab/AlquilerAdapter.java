@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,19 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.barrio.setText(casa.getBarrio());
         holder.precio.setText(casa.getPrecio());
         holder.estado.setText(casa.getEstado());
+        String estadoView = casa.getEstado();
+        switch (estadoView){
+            case "Alquilado":
+            case "Rented":
+            case "Loué":
+                holder.estado.setTextColor(Color.RED);
+                break;
+            case "Pausado":
+            case "Slow":
+            case "Lent":
+                holder.estado.setTextColor(Color.parseColor("#FF9900"));
+                break;
+        }
 
         String Mid = casa.getId();
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +132,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 Intent intent = new Intent(context,EditarAlquiler.class);
                 intent.putExtra("Mid",Mid);
                 intent.putExtra("nom",holder.nombre.getText());
+                intent.putExtra("precioM",holder.precio.getText());
                 intent.putExtra("des",detail);
                 intent.putExtra("est",estado);
                 context.startActivity(intent);
