@@ -48,10 +48,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         list = filterlist;
         notifyDataSetChanged();
     }
-    public void userspost(ArrayList<Casa> userspost) {
-        list = userspost;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
