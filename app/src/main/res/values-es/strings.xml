@@ -103,6 +103,7 @@
     <string name="detail_btn_edit">Editar</string>
 
     <string name="ToastSelectRole">Seleccione un rol</string>
+    <string name="ToastPropietario">Usted no es propietario</string>
 
     <string-array name="OpcionesEstado">
         <item>Disponible</item>
