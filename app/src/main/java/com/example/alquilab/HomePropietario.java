@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alquilab.model.Casa;
@@ -44,6 +45,7 @@ public class HomePropietario extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private AlquilerAdapter adapter;
     private ArrayList<Casa> list;
+    private TextView TextListVacia;
     FirebaseUser user1 = mAuth.getCurrentUser();
 
     @Override
@@ -54,6 +56,7 @@ public class HomePropietario extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        TextListVacia = findViewById(R.id.textListVacia);
 
         list = new ArrayList<>();
         adapter = new AlquilerAdapter(this,list);
@@ -65,13 +68,17 @@ public class HomePropietario extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Casa casa = dataSnapshot.getValue(Casa.class);
                     if (user1.getUid().contains(casa.getIdUser())) {
                         list.add(casa);
+                        TextListVacia.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }else if (list.isEmpty()) {
+                        listaVacia();
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -83,6 +90,14 @@ public class HomePropietario extends AppCompatActivity {
 
         cargarPreferencias();
 }
+
+    private void listaVacia() {
+        String sms = "No tiene ninguna propiedad! \n Agregue uno!";
+        TextListVacia.setText(sms);
+        TextListVacia.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
     private void cargarPreferencias() {
         sharedPreferences = getSharedPreferences("Opcion", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("opcion","");

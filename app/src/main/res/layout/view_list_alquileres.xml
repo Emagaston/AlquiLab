@@ -84,7 +84,7 @@
 
                 <Button
                     android:id="@+id/btnViewDelete"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:backgroundTint="#F12323"
                     android:text="@string/detail_btn_delete"
@@ -94,12 +94,12 @@
                     android:textStyle="bold" />
 
                 <Space
-                    android:layout_width="5dp"
+                    android:layout_width="3dp"
                     android:layout_height="wrap_content" />
 
                 <Button
                     android:id="@+id/btnViewUpdate"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:backgroundTint="#2196F3"
                     android:text="@string/detail_btn_edit"
@@ -109,7 +109,7 @@
                     android:textStyle="bold" />
 
                 <Space
-                    android:layout_width="20dp"
+                    android:layout_width="15dp"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -118,6 +118,7 @@
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="10sp"
                     android:text="Estado"
+                    android:inputType="textMultiLine"
                     android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="15sp"
