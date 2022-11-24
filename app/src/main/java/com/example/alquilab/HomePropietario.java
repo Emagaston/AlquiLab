@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.alquilab.model.Casa;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,8 +41,10 @@ public class HomePropietario extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("Casa");
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private AlquilerAdapter adapter;
     private ArrayList<Casa> list;
+    FirebaseUser user1 = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +65,11 @@ public class HomePropietario extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     Casa casa = dataSnapshot.getValue(Casa.class);
-                    list.add(casa);
+                    if (user1.getUid().contains(casa.getIdUser())) {
+                        list.add(casa);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -138,6 +144,7 @@ public class HomePropietario extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

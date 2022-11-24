@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.alquilab.model.Casa;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,7 +39,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference().child("Casa");
 
-
     public AlquilerAdapter(Context context, ArrayList<Casa> list) {
         this.context = context;
         this.list = list;
@@ -46,6 +46,10 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
 
     public void filterList(ArrayList<Casa> filterlist) {
         list = filterlist;
+        notifyDataSetChanged();
+    }
+    public void userspost(ArrayList<Casa> userspost) {
+        list = userspost;
         notifyDataSetChanged();
     }
 
@@ -64,7 +68,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.precio.setText(casa.getPrecio());
         holder.estado.setText(casa.getEstado());
         String estadoView = casa.getEstado();
-        switch (estadoView){
+        switch (estadoView) {
             case "Alquilado":
             case "Rented":
             case "Loué":
@@ -84,16 +88,16 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 new AlertDialog.Builder(context)
                         .setTitle(R.string.AlertTitle)
                         .setMessage(R.string.AlertMessage)
-                                .setPositiveButton(R.string.AlertDeleteYes, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        root.child(Mid).removeValue();
-                                    }
-                                })
+                        .setPositiveButton(R.string.AlertDeleteYes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                root.child(Mid).removeValue();
+                            }
+                        })
                         .setNegativeButton(R.string.AlertDeleteNo, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Log.d("Mensaje","Se cancelo la accion");
+                                Log.d("Mensaje", "Se cancelo la accion");
                             }
                         })
                         .show();
@@ -113,32 +117,33 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,DetalleAlquiler.class);
-                intent.putExtra("nom",holder.nombre.getText());
-                intent.putExtra("barrio",holder.barrio.getText());
-                intent.putExtra("precio",holder.precio.getText());
-                intent.putExtra("imagen",photoAl);
-                intent.putExtra("descripcion",detail);
-                intent.putExtra("direccion",direccion);
-                intent.putExtra("habitaciones",habitaciones);
-                intent.putExtra("longitud1",longitud);
-                intent.putExtra("latitud1",latitud);
+                Intent intent = new Intent(context, DetalleAlquiler.class);
+                intent.putExtra("nom", holder.nombre.getText());
+                intent.putExtra("barrio", holder.barrio.getText());
+                intent.putExtra("precio", holder.precio.getText());
+                intent.putExtra("imagen", photoAl);
+                intent.putExtra("descripcion", detail);
+                intent.putExtra("direccion", direccion);
+                intent.putExtra("habitaciones", habitaciones);
+                intent.putExtra("longitud1", longitud);
+                intent.putExtra("latitud1", latitud);
                 context.startActivity(intent);
             }
         });
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,EditarAlquiler.class);
-                intent.putExtra("Mid",Mid);
-                intent.putExtra("nom",holder.nombre.getText());
-                intent.putExtra("precioM",holder.precio.getText());
-                intent.putExtra("des",detail);
-                intent.putExtra("est",estado);
+                Intent intent = new Intent(context, EditarAlquiler.class);
+                intent.putExtra("Mid", Mid);
+                intent.putExtra("nom", holder.nombre.getText());
+                intent.putExtra("precioM", holder.precio.getText());
+                intent.putExtra("des", detail);
+                intent.putExtra("est", estado);
                 context.startActivity(intent);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
