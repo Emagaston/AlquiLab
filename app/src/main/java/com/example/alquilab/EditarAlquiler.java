@@ -3,6 +3,7 @@ package com.example.alquilab;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -30,7 +31,6 @@ public class EditarAlquiler extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference casaReference;
-    private DatabaseReference root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +66,20 @@ public class EditarAlquiler extends AppCompatActivity {
         nombre.setText(nomp);
         descripcion.setText(desp);
         precio.setText(prep);
+        //Estado
+
         switch (estp){
-            case "Disponible":
+            case "0":
                 spinnerEstado.setSelection(0);
                 break;
-            case "Alquilado":
+            case "1":
                 spinnerEstado.setSelection(1);
                 break;
-            case "Pausado":
+            case "2":
                 spinnerEstado.setSelection(2);
                 break;
-        };
+        }
+
 
         View.OnClickListener savListener = new View.OnClickListener() {
             @Override
@@ -85,7 +88,8 @@ public class EditarAlquiler extends AppCompatActivity {
                 if (nombre.getText().equals("") || descripcion.getText().equals("")){
                     validacion();
                 }else{
-                    updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), spinnerEstado.getSelectedItem().toString());
+                    //updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), spinnerEstado.getSelectedItem().toString());
+                    updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), String.valueOf(spinnerEstado.getSelectedItemId()));
                 }
             }
         };

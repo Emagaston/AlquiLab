@@ -112,5 +112,8 @@
         <item>Lent</item>
     </string-array>
 
+    <string name="opc0">Disponible</string>
+    <string name="opc1">Loué</string>
+    <string name="opc2">Lent</string>
 
 </resources>

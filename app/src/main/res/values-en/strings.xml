@@ -108,7 +108,11 @@
     <string-array name="OpcionesEstado">
         <item>Available</item>
         <item>Rented</item>
-        <item>Slow</item>
+        <item>Unavailable</item>
     </string-array>
+
+    <string name="opc0">Available</string>
+    <string name="opc1">Rented</string>
+    <string name="opc2">Unavailable</string>
 
 </resources>

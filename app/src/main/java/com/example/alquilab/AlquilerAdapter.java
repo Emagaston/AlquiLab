@@ -62,21 +62,31 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.nombre.setText(casa.getNombre());
         holder.barrio.setText(casa.getBarrio());
         holder.precio.setText(casa.getPrecio());
-        holder.estado.setText(casa.getEstado());
-        String estadoView = casa.getEstado();
-        switch (estadoView) {
-            case "Alquilado":
-            case "Rented":
-            case "Loué":
+
+        //Estado
+        String estadoView="";
+        String estado= casa.getEstado();
+        String opc0 = context.getString(R.string.opc0);
+        String opc1 = context.getString(R.string.opc1);
+        String opc2 = context.getString(R.string.opc2);
+
+        switch (estado){
+            case "0":
+                estadoView = opc0;
+                holder.estado.setTextColor(Color.BLACK);
+                break;
+            case "1":
+                estadoView = opc1;
                 holder.estado.setTextColor(Color.RED);
                 break;
-            case "Pausado":
-            case "Slow":
-            case "Lent":
+            case "2":
+                estadoView = opc2;
                 holder.estado.setTextColor(Color.parseColor("#FF9900"));
                 break;
         }
+        holder.estado.setText(estadoView);
 
+        //LLAMADA A DELETE
         String Mid = casa.getId();
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,14 +112,14 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
 
         String photoAl = casa.getUrlFoto();
         Glide.with(context).load(photoAl).centerCrop().into(holder.photo);
-
         String detail = casa.getDescripcion();
         String direccion = casa.getDireccion();
         String habitaciones = casa.getHabitaciones();
         String latitud = casa.getLatitud();
         String longitud = casa.getLongitud();
-        String estado = casa.getEstado();
+        //String estado = casa.getEstado();
 
+        //llamada a DETALLEALQUILER
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +136,8 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 context.startActivity(intent);
             }
         });
+
+        //llamada a EDITARALQUILER
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
