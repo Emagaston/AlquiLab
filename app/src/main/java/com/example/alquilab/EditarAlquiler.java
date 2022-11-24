@@ -23,8 +23,8 @@ import java.util.HashMap;
 
 public class EditarAlquiler extends AppCompatActivity {
 
-    String midp, nomp, desp, estp;
-    private EditText nombre, descripcion, estado;
+    String midp, nomp, desp, estp, prep;
+    private EditText nombre, descripcion, precio;
     private Button btn_sav;
     private Spinner spinnerEstado;
     FirebaseDatabase firebaseDatabase;
@@ -42,6 +42,7 @@ public class EditarAlquiler extends AppCompatActivity {
         btn_sav = (Button) findViewById(R.id.btn_sav);
         nombre = (EditText) findViewById(R.id.edit_nom);
         descripcion = (EditText) findViewById(R.id.edit_des);
+        precio = findViewById(R.id.edit_prec);
         spinnerEstado = findViewById(R.id.spinnerEst);
 
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.OpcionesEstado, R.layout.spinnerstyle);
@@ -54,6 +55,8 @@ public class EditarAlquiler extends AppCompatActivity {
             nomp = bundle.getString("nom");
             desp = bundle.getString("des");
             estp = bundle.getString("est");
+            prep = bundle.getString("precioM");
+
         } else {
             midp = "";
             nomp = "";
@@ -62,6 +65,7 @@ public class EditarAlquiler extends AppCompatActivity {
         }
         nombre.setText(nomp);
         descripcion.setText(desp);
+        precio.setText(prep);
         switch (estp){
             case "Disponible":
                 spinnerEstado.setSelection(0);
@@ -81,18 +85,19 @@ public class EditarAlquiler extends AppCompatActivity {
                 if (nombre.getText().equals("") || descripcion.getText().equals("")){
                     validacion();
                 }else{
-                    updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),spinnerEstado.getSelectedItem().toString());
+                    updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), spinnerEstado.getSelectedItem().toString());
                 }
             }
         };
         btn_sav.setOnClickListener(savListener);
     }
 
-    private void updateCasa(String id, String nombre, String descripcion, String estado) {
+    private void updateCasa(String id, String nombre, String descripcion, String precio, String estado) {
         HashMap casa = new HashMap();
         casa.put("nombre",nombre);
         casa.put("descripcion",descripcion);
         casa.put("estado",estado);
+        casa.put("precio",precio);
 
         casaReference.child(id).updateChildren(casa).addOnCompleteListener(new OnCompleteListener() {
             @Override
