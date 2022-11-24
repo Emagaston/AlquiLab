@@ -155,7 +155,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                                 editTextRegisterName.setText("");
                                                 editTextRegisterEmail.setText("");
                                                 editTextRegisterPassword.setText("");
-                                                startActivity(new Intent(RegisterUser.this,MainActivity.class));
+                                                Intent intent = new Intent(RegisterUser.this,MainActivity.class);
+                                                intent.putExtra("idRol",finalRol);
+                                                startActivity(intent);
                                             }else {
                                                 Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegisterError), Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);

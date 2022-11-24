@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar progressBar;
 
+    String Mid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,19 +138,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         progressBar.setVisibility(View.VISIBLE);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            Mid = bundle.getString("idRol");
+        }
 
         mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                
-                if (task.isSuccessful()){
-                    //startActivity(new Intent(MainActivity.this, HomePropietario.class));
+
+                if (task.isSuccessful()) {
                     startActivity(new Intent(MainActivity.this, HomePropietario.class));
                     progressBar.setVisibility(View.GONE);
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
                     finish();
-                    
                 }else {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
