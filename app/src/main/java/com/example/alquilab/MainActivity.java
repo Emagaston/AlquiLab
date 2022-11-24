@@ -48,11 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference users = db.getReference().child("Users");
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private String rol="", rol2;
+    private String rol="";
     private User user2;
-
-    //String Mid;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,10 +146,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-            Mid = bundle.getString("idRol");
-        }
 
         mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
