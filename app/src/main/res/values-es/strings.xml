@@ -111,5 +111,8 @@
         <item>Pausado</item>
     </string-array>
 
+    <string name="opc0">Disponible</string>
+    <string name="opc1">Alquilado</string>
+    <string name="opc2">Pausado</string>
 
 </resources>

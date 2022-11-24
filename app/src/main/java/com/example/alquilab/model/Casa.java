@@ -3,7 +3,7 @@ package com.example.alquilab.model;
 public class Casa {
     public String id;
     private String nombre="";
-    private String estado="Disponible";
+    private String estado="0";//0 = disponible 1= alquilado 2 = pausado
     private String descripcion ="";
     private String direccion="";
     private String barrio="";
