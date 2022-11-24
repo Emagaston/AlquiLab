@@ -44,13 +44,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar progressBar;
 
-
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference users = db.getReference().child("Users");
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String rol="";
     private User user2;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
