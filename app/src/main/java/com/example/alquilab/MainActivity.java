@@ -44,11 +44,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar progressBar;
 
+
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference users = db.getReference().child("Users");
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String rol="", rol2;
     private User user2;
+
+    //String Mid;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,10 +149,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         progressBar.setVisibility(View.VISIBLE);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            Mid = bundle.getString("idRol");
+        }
 
         mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if (task.isSuccessful()){
                     FirebaseUser user = mAuth.getCurrentUser();
                     mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -174,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
                     //finish();
+
                 }else {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
