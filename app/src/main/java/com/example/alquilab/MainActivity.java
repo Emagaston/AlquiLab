@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference users = db.getReference().child("Users");
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
+    private String rol="", rol2;
     private User user2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,20 +158,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             else {
                                 user2 = task.getResult().getValue(User.class);
-                                String rol2 = user2.getRol();
-                                if (rol2.equals("2")){
+                                rol = user2.getRol();
+                                if (rol.equals("2")){
                                     startActivity(new Intent(MainActivity.this, HomePropietario.class));
                                 }else{
                                     Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
                                     progressBar.setVisibility(View.GONE);
                                 }
                             }
                         }
                     });
-                    progressBar.setVisibility(View.GONE);
+                    /*progressBar.setVisibility(View.GONE);*/
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
-                    finish();
+                    //finish();
                 }else {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null){
+        if ((user != null)&(rol == "")){
             mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -194,11 +195,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     else {
                         user2 = task.getResult().getValue(User.class);
-                        String rol2 = user2.getRol();
+                        rol2 = user2.getRol();
                         if (rol2.equals("2")){
                             startActivity(new Intent(MainActivity.this, HomePropietario.class));
                         }else{
                             Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+                            FirebaseAuth.getInstance().signOut();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
