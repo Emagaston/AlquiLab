@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 rol = user2.getRol();
                                 if (rol.equals("2")){
                                     startActivity(new Intent(MainActivity.this, HomePropietario.class));
+                                    finish();
                                 }else{
                                     Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
                                     FirebaseAuth.getInstance().signOut();
@@ -186,26 +187,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
-        if ((user != null)&(rol == "")){
-            mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    }
-                    else {
-                        user2 = task.getResult().getValue(User.class);
-                        rol2 = user2.getRol();
-                        if (rol2.equals("2")){
-                            startActivity(new Intent(MainActivity.this, HomePropietario.class));
-                        }else{
-                            Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
-                            FirebaseAuth.getInstance().signOut();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                }
-            });
+//        if ((user != null)&(rol == "")){
+//            mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                    if (!task.isSuccessful()) {
+//                        Log.e("firebase", "Error getting data", task.getException());
+//                    }
+//                    else {
+//                        user2 = task.getResult().getValue(User.class);
+//                        rol2 = user2.getRol();
+//                        if (rol2.equals("2")){
+//                            startActivity(new Intent(MainActivity.this, HomePropietario.class));
+//                        }else{
+//                            Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+//                            FirebaseAuth.getInstance().signOut();
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+//                }
+//            });
+//        }
+        if (user != null){
+            startActivity(new Intent(MainActivity.this,HomePropietario.class));
+            finish();
         }
     }
 }
