@@ -104,6 +104,7 @@
     <string name="detail_btn_edit">Éditer</string>
 
     <string name="ToastSelectRole">Sélectionnez un rôle</string>
+    <string name="ToastPropietario">Vous nêtes pas propriétaire</string>
 
     <string-array name="OpcionesEstado">
         <item>Disponible</item>

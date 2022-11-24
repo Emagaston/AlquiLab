@@ -27,6 +27,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Tag;
 
 import java.util.Locale;
@@ -41,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ProgressBar progressBar;
 
+    private FirebaseDatabase db =FirebaseDatabase.getInstance();
+    private DatabaseReference users = db.getReference().child("Users");
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    private User user2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,15 +148,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                
                 if (task.isSuccessful()){
-                    //startActivity(new Intent(MainActivity.this, HomePropietario.class));
-                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            }
+                            else {
+                                user2 = task.getResult().getValue(User.class);
+                                String rol2 = user2.getRol();
+                                if (rol2.equals("2")){
+                                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
+                                }else{
+                                    Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+                    });
                     progressBar.setVisibility(View.GONE);
                     editEmailLogin.setText("");
                     editpasswordLogin.setText("");
                     finish();
-                    
                 }else {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
@@ -163,8 +186,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(MainActivity.this,HomePropietario.class));
-            finish();
+            mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else {
+                        user2 = task.getResult().getValue(User.class);
+                        String rol2 = user2.getRol();
+                        if (rol2.equals("2")){
+                            startActivity(new Intent(MainActivity.this, HomePropietario.class));
+                        }else{
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            });
         }
     }
 }
