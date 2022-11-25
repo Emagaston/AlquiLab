@@ -2,10 +2,13 @@ package com.example.alquilab;
 
 import static java.security.AccessController.getContext;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -39,6 +42,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    private static final int REQUEST_CODE = 1;
     private FusedLocationProviderClient fusedLocationClient;
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -50,6 +54,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
 
         Bundle bundle  = getIntent().getExtras();
@@ -67,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //maps
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (subirLatLongFirebase()) return;
+        //if (subirLatLongFirebase()) return;
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -99,7 +105,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         cargarPreferencias();
     }
 
-    private boolean subirLatLongFirebase() {
+    /*private boolean subirLatLongFirebase() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return true;
         }
@@ -117,15 +123,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
         return false;
-    }
+    }*/
 
+/*
+    @Override
+    public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //
+            } else {
+                Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+*/
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+           && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //no tengo el permiso
+       //     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
             return;
         }
+
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 

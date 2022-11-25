@@ -47,7 +47,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
-
+    private static final int REQUEST_CODE = 1;
     private Toolbar mToolbar;
     private Double latitudP;
     private Double longitudP;
@@ -63,6 +63,18 @@ public class NuevoAlquiler extends AppCompatActivity {
     String idUser;
     private Casa casa;
     String nomp, desp,dirp,barp,habp,prep;
+
+    @Override
+    public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //
+            } else {
+                Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,23 +207,32 @@ public class NuevoAlquiler extends AppCompatActivity {
             };
         };
 
+
         View.OnClickListener mapListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nom = nombre.getText().toString();
-                des = descripcion.getText().toString();
-                dir = direccion.getText().toString();
-                bar = barrio.getText().toString();
-                hab = habitaciones.getText().toString();
-                pre = precio.getText().toString();
-                Intent intent =new Intent(NuevoAlquiler.this, MapsActivity.class);
-                intent.putExtra("nomp",nom);//es el contenido del edit
-                intent.putExtra("desp", des);
-                intent.putExtra("dirp", dir);
-                intent.putExtra("barp", bar);
-                intent.putExtra("habp", hab);
-                intent.putExtra("prep", pre);
-                startActivity(intent);
+
+                if (ActivityCompat.checkSelfPermission(NuevoAlquiler.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(NuevoAlquiler.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    //no tengo el permiso
+                    ActivityCompat.requestPermissions(NuevoAlquiler.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
+                    //return;
+                }else{
+                    nom = nombre.getText().toString();
+                    des = descripcion.getText().toString();
+                    dir = direccion.getText().toString();
+                    bar = barrio.getText().toString();
+                    hab = habitaciones.getText().toString();
+                    pre = precio.getText().toString();
+                    Intent intent =new Intent(NuevoAlquiler.this, MapsActivity.class);
+                    intent.putExtra("nomp",nom);//es el contenido del edit
+                    intent.putExtra("desp", des);
+                    intent.putExtra("dirp", dir);
+                    intent.putExtra("barp", bar);
+                    intent.putExtra("habp", hab);
+                    intent.putExtra("prep", pre);
+                    startActivity(intent);
+                }
             }
         };
 
