@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -124,8 +125,8 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
             public void onClick(View view) {
                 askPermission();
                 new AlertDialog.Builder(DetalleAlquiler.this)
-                        .setTitle("Descargar imagen")
-                        .setMessage("¿Desea guardar la imagen?")
+                        .setTitle(R.string.TitleAlertDescarga)
+                        .setMessage(R.string.TextAlertDescarga)
                         .setPositiveButton(R.string.AlertDeleteYes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -157,17 +158,29 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void crearNotifcacion() {
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/SaveImage";
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/SaveImage/";
         Uri uri = Uri.parse(path);
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(uri, "*/*");
-       // startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri,"*/*");
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(intent);
+        //PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_MUTABLE);
+        }
+        else
+        {
+            pendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_ONE_SHOT);
+        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_image);
-        builder.setContentTitle("Descarga de imagen");
-        builder.setContentText("Se ha descargado la imagen!");
+        builder.setContentTitle(getResources().getString(R.string.TitleDescargaNotificacion));
+        builder.setContentText(getResources().getString(R.string.TextNotificacion));
         builder.setContentInfo("4");
         builder.setTicker("Descarga!");
+        builder.setContentIntent(pendingIntent);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(IDunica, builder.build());
@@ -184,7 +197,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                    //testsave();
                 } else {
-                    Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.RequierePermisos), Toast.LENGTH_SHORT).show();
                 }
             }
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -208,7 +221,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
                 e.printStackTrace();
             }
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            Toast.makeText(this, "Se guardó exitosamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.TextDescargaCompletada), Toast.LENGTH_SHORT).show();
             try {
                 outputStream.flush();
             }catch (Exception e){

@@ -115,4 +115,11 @@
     <string name="opc1">Alquilado</string>
     <string name="opc2">Pausado</string>
 
+    <string name="RequierePermisos">Requiere permisos</string>
+    <string name="TitleAlertDescarga">Descargar imagen</string>
+    <string name="TextAlertDescarga">¿Desea descargar la imagen?</string>
+    <string name="TitleDescargaNotificacion">Descarga de imagen</string>
+    <string name="TextNotificacion">Se ha descargado la imagen!</string>
+    <string name="TextDescargaCompletada">Se guardó exitosamente</string>
+
 </resources>

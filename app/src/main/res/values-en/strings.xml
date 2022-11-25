@@ -115,4 +115,11 @@
     <string name="opc1">Rented</string>
     <string name="opc2">Paused</string>
 
+    <string name="RequierePermisos">Requires permissions</string>
+    <string name="TitleAlertDescarga">Download image</string>
+    <string name="TextAlertDescarga">Do you want to download the image?</string>
+    <string name="TitleDescargaNotificacion">Image download</string>
+    <string name="TextNotificacion">Image has been downloaded!</string>
+    <string name="TextDescargaCompletada">Saved successfully</string>
+
 </resources>

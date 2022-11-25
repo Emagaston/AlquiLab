@@ -116,4 +116,11 @@
     <string name="opc1">Loué</string>
     <string name="opc2">Lent</string>
 
+    <string name="TitleAlertDescarga">Télécharger limage</string>
+    <string name="TextAlertDescarga">Voulez-vous télécharger limage?</string>
+    <string name="TitleDescargaNotificacion">Téléchargement dimages</string>
+    <string name="TextNotificacion">Limage a été téléchargée!</string>
+    <string name="RequierePermisos">Nécessite des autorisations</string>
+    <string name="TextDescargaCompletada">Enregistré avec succès</string>
+
 </resources>
