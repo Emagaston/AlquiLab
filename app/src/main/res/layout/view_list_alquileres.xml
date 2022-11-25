@@ -93,10 +93,6 @@
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
-                <Space
-                    android:layout_width="3dp"
-                    android:layout_height="wrap_content" />
-
                 <Button
                     android:id="@+id/btnViewUpdate"
                     android:layout_width="wrap_content"
@@ -109,7 +105,7 @@
                     android:textStyle="bold" />
 
                 <Space
-                    android:layout_width="15dp"
+                    android:layout_width="10dp"
                     android:layout_height="wrap_content" />
 
                 <TextView

@@ -122,6 +122,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         view_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                askPermission();
                 new AlertDialog.Builder(DetalleAlquiler.this)
                         .setTitle("Descargar imagen")
                         .setMessage("¿Desea guardar la imagen?")
@@ -129,12 +130,10 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (ContextCompat.checkSelfPermission(DetalleAlquiler.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                                    //saveImage();
                                     testsave();
+                                    crearCanalNotificacion();
+                                    crearNotifcacion();
                                 }
-                                askPermission();
-                                crearCanalNotificacion();
-                                crearNotifcacion();
                             }
                         })
                         .setNegativeButton(R.string.AlertDeleteNo, new DialogInterface.OnClickListener() {
@@ -183,7 +182,6 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         @NonNull int[] grantResults){
             if (requestCode == REQUEST_CODE) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    saveImage();
                    //testsave();
                 } else {
                     Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
@@ -222,35 +220,6 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
                 e.printStackTrace();
             }
         }
-
-//        private void saveImage () {
-//            File dir = new File(Environment.getExternalStorageDirectory(), "SaveImage");
-//            if (!dir.exists()) {
-//               dir.mkdir();
-//            }
-//            BitmapDrawable drawable = (BitmapDrawable) view_img.getDrawable();
-//            Bitmap bitmap = drawable.getBitmap();
-//
-//            File file = new File(dir, System.currentTimeMillis() + ".PNG");
-//            try {
-//                outputStream = new FileOutputStream(file);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-//            Toast.makeText(this, "Se guardó exitosamente", Toast.LENGTH_SHORT).show();
-//
-//            try {
-//                outputStream.flush();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                outputStream.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         @Override
         public void onMapReady (@NonNull GoogleMap googleMap){

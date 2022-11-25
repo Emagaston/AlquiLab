@@ -151,6 +151,9 @@ public class HomePropietario extends AppCompatActivity {
             if (item.getNombre().toLowerCase().contains(text.toLowerCase())){
                 filteredlist.add(item);
             }
+            else if (item.getBarrio().toLowerCase().contains(text.toLowerCase())){
+                filteredlist.add(item);
+            }
         }
         if (filteredlist.isEmpty()){
             Toast.makeText(this, "No se encontró", Toast.LENGTH_SHORT).show();
