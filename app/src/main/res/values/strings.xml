@@ -45,8 +45,6 @@
     <string name="opc1">Alquilado</string>
     <string name="opc2">Pausado</string>
 
-    <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
-    </string>
 
     <!-- Nuevo Alquiler -->
     <string name="title_alquileroferta_list">AlquilerOfertas</string>

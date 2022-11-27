@@ -33,8 +33,6 @@
         <item>Offer rent</item>
     </string-array>
 
-    <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
-    </string>
 
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>

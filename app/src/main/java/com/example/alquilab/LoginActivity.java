@@ -1,20 +1,12 @@
 package com.example.alquilab;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.alquilab.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,20 +26,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.Tag;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView register, forgotPassword;
     private EditText editEmailLogin, editpasswordLogin;
     private Button btnLogin;
-
     private FirebaseAuth mAuth;
-
     private ProgressBar progressBar;
-
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String rol="";
@@ -55,13 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-
         register = findViewById(R.id.register);
         register.setOnClickListener(this);
-
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
-
 
         editEmailLogin = findViewById(R.id.emailLogin);
         editpasswordLogin = findViewById(R.id.passwordLogin);
@@ -73,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cargarPreferencias();
     }
-
 
     private void cargarPreferencias() {
         SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
@@ -161,10 +149,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 user2 = task.getResult().getValue(User.class);
                                 rol = user2.getRol();
                                 if (rol.equals("2")){
-                                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
+                                    startActivity(new Intent(LoginActivity.this, HomePropietario.class));
                                     finish();
                                 }else{
-                                    Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
                                     FirebaseAuth.getInstance().signOut();
                                     progressBar.setVisibility(View.GONE);
                                 }
@@ -175,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     editpasswordLogin.setText("");
 
                 }else {
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
@@ -188,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(MainActivity.this,HomePropietario.class));
+            startActivity(new Intent(LoginActivity.this,HomePropietario.class));
             finish();
         }
     }

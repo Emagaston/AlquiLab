@@ -77,23 +77,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AlquilerOfertaDetailHostActivity"
-            android:exported="false"
-            android:label="@string/title_activity_alquiler_oferta_detail_host"
-            android:resizeableActivity="true"
-            tools:targetApi="24">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".HomePropietario"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
@@ -118,7 +101,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.alquilab;
+package com.example.alquilab.model;
 
 public class User {
 
