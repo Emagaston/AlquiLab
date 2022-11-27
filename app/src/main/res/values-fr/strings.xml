@@ -34,7 +34,7 @@
         <item>Offrir un loyer</item>
     </string-array>
 
-
+    <string name="toolbartitleNewRent">Nouvelle location</string>
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
     <string name="title_new">Nouvelle location</string>

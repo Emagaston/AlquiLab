@@ -125,5 +125,7 @@
     <string name="TextAlertDescarga">¿Desea descargar la imagen?</string>
     <string name="TitleDescargaNotificacion">Descarga de imagen</string>
     <string name="TextNotificacion">Se ha descargado la imagen!</string>
+    <string name="toolbartitleNewRent">Nuevo Alquiler</string>
+
 
 </resources>

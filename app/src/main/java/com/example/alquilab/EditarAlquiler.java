@@ -3,21 +3,28 @@ package com.example.alquilab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.OutputStream;
 import java.util.HashMap;
 
 public class EditarAlquiler extends AppCompatActivity {
@@ -30,11 +37,17 @@ public class EditarAlquiler extends AppCompatActivity {
     DatabaseReference databaseReference;
     DatabaseReference casaReference;
 
+    private Toolbar mToolbar;
+    private TextView textToolbar;
+    private ImageView imageToolbar;
+    private OutputStream outputStream;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_alquiler);
 
+        configurarToolbar();
         inicializarFirebase();
 
         btn_sav = (Button) findViewById(R.id.btn_sav);
@@ -86,7 +99,6 @@ public class EditarAlquiler extends AppCompatActivity {
                 if (nombre.getText().equals("") || descripcion.getText().equals("")){
                     validacion();
                 }else{
-                    //updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), spinnerEstado.getSelectedItem().toString());
                     updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), String.valueOf(spinnerEstado.getSelectedItemId()));
                 }
             }
@@ -131,4 +143,49 @@ public class EditarAlquiler extends AppCompatActivity {
             descripcion.setError("Requerido");
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //menu
+    @Override
+    public boolean onOptionsItemSelected(@androidx.annotation.NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.btnAdd:
+                startActivity(new Intent(this,NuevoAlquiler.class));
+                finish();
+                break;
+            case R.id.btnLogout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.btnSettings:
+                startActivity(new Intent(this,Ajustes.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void configurarToolbar() {
+        //toolbar 1 EditarAlquiler
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.edit_alq);
+        textToolbar.setText(titleToolbar);
+
+        imageToolbar = findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(EditarAlquiler.this, HomePropietario.class));
+        });
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(EditarAlquiler.this,HomePropietario.class));
+        finish();
+    }
+
 }

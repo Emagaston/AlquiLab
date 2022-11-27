@@ -76,6 +76,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         precio = findViewById(R.id.detail_pre);
         view_img = findViewById(R.id.detail_view_img);
 
+        //toolbar 1 Detalle
         textToolbar = findViewById(R.id.titleToolbar);
         String titleToolbar = getString(R.string.toolbartitledetail);
         textToolbar.setText(titleToolbar);
@@ -196,7 +197,6 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         }
 
         private void testsave(){
-
             File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             File dir = new File(file.getAbsolutePath() + "/SaveImage");
             if (!dir.exists()) {

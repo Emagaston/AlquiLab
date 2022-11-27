@@ -33,7 +33,7 @@
         <item>Offer rent</item>
     </string-array>
 
-
+    <string name="toolbartitleNewRent">New Rent</string>
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
     <string name="title_new">New rent</string>

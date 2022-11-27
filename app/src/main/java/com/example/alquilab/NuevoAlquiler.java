@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.OutputStream;
 import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
@@ -40,80 +41,34 @@ public class NuevoAlquiler extends AppCompatActivity {
     private Double longitudP;
     private Uri uri, uriG;
     private EditText nombre, descripcion, direccion, barrio, habitaciones, precio;
-    private String nom, des, dir, bar, hab, pre;
     private Button btn_add;
     private TextView btn_map;
     private ImageView view_img;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, myref;
-    private FirebaseAuth mAuth;
-    String idUser;
-    private Casa casa;
-    String nomp, desp,dirp,barp,habp,prep;
+    private String nom, des, dir, bar, hab, pre;
+    private String idUser;
+    private String nomp, desp,dirp,barp,habp,prep;
 
-    @Override
-    public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //
-            } else {
-                Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+
+    private Casa casa;
+
+    private TextView textToolbar;
+    private ImageView imageToolbar;
+    private OutputStream outputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_alquiler);
 
-        btn_add = (Button)findViewById(R.id.btn_add);
-        btn_map = (TextView) findViewById(R.id.btn_map);
-        nombre = (EditText) findViewById(R.id.edit_nom);
-        descripcion = (EditText) findViewById(R.id.edit_des);
-        direccion = (EditText) findViewById(R.id.edit_dir);
-        barrio = (EditText) findViewById(R.id.edit_bar);
-        habitaciones = (EditText) findViewById(R.id.edit_hab);
-        precio = (EditText) findViewById(R.id.edit_pre);
-        view_img = (ImageView) findViewById(R.id.view_img);
-
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        //recupero parametros del map
-        Bundle bundle  = getIntent().getExtras();
-        if(bundle !=null){
-            latitudP = bundle.getDouble("latitud");
-            longitudP = bundle.getDouble("longitud");
-            nomp =  bundle.getString("nomp");
-            desp =  bundle.getString("desp");
-            dirp =  bundle.getString("dirp");
-            barp =  bundle.getString("barp");
-            habp =  bundle.getString("habp");
-            prep =  bundle.getString("prep");
-        }
-        else{
-            latitudP = 0.0;
-            longitudP = 0.0;
-            nomp = "";
-            desp = "";
-            dirp = "";
-            barp = "";
-            habp = "";
-            prep = "";
-        }
-        nombre.setText(nomp);
-        descripcion.setText(desp);
-        direccion.setText(dirp);
-        barrio.setText(barp);
-        habitaciones.setText(habp);
-        precio.setText(prep);
-
-
+        //recupero parametros del mapa
+        recuperarDatos();
+        configurarToolbar();
         inicializarFirebase();
 
-        //Listeners
+        //Listener ADD
         View.OnClickListener addListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,15 +94,6 @@ public class NuevoAlquiler extends AppCompatActivity {
                 }
             }
 
-            private void limpiarCajas() {
-                nombre.setText("");
-                descripcion.setText("");
-                direccion.setText("");
-                barrio.setText("");
-                habitaciones.setText("");
-                precio.setText("");
-                uri =null;
-            }
 
             private void validacion() {
                 String nom = nombre.getText().toString();
@@ -174,17 +120,19 @@ public class NuevoAlquiler extends AppCompatActivity {
                 if (pre.equals("")){
                     precio.setError("Requerido");
                 }
-                //if latitud =0;
 
             }
         };
 
+        //Listener IMG
         View.OnClickListener imgListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (longitudP == 0.0){
                     Toast.makeText(NuevoAlquiler.this, "Primero el mapa!!", Toast.LENGTH_LONG).show();
                 }else {
+                    askPermission ();
+
                     Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/jpg");
@@ -194,7 +142,7 @@ public class NuevoAlquiler extends AppCompatActivity {
             };
         };
 
-
+        //Listener MAP
         View.OnClickListener mapListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,11 +171,26 @@ public class NuevoAlquiler extends AppCompatActivity {
             }
         };
 
+        //asociamos los listener a los
         btn_add.setOnClickListener(addListener);
         view_img.setOnClickListener(imgListener);
         btn_map.setOnClickListener(mapListener);
     }
 
+    //respuesta de solicitud de permisos
+    @Override
+    public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //
+            } else {
+                Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -255,12 +218,12 @@ public class NuevoAlquiler extends AppCompatActivity {
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();//myref
+        databaseReference = firebaseDatabase.getReference();
         mAuth = FirebaseAuth.getInstance();
         idUser = mAuth.getCurrentUser().getUid();
     }
 
-    //launcher de la galeria, par subir fotos
+    //launcher de la galeria, para subir fotos
     ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -281,6 +244,66 @@ public class NuevoAlquiler extends AppCompatActivity {
         }
     });
 
+    private void recuperarDatos(){
+        btn_add = (Button)findViewById(R.id.btn_add);
+        btn_map = (TextView) findViewById(R.id.btn_map);
+        nombre = (EditText) findViewById(R.id.edit_nom);
+        descripcion = (EditText) findViewById(R.id.edit_des);
+        direccion = (EditText) findViewById(R.id.edit_dir);
+        barrio = (EditText) findViewById(R.id.edit_bar);
+        habitaciones = (EditText) findViewById(R.id.edit_hab);
+        precio = (EditText) findViewById(R.id.edit_pre);
+        view_img = (ImageView) findViewById(R.id.view_img);
+
+        Bundle bundle  = getIntent().getExtras();
+        if(bundle !=null){
+            latitudP = bundle.getDouble("latitud");
+            longitudP = bundle.getDouble("longitud");
+            nomp =  bundle.getString("nomp");
+            desp =  bundle.getString("desp");
+            dirp =  bundle.getString("dirp");
+            barp =  bundle.getString("barp");
+            habp =  bundle.getString("habp");
+            prep =  bundle.getString("prep");
+        }
+        else{
+            latitudP = 0.0;
+            longitudP = 0.0;
+            nomp = "";
+            desp = "";
+            dirp = "";
+            barp = "";
+            habp = "";
+            prep = "";
+        }
+        nombre.setText(nomp);
+        descripcion.setText(desp);
+        direccion.setText(dirp);
+        barrio.setText(barp);
+        habitaciones.setText(habp);
+        precio.setText(prep);
+    }
+
+    private void configurarToolbar() {
+        //toolbar 1 NuevoAlquiler
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.toolbartitleNewRent);
+        textToolbar.setText(titleToolbar);
+
+        imageToolbar = findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(NuevoAlquiler.this, HomePropietario.class));
+        });
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+    }
+
+    //desde el onclic IMG
+    private void askPermission () {
+        ActivityCompat.requestPermissions(NuevoAlquiler.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+    }
+
+    //desde el onclic ADD
     private void crearCasa() {
         nom = nombre.getText().toString();
         des = descripcion.getText().toString();

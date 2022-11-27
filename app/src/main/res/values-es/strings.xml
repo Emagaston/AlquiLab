@@ -32,7 +32,7 @@
         <item>Buscar alquiler</item>
         <item>Ofrecer alquiler</item>
     </string-array>
-
+    <string name="toolbartitleNewRent">Nuevo Alquiler</string>
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
     <string name="title_new">Nuevo Alquiler</string>
