@@ -103,21 +103,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void cargarPreferencias() {
         sharedPreferences = getSharedPreferences("Opcion", Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("opcion","");
-        if (language.equals("Español")) {
+        if (language.equals(getString(R.string.idiomaES))) {
             Locale idiom_es = new Locale("es", "ES");
             Locale.setDefault(idiom_es);
             Configuration config_es = new Configuration();
             config_es.locale = idiom_es;
             getBaseContext().getResources().updateConfiguration(config_es, getBaseContext().getResources().getDisplayMetrics());
         }else{
-            if (language.equals("English")) {
+            if (language.equals(getString(R.string.idiomaEN))) {
                 Locale idiom_en = new Locale("en", "EN");
                 Locale.setDefault(idiom_en);
                 Configuration config_en = new Configuration();
                 config_en.locale = idiom_en;
                 getBaseContext().getResources().updateConfiguration(config_en, getBaseContext().getResources().getDisplayMetrics());
             } else {
-                if (language.equals("French")) {
+                if (language.equals(getString(R.string.idiomaFR))) {
                     Locale idiom_fr = new Locale("fr", "FR");
                     Locale.setDefault(idiom_fr);
                     Configuration config_fr = new Configuration();
@@ -163,4 +163,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
     }
+
 }
