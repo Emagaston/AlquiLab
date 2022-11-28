@@ -36,7 +36,7 @@ import java.util.UUID;
 
 public class NuevoAlquiler extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
-    private Toolbar mToolbar;
+
     private Double latitudP;
     private Double longitudP;
     private Uri uri, uriG;
@@ -54,6 +54,7 @@ public class NuevoAlquiler extends AppCompatActivity {
 
     private Casa casa;
 
+    private Toolbar mToolbar;
     private TextView textToolbar;
     private ImageView imageToolbar;
     private OutputStream outputStream;
@@ -63,6 +64,8 @@ public class NuevoAlquiler extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_alquiler);
 
+        //asociamos componentes
+        asociarComponentes();
         //recupero parametros del mapa
         recuperarDatos();
         configurarToolbar();
@@ -177,7 +180,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         btn_map.setOnClickListener(mapListener);
     }
 
-    //respuesta de solicitud de permisos
+    //respuesta la respuesta a la solicitud de permisos
     @Override
     public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
         if (requestCode == REQUEST_CODE) {
@@ -196,7 +199,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    //redireccion de la opcion seleccionada del menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -214,7 +217,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    //conexion y variables de firebase
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -235,16 +238,14 @@ public class NuevoAlquiler extends AppCompatActivity {
                 //definimos el nombre de la imagen
                 final StorageReference file_name = Folder.child("file"+uri.getLastPathSegment());
                 file_name.putFile(uri).addOnSuccessListener(taskSnapshot -> file_name.getDownloadUrl().addOnSuccessListener(uri1 -> {
-
-                    //este es el problema
-                    //databaseReference.child("Casa").child(casa.getId()).setValue(casa);
+                    //una vez seleccinada la imagen, se valida OK
                     uriG=uri1;
                 }));
             }
         }
     });
 
-    private void recuperarDatos(){
+    private void asociarComponentes(){
         btn_add = (Button)findViewById(R.id.btn_add);
         btn_map = (TextView) findViewById(R.id.btn_map);
         nombre = (EditText) findViewById(R.id.edit_nom);
@@ -254,8 +255,11 @@ public class NuevoAlquiler extends AppCompatActivity {
         habitaciones = (EditText) findViewById(R.id.edit_hab);
         precio = (EditText) findViewById(R.id.edit_pre);
         view_img = (ImageView) findViewById(R.id.view_img);
+    }
 
+    private void recuperarDatos(){
         Bundle bundle  = getIntent().getExtras();
+        //obtenmos los datos enviados por el activity_maps
         if(bundle !=null){
             latitudP = bundle.getDouble("latitud");
             longitudP = bundle.getDouble("longitud");
@@ -265,7 +269,7 @@ public class NuevoAlquiler extends AppCompatActivity {
             barp =  bundle.getString("barp");
             habp =  bundle.getString("habp");
             prep =  bundle.getString("prep");
-        }
+        }//si no paso por mapa
         else{
             latitudP = 0.0;
             longitudP = 0.0;
@@ -276,6 +280,7 @@ public class NuevoAlquiler extends AppCompatActivity {
             habp = "";
             prep = "";
         }
+        //completamos los datos del formulario
         nombre.setText(nomp);
         descripcion.setText(desp);
         direccion.setText(dirp);
@@ -304,6 +309,7 @@ public class NuevoAlquiler extends AppCompatActivity {
     }
 
     //desde el onclic ADD
+    //todos los datos ya validados
     private void crearCasa() {
         nom = nombre.getText().toString();
         des = descripcion.getText().toString();

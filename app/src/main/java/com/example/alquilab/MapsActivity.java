@@ -12,8 +12,11 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -29,25 +32,26 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.OutputStream;
 import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int REQUEST_CODE = 1;
+    private Toolbar mToolbar;
     private FusedLocationProviderClient fusedLocationClient;
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private double latitud;
     private double longitud;
-    Toolbar mToolbar;
     private Button btn_save;
     String nomp, desp,dirp,barp,habp,prep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
 
+        //recupero los datos enviados por NuevoAlquiler
+        //para setearlos de nuevo al seleccionar la ubicacion
         Bundle bundle  = getIntent().getExtras();
         if(bundle !=null){
             nomp =  bundle.getString("nomp");
@@ -58,13 +62,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             prep =  bundle.getString("prep");
         }
 
-
         mToolbar = findViewById(R.id.toolbar);
 
         //maps
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //if (subirLatLongFirebase()) return;
-
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -73,7 +74,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //boton guardar
+        //Listener del boton guardar
+        //con los datos, vuelvo a NuevoAlquiler
         View.OnClickListener saveUbication = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,53 +92,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 finish();
             }
         };
+
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(saveUbication);
-        cargarPreferencias();
     }
 
-    /*private boolean subirLatLongFirebase() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            Log.e("Latitud", location.getLatitude() + " Longitud: " + location.getLongitude());
-                            latitud = location.getLatitude();
-                            longitud = location.getLongitude();
-                        }
-                    }
-                });
-        return false;
-    }*/
-
-/*
-    @Override
-    public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //
-            } else {
-                Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-*/
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        //verifico si tengo los permisos concedidos.
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //no tengo el permiso
-       //     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
-            return;
+           return;
         }
 
         mMap.setMyLocationEnabled(true);
@@ -146,6 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
+                //recupero latitud y longitud
                 latitud = location.getLatitude();
                 longitud = location.getLongitude();
                 LatLng miUbicacion = new LatLng(location.getLatitude(),location.getLongitude());
@@ -161,33 +131,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
-    }
-
-    private void cargarPreferencias() {
-        SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
-        String language = sharedPreferences.getString("opcion","");
-        if (language.equals("Español")) {
-            Locale idiom_es = new Locale("es", "ES");
-            Locale.setDefault(idiom_es);
-            Configuration config_es = new Configuration();
-            config_es.locale = idiom_es;
-            getBaseContext().getResources().updateConfiguration(config_es, getBaseContext().getResources().getDisplayMetrics());
-        }else{
-            if (language.equals("English")) {
-                Locale idiom_en = new Locale("en", "EN");
-                Locale.setDefault(idiom_en);
-                Configuration config_en = new Configuration();
-                config_en.locale = idiom_en;
-                getBaseContext().getResources().updateConfiguration(config_en, getBaseContext().getResources().getDisplayMetrics());
-            } else {
-                if (language.equals("French")) {
-                    Locale idiom_fr = new Locale("fr", "FR");
-                    Locale.setDefault(idiom_fr);
-                    Configuration config_fr = new Configuration();
-                    config_fr.locale = idiom_fr;
-                    getBaseContext().getResources().updateConfiguration(config_fr, getBaseContext().getResources().getDisplayMetrics());
-                }
-            }
-        }
     }
 }

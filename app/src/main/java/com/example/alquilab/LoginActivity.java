@@ -47,22 +47,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
         register = findViewById(R.id.register);
-        register.setOnClickListener(this);
+        forgotPassword = findViewById(R.id.forgotPassword);
         btnLogin = findViewById(R.id.btnLogin);
+
+        forgotPassword.setOnClickListener(this);
+        register.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
 
         editEmailLogin = findViewById(R.id.emailLogin);
         editpasswordLogin = findViewById(R.id.passwordLogin);
-
         progressBar = findViewById(R.id.progressBar);
-
-        forgotPassword = findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(this);
 
         cargarPreferencias();
     }
 
+    //ShardePreferences
+    //manejo de idioma
     private void cargarPreferencias() {
         SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("opcion","");
@@ -110,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String emailLogin = editEmailLogin.getText().toString().trim();
         String passLogin = editpasswordLogin.getText().toString().trim();
 
+        //validacion de campos email y password
         if (emailLogin.isEmpty()){
             editEmailLogin.setError(getResources().getString(R.string.errorEmail));
             editEmailLogin.requestFocus();
@@ -133,25 +136,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar.setVisibility(View.VISIBLE);
 
+        //logueo firebase
         mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if (task.isSuccessful()){
                     FirebaseUser user = mAuth.getCurrentUser();
                     mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
+
                             if (!task.isSuccessful()) {
                                 Log.e("firebase", "Error getting data", task.getException());
                             }
                             else {
+                                //capturamos el usuario logueado para verificar el rol
+                                //si es propietario, cargamos el homepropietario
                                 user2 = task.getResult().getValue(User.class);
                                 rol = user2.getRol();
                                 if (rol.equals("2")){
                                     startActivity(new Intent(LoginActivity.this, HomePropietario.class));
                                     finish();
                                 }else{
+                                    //si no es propietario se desloguea y cierra.
                                     Toast.makeText(LoginActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
                                     FirebaseAuth.getInstance().signOut();
                                     progressBar.setVisibility(View.GONE);
@@ -171,6 +179,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    //Manejo de sesion iniciada
+    //redirecciona a home propietario
     @Override
     protected void onStart() {
         super.onStart();
