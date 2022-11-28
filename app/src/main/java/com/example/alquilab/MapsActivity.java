@@ -45,6 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double longitud;
     private Button btn_save;
     String nomp, desp,dirp,barp,habp,prep;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        cargarPreferencias();
+
         //Listener del boton guardar
         //con los datos, vuelvo a NuevoAlquiler
         View.OnClickListener saveUbication = new View.OnClickListener() {
@@ -95,6 +98,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(saveUbication);
+    }
+
+    private void cargarPreferencias() {
+        sharedPreferences = getSharedPreferences("Opcion", Context.MODE_PRIVATE);
+        String language = sharedPreferences.getString("opcion","");
+        if (language.equals("Español")) {
+            Locale idiom_es = new Locale("es", "ES");
+            Locale.setDefault(idiom_es);
+            Configuration config_es = new Configuration();
+            config_es.locale = idiom_es;
+            getBaseContext().getResources().updateConfiguration(config_es, getBaseContext().getResources().getDisplayMetrics());
+        }else{
+            if (language.equals("English")) {
+                Locale idiom_en = new Locale("en", "EN");
+                Locale.setDefault(idiom_en);
+                Configuration config_en = new Configuration();
+                config_en.locale = idiom_en;
+                getBaseContext().getResources().updateConfiguration(config_en, getBaseContext().getResources().getDisplayMetrics());
+            } else {
+                if (language.equals("French")) {
+                    Locale idiom_fr = new Locale("fr", "FR");
+                    Locale.setDefault(idiom_fr);
+                    Configuration config_fr = new Configuration();
+                    config_fr.locale = idiom_fr;
+                    getBaseContext().getResources().updateConfiguration(config_fr, getBaseContext().getResources().getDisplayMetrics());
+                }
+            }
+        }
     }
 
     @Override

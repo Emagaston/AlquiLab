@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String rol="";
     private User user2;
+    SharedPreferences sharedPreferences;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +67,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //ShardePreferences
     //manejo de idioma
     private void cargarPreferencias() {
-        SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("opcion","");
-        if (language.equals("Español")) {
+        if (language.equals(getString(R.string.idiomaES))) {
             Locale idiom_es = new Locale("es", "ES");
             Locale.setDefault(idiom_es);
             Configuration config_es = new Configuration();
             config_es.locale = idiom_es;
             getBaseContext().getResources().updateConfiguration(config_es, getBaseContext().getResources().getDisplayMetrics());
         }else{
-            if (language.equals("English")) {
+            if (language.equals(getString(R.string.idiomaEN))) {
                 Locale idiom_en = new Locale("en", "EN");
                 Locale.setDefault(idiom_en);
                 Configuration config_en = new Configuration();
                 config_en.locale = idiom_en;
                 getBaseContext().getResources().updateConfiguration(config_en, getBaseContext().getResources().getDisplayMetrics());
             } else {
-                if (language.equals("French")) {
+                if (language.equals(getString(R.string.idiomaFR))) {
                     Locale idiom_fr = new Locale("fr", "FR");
                     Locale.setDefault(idiom_fr);
                     Configuration config_fr = new Configuration();

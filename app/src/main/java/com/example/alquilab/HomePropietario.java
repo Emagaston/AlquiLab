@@ -89,7 +89,7 @@ public class HomePropietario extends AppCompatActivity {
 }
 
     private void listaVacia() {
-        String sms = "No tiene ninguna propiedad! \n Agregue uno!";
+        String sms = getString(R.string.listVacia);
         TextListVacia.setText(sms);
         TextListVacia.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
@@ -177,4 +177,6 @@ public class HomePropietario extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

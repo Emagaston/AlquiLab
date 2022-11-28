@@ -120,4 +120,10 @@
     <string name="TextNotificacion">Image has been downloaded!</string>
     <string name="TextDescargaCompletada">Saved successfully</string>
 
+
+    <string name="listVacia">He has no property! \n Add one!</string>
+    <string name="selectIdioma">Select a language</string>
+    <string name="idiomaES">Spanish</string>
+    <string name="idiomaEN">English</string>
+    <string name="idiomaFR">French</string>
 </resources>
