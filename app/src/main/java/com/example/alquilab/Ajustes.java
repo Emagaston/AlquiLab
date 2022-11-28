@@ -48,13 +48,13 @@ public class Ajustes extends AppCompatActivity {
         textLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] opciones = {"Español", "English", "French"};
+                final CharSequence[] opciones = {getString(R.string.idiomaES), getString(R.string.idiomaEN), getString(R.string.idiomaFR)};
                 final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(Ajustes.this);
-                alertaOpciones.setTitle("Seleccione un idioma");
+                alertaOpciones.setTitle(getString(R.string.selectIdioma));
                 alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if (opciones[i].equals("Español")) {
+                                if (opciones[i].equals(getString(R.string.idiomaES))) {
                                     Locale idiom_es = new Locale("es", "ES");
                                     Locale.setDefault(idiom_es);
                                     Configuration config_es = new Configuration();
@@ -63,7 +63,7 @@ public class Ajustes extends AppCompatActivity {
                                     finish();
                                     startActivity(getIntent());
                                 } else {
-                                    if (opciones[i].equals("English")) {
+                                    if (opciones[i].equals(getString(R.string.idiomaEN))) {
                                         Locale idiom_en = new Locale("en", "EN");
                                         Locale.setDefault(idiom_en);
                                         Configuration config_en = new Configuration();
@@ -72,7 +72,7 @@ public class Ajustes extends AppCompatActivity {
                                         finish();
                                         startActivity(getIntent());
                                     } else {
-                                        if (opciones[i].equals("French")) {
+                                        if (opciones[i].equals(getString(R.string.idiomaFR))) {
                                             Locale idiom_fr = new Locale("fr", "FR");
                                             Locale.setDefault(idiom_fr);
                                             Configuration config_fr = new Configuration();
