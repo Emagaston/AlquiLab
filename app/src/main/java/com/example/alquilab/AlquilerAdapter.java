@@ -117,7 +117,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         String habitaciones = casa.getHabitaciones();
         String latitud = casa.getLatitud();
         String longitud = casa.getLongitud();
-        //String estado = casa.getEstado();
 
         //llamada a DETALLEALQUILER
         holder.photo.setOnClickListener(new View.OnClickListener() {
