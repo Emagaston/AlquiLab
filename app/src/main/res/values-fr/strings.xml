@@ -80,6 +80,11 @@
     <string name="errorName">Entrer un nom!</string>
     <string name="errorNumber">Entrer un numéro!</string>
     <string name="errorNumberValid">Il doit contenir plus de 8 chiffres!</string>
+    <string name="errorDescript">Entrer une description!</string>
+    <string name="errorAdress">Entrer une adresse!</string>
+    <string name="errorBarrio">Entrer dans un quartier!</string>
+    <string name="errorRooms">Saisissez un certain nombre de pièces!</string>
+    <string name="errorPrice">Entrer un prix!</string>
 
     <string name="ToastLogin">Erreur lors de la connexion, Veuillez vérifier vos données!</string>
     <string name="ToastForgot">Vérifiez votre email!</string>
@@ -120,6 +125,14 @@
     <string name="TextNotificacion">Limage a été téléchargée!</string>
     <string name="RequierePermisos">Nécessite des autorisations</string>
     <string name="TextDescargaCompletada">Enregistré avec succès</string>
+
+    <string name="Searchempty">Il na pas été trouvé</string>
+
+    <string name="firstMap">Dabord la carte!!</string>
+    <string name="loadImage">Télécharger une image!!</string>
+
+    <string name="AddRent">Loyer ajouté!!</string>
+    <string name="AddLoadImage">Vous devez télécharger une image!!</string>
 
     <string name="listVacia">Vous n\'avez pas encore enregistré de propriété ! \nAjoutez-en un!</string>
     <string name="selectIdioma">Sélectionnez une langue</string>

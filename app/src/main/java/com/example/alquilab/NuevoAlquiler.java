@@ -88,11 +88,11 @@ public class NuevoAlquiler extends AppCompatActivity {
                     if (uriG != null){
                         crearCasa();
                         databaseReference.child("Casa").child(casa.getId()).setValue(casa);
-                        Toast.makeText(NuevoAlquiler.this, "Alquiler agregado!!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(NuevoAlquiler.this, getString(R.string.AddRent), Toast.LENGTH_LONG).show();
                         startActivity(new Intent(NuevoAlquiler.this, LoginActivity.class));
                     }
                     else{
-                        Toast.makeText(NuevoAlquiler.this, "Debe cargar una imagen!!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(NuevoAlquiler.this, getString(R.string.AddLoadImage), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -106,22 +106,22 @@ public class NuevoAlquiler extends AppCompatActivity {
                 String hab = habitaciones.getText().toString();
                 String pre = precio.getText().toString();
                 if (nom.equals("")){
-                    nombre.setError("Requerido");
+                    nombre.setError(getString(R.string.errorName));
                 }
                 if (des.equals("")){
-                    descripcion.setError("Requerido");
+                    descripcion.setError(getString(R.string.errorDescript));
                 }
                 if (dir.equals("")){
-                    direccion.setError("Requerido");
+                    direccion.setError(getString(R.string.errorAdress));
                 }
                 if (bar.equals("")){
-                    barrio.setError("Requerido");
+                    barrio.setError(getString(R.string.errorBarrio));
                 }
                 if (hab.equals("")){
-                    habitaciones.setError("Requerido");
+                    habitaciones.setError(getString(R.string.errorRooms));
                 }
                 if (pre.equals("")){
-                    precio.setError("Requerido");
+                    precio.setError(getString(R.string.errorPrice));
                 }
 
             }
@@ -132,11 +132,11 @@ public class NuevoAlquiler extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (longitudP == 0.0){
-                    Toast.makeText(NuevoAlquiler.this, "Primero el mapa!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NuevoAlquiler.this, getString(R.string.firstMap), Toast.LENGTH_LONG).show();
                 }else {
                     askPermission ();
 
-                    Toast.makeText(NuevoAlquiler.this, "Cargar imagen!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NuevoAlquiler.this, getString(R.string.loadImage), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/jpg");
                     intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
@@ -187,7 +187,7 @@ public class NuevoAlquiler extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //
             } else {
-                Toast.makeText(this, "Requiere permisos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.RequierePermisos), Toast.LENGTH_SHORT).show();
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

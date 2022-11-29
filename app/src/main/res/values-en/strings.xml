@@ -79,6 +79,11 @@
     <string name="errorName">Enter a name!</string>
     <string name="errorNumber">Enter a number!</string>
     <string name="errorNumberValid">It has to contain more than 8 numbers!</string>
+    <string name="errorDescript">Enter a description!</string>
+    <string name="errorAdress">Enter an address!</string>
+    <string name="errorBarrio">Enter a neighborhood!</string>
+    <string name="errorRooms">Enter a number of rooms!</string>
+    <string name="errorPrice">Enter a price!</string>
 
     <string name="ToastLogin">Error when logging in!, Please verify your data!</string>
     <string name="ToastForgot">Verify your email!</string>
@@ -120,6 +125,13 @@
     <string name="TextNotificacion">Image has been downloaded!</string>
     <string name="TextDescargaCompletada">Saved successfully</string>
 
+    <string name="Searchempty">It was not found</string>
+
+    <string name="firstMap">First the map!!</string>
+    <string name="loadImage">Upload image!!</string>
+
+    <string name="AddRent">Rent added!!</string>
+    <string name="AddLoadImage">You must upload an image!!</string>
 
     <string name="listVacia">You haven\'t registered any property yet! \nAdd one!</string>
     <string name="selectIdioma">Select a language</string>

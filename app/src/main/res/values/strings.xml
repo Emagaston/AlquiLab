@@ -95,6 +95,11 @@
     <string name="errorName">Ingrese un nombre!</string>
     <string name="errorNumber">Ingrese un número!</string>
     <string name="errorNumberValid">Tiene que contener más de 8 números!</string>
+    <string name="errorDescript">Ingrese una descripción!</string>
+    <string name="errorAdress">Ingrese una dirección!</string>
+    <string name="errorBarrio">Ingrese un barrio!</string>
+    <string name="errorRooms">Ingrese una cantidad de habitaciones!</string>
+    <string name="errorPrice">Ingrese un precio!</string>
 
     <string name="ToastLogin">Error al iniciar sesion!, Por favor verifique sus datos!</string>
     <string name="ToastForgot">Verifique su correo electrónico!</string>
@@ -126,6 +131,14 @@
     <string name="TitleDescargaNotificacion">Descarga de imagen</string>
     <string name="TextNotificacion">Se ha descargado la imagen!</string>
     <string name="toolbartitleNewRent">Nuevo Alquiler</string>
+
+    <string name="Searchempty">No se encontró</string>
+
+    <string name="firstMap">Primero el mapa!!</string>
+    <string name="loadImage">Cargar imagen!!</string>
+
+    <string name="AddRent">Alquiler agregado!!</string>
+    <string name="AddLoadImage">Debe cargar una imagen!!</string>
 
     <string name="listVacia">Aún no registró ninguna propiedad! \n Agregue una!</string>
     <string name="selectIdioma">Seleccione un idioma</string>
