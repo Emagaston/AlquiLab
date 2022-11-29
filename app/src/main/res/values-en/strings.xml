@@ -121,7 +121,7 @@
     <string name="TextDescargaCompletada">Saved successfully</string>
 
 
-    <string name="listVacia">You haven't registered any property yet! \nAdd one!</string>
+    <string name="listVacia">You haven\'t registered any property yet! \nAdd one!</string>
     <string name="selectIdioma">Select a language</string>
     <string name="idiomaES">Spanish</string>
     <string name="idiomaEN">English</string>
