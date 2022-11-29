@@ -67,52 +67,10 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_alquiler);
+        asignamosComponentes();
+        recuperamosParametros();
 
-        nombre = findViewById(R.id.detail_nom);
-        descripcion = findViewById(R.id.detail_des);
-        direccion = findViewById(R.id.detail_dir);
-        barrio = findViewById(R.id.detail_bar);
-        habitaciones = findViewById(R.id.detail_hab);
-        precio = findViewById(R.id.detail_pre);
-        view_img = findViewById(R.id.detail_view_img);
-
-        //toolbar 1 Detalle
-        textToolbar = findViewById(R.id.titleToolbar);
-        String titleToolbar = getString(R.string.toolbartitledetail);
-        textToolbar.setText(titleToolbar);
-
-        imageToolbar = findViewById(R.id.imageToolbar1);
-        imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(DetalleAlquiler.this, HomePropietario.class));
-        });
-
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            longitudMap = bundle.getDouble("longitud1");
-            latitudMap = bundle.getDouble("latitud1");
-            nom = bundle.getString("nom");
-            barr = bundle.getString("barrio");
-            pre = bundle.getString("precio");
-            img = bundle.getString("imagen");
-            det = bundle.getString("descripcion");
-            direc = bundle.getString("direccion");
-            hab = bundle.getString("habitaciones");
-        }
-        nombre.setText(nom);
-        barrio.setText(barr);
-        precio.setText(pre);
-        descripcion.setText(det);
-        direccion.setText(direc);
-        habitaciones.setText(hab);
-        Glide.with(this).load(img).into(view_img);
-
+        //Listener IMG
         view_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +99,54 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         });
     }
 
+    private void asignamosComponentes() {
+        nombre = findViewById(R.id.detail_nom);
+        descripcion = findViewById(R.id.detail_des);
+        direccion = findViewById(R.id.detail_dir);
+        barrio = findViewById(R.id.detail_bar);
+        habitaciones = findViewById(R.id.detail_hab);
+        precio = findViewById(R.id.detail_pre);
+        view_img = findViewById(R.id.detail_view_img);
+
+        //toolbar 1 Detalle
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.toolbartitledetail);
+        textToolbar.setText(titleToolbar);
+
+        imageToolbar = findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(DetalleAlquiler.this, HomePropietario.class));
+        });
+
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+    private void recuperamosParametros() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            longitudMap = bundle.getDouble("longitud1");
+            latitudMap = bundle.getDouble("latitud1");
+            nom = bundle.getString("nom");
+            barr = bundle.getString("barrio");
+            pre = bundle.getString("precio");
+            img = bundle.getString("imagen");
+            det = bundle.getString("descripcion");
+            direc = bundle.getString("direccion");
+            hab = bundle.getString("habitaciones");
+        }
+        nombre.setText(nom);
+        barrio.setText(barr);
+        precio.setText(pre);
+        descripcion.setText(det);
+        direccion.setText(direc);
+        habitaciones.setText(hab);
+        Glide.with(this).load(img).into(view_img);
+    }
+
+    //descarga de imagen
     private void crearCanalNotificacion () {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Descarga de imagen";
@@ -149,7 +155,6 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
-
     private void crearNotifcacion() {
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/SaveImage/";
         Uri uri = Uri.parse(path);
@@ -158,7 +163,6 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(LoginActivity.class);
         stackBuilder.addNextIntent(intent);
-        //PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pendingIntent = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_MUTABLE);
@@ -177,86 +181,91 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(IDunica, builder.build());
-        }
+    }
 
-        private void askPermission () {
-            ActivityCompat.requestPermissions(DetalleAlquiler.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-        }
+    //solicitamos permiso (no necesario, por flujo, primero NuevoAlquiler)
+    private void askPermission () {
+        ActivityCompat.requestPermissions(DetalleAlquiler.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+    }
 
-        @Override
-        public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
-        @NonNull int[] grantResults){
-            if (requestCode == REQUEST_CODE) {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   //testsave();
-                } else {
-                    Toast.makeText(this, getResources().getString(R.string.RequierePermisos), Toast.LENGTH_SHORT).show();
-                }
-            }
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
-        private void testsave(){
-            File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            File dir = new File(file.getAbsolutePath() + "/SaveImage");
-            if (!dir.exists()) {
-                dir.mkdir();
-            }
-            BitmapDrawable draw = (BitmapDrawable)  view_img.getDrawable();
-            Bitmap bitmap = draw.getBitmap();
-
-            String fileName = String.format("%d.png", System.currentTimeMillis());
-            File outFile = new File(dir, fileName);
-            try {
-                outputStream = new FileOutputStream(outFile);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            Toast.makeText(this, getResources().getString(R.string.TextDescargaCompletada), Toast.LENGTH_SHORT).show();
-            try {
-                outputStream.flush();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            try {
-                outputStream.close();
-            }catch (Exception e){
-                e.printStackTrace();
+    //obtenemos la respuesta de la solicitud de permisos
+    @Override
+    public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
+    @NonNull int[] grantResults){
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+               //testsave();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.RequierePermisos), Toast.LENGTH_SHORT).show();
             }
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
-        @Override
-        public void onMapReady (@NonNull GoogleMap googleMap){
-            mMap = googleMap;
-            Bundle bundle1 = getIntent().getExtras();
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
-            LocationManager locationManager = (LocationManager) DetalleAlquiler.this.getSystemService(Context.LOCATION_SERVICE);
-            LocationListener locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    latitudMap = Double.parseDouble(bundle1.getString("latitud1"));
-                    longitudMap = Double.parseDouble(bundle1.getString("longitud1"));
-                    LatLng miUbicacion = new LatLng(latitudMap, longitudMap);
-                    mMap.addMarker(new MarkerOptions().position(miUbicacion).title("Acá estoy!"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
-                    CameraPosition cameraPosition = new CameraPosition.Builder()
-                            .target(miUbicacion)
-                            .zoom(15)
-                            .bearing(0)
-                            .tilt(0)
-                            .build();
-                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                }
-            };
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+    //guardamos la imagen
+    private void testsave(){
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File dir = new File(file.getAbsolutePath() + "/SaveImage");
+        if (!dir.exists()) {
+            dir.mkdir();
         }
+        BitmapDrawable draw = (BitmapDrawable)  view_img.getDrawable();
+        Bitmap bitmap = draw.getBitmap();
+
+        String fileName = String.format("%d.png", System.currentTimeMillis());
+        File outFile = new File(dir, fileName);
+        try {
+            outputStream = new FileOutputStream(outFile);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        Toast.makeText(this, getResources().getString(R.string.TextDescargaCompletada), Toast.LENGTH_SHORT).show();
+        try {
+            outputStream.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //MAPA
+    @Override
+    public void onMapReady (@NonNull GoogleMap googleMap){
+        mMap = googleMap;
+        Bundle bundle1 = getIntent().getExtras();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        LocationManager locationManager = (LocationManager) DetalleAlquiler.this.getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                latitudMap = Double.parseDouble(bundle1.getString("latitud1"));
+                longitudMap = Double.parseDouble(bundle1.getString("longitud1"));
+                LatLng miUbicacion = new LatLng(latitudMap, longitudMap);
+                mMap.addMarker(new MarkerOptions().position(miUbicacion).title("Acá estoy!"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(miUbicacion));
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(miUbicacion)
+                        .zoom(15)
+                        .bearing(0)
+                        .tilt(0)
+                        .build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
+        };
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+    }
 }
 
 

@@ -127,7 +127,7 @@
     <string name="TextNotificacion">Se ha descargado la imagen!</string>
     <string name="toolbartitleNewRent">Nuevo Alquiler</string>
 
-    <string name="listVacia">No tiene ninguna propiedad! \n Agregue uno!</string>
+    <string name="listVacia">Aún no registró ninguna propiedad! \n Agregue una!</string>
     <string name="selectIdioma">Seleccione un idioma</string>
     <string name="idiomaES">Español</string>
     <string name="idiomaEN">Inglés</string>

@@ -28,19 +28,9 @@ public class Ajustes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
-        mToolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(mToolbar);
+        setearToolbar();
 
-        textToolbar = findViewById(R.id.titleToolbar);
-        String titleToolbar = getString(R.string.settings);
-        textToolbar.setText(titleToolbar);
-
-        imageToolbar=findViewById(R.id.imageToolbar1);
-        imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(Ajustes.this,HomePropietario.class));
-        });
-
-
+        //Listener del lenguaje
         textLanguage=findViewById(R.id.textLenguaje);
         textLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +82,20 @@ public class Ajustes extends AppCompatActivity {
             }
         });
 }
+
+    private void setearToolbar() {
+        //toolbar
+        mToolbar = findViewById(R.id.toolbar1);
+        setSupportActionBar(mToolbar);
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.settings);
+        textToolbar.setText(titleToolbar);
+        imageToolbar=findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(Ajustes.this,HomePropietario.class));
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

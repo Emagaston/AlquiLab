@@ -55,6 +55,7 @@ public class HomePropietario extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TextListVacia = findViewById(R.id.textListVacia);
 
+        //creo el listado de alquileres
         list = new ArrayList<>();
         adapter = new AlquilerAdapter(this,list);
 
@@ -65,7 +66,9 @@ public class HomePropietario extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
+                //lista completa de los alquileres
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    //verificamos que el userid sea el propio.
                     Casa casa = dataSnapshot.getValue(Casa.class);
                     if (user1.getUid().contains(casa.getIdUser())) {
                         list.add(casa);
@@ -81,12 +84,11 @@ public class HomePropietario extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
         cargarPreferencias();
-}
+    }
+
 
     private void listaVacia() {
         String sms = getString(R.string.listVacia);
@@ -94,6 +96,7 @@ public class HomePropietario extends AppCompatActivity {
         TextListVacia.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
+
 
     private void cargarPreferencias() {
         sharedPreferences = getSharedPreferences("Opcion", Context.MODE_PRIVATE);
@@ -123,25 +126,9 @@ public class HomePropietario extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu,menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
-        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filter(newText);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
 
+
+    //búsqueda
     private void filter(String text) {
         ArrayList<Casa> filteredlist = new ArrayList<Casa>();
         for (Casa item: list){
@@ -160,7 +147,26 @@ public class HomePropietario extends AppCompatActivity {
 
     }
 
-
+    //menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.btn_Menu_Search).getActionView();
+        searchView.setQueryHint(getResources().getString(R.string.hintSearch));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+    //menu agregar,logout,filter
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){

@@ -50,6 +50,45 @@ public class EditarAlquiler extends AppCompatActivity {
         configurarToolbar();
         inicializarFirebase();
 
+        asociarIniciarComponentes();
+
+        //Listener del SAVE
+        View.OnClickListener savListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (nombre.getText().equals("") || descripcion.getText().equals("")){
+                    validacion();
+                }else{
+                    updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), String.valueOf(spinnerEstado.getSelectedItemId()));
+                }
+            }
+        };
+        btn_sav.setOnClickListener(savListener);
+    }
+
+    private void configurarToolbar() {
+        //toolbar 1 EditarAlquiler
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.edit_alq);
+        textToolbar.setText(titleToolbar);
+
+        imageToolbar = findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(EditarAlquiler.this, HomePropietario.class));
+        });
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+    }
+
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        casaReference = firebaseDatabase.getReference("Casa");
+    }
+
+    private void asociarIniciarComponentes() {
         btn_sav = (Button) findViewById(R.id.btn_sav);
         nombre = (EditText) findViewById(R.id.edit_nom);
         descripcion = (EditText) findViewById(R.id.edit_des);
@@ -90,20 +129,17 @@ public class EditarAlquiler extends AppCompatActivity {
                 spinnerEstado.setSelection(2);
                 break;
         }
+    }
 
-
-        View.OnClickListener savListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (nombre.getText().equals("") || descripcion.getText().equals("")){
-                    validacion();
-                }else{
-                    updateCasa(midp,nombre.getText().toString(),descripcion.getText().toString(),precio.getText().toString(), String.valueOf(spinnerEstado.getSelectedItemId()));
-                }
-            }
-        };
-        btn_sav.setOnClickListener(savListener);
+    private void validacion() {
+        String nom = nombre.getText().toString();
+        String des = descripcion.getText().toString();
+        if (nom.equals("")){
+            nombre.setError("Requerido");
+        }
+        if (des.equals("")){
+            descripcion.setError("Requerido");
+        }
     }
 
     private void updateCasa(String id, String nombre, String descripcion, String precio, String estado) {
@@ -126,31 +162,13 @@ public class EditarAlquiler extends AppCompatActivity {
         });
     }
 
-    private void inicializarFirebase() {
-        FirebaseApp.initializeApp(this);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        casaReference = firebaseDatabase.getReference("Casa");
-    }
-
-    private void validacion() {
-        String nom = nombre.getText().toString();
-        String des = descripcion.getText().toString();
-        if (nom.equals("")){
-            nombre.setError("Requerido");
-        }
-        if (des.equals("")){
-            descripcion.setError("Requerido");
-        }
-    }
-
+    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    //menu
     @Override
     public boolean onOptionsItemSelected(@androidx.annotation.NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -168,19 +186,7 @@ public class EditarAlquiler extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void configurarToolbar() {
-        //toolbar 1 EditarAlquiler
-        textToolbar = findViewById(R.id.titleToolbar);
-        String titleToolbar = getString(R.string.edit_alq);
-        textToolbar.setText(titleToolbar);
 
-        imageToolbar = findViewById(R.id.imageToolbar1);
-        imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(EditarAlquiler.this, HomePropietario.class));
-        });
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();

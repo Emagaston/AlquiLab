@@ -199,6 +199,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     //redireccion de la opcion seleccionada del menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -217,6 +218,7 @@ public class NuevoAlquiler extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     //conexion y variables de firebase
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(this);

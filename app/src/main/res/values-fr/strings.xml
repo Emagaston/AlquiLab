@@ -121,7 +121,7 @@
     <string name="RequierePermisos">Nécessite des autorisations</string>
     <string name="TextDescargaCompletada">Enregistré avec succès</string>
 
-    <string name="listVacia">Il na pas de propriété! \n Ajoute un!</string>
+    <string name="listVacia">Vous n\'avez pas encore enregistré de propriété ! \nAjoutez-en un!</string>
     <string name="selectIdioma">Sélectionnez une langue</string>
     <string name="idiomaES">Espagnol</string>
     <string name="idiomaEN">Anglais</string>

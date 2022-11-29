@@ -39,11 +39,19 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         this.list = list;
     }
 
+    //busqueda
     public void filterList(ArrayList<Casa> filterlist) {
         list = filterlist;
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+
+    //generamos cada item de propiedad
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -65,6 +73,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         String opc1 = context.getString(R.string.opc1);
         String opc2 = context.getString(R.string.opc2);
 
+        //modificamos el color del estado basado en el valor del mismo
         switch (estado){
             case "0":
                 estadoView = opc0;
@@ -112,7 +121,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         String habitaciones = casa.getHabitaciones();
         String latitud = casa.getLatitud();
         String longitud = casa.getLongitud();
-        //String estado = casa.getEstado();
 
         //llamada a DETALLEALQUILER
         holder.photo.setOnClickListener(new View.OnClickListener() {
@@ -145,12 +153,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 context.startActivity(intent);
             }
         });
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return list.size();
     }
 
 

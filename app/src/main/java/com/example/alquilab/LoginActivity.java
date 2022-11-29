@@ -41,7 +41,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String rol="";
     private User user2;
     SharedPreferences sharedPreferences;
-    
+    String passLogin,emailLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         cargarPreferencias();
     }
 
-    //ShardePreferences
+    //SharedPreferences
     //manejo de idioma
     private void cargarPreferencias() {
         sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //opciones Registrarse/loguearse/recuperar constraseña
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -101,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(this,RegisterUser.class));
                 break;
             case R.id.btnLogin:
-                userLogin();
+                userLogin();//
                 break;
             case R.id.forgotPassword:
                 startActivity(new Intent(this, ForgotPassword.class));
@@ -109,33 +111,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //loguearse
     private void userLogin() {
-        String emailLogin = editEmailLogin.getText().toString().trim();
-        String passLogin = editpasswordLogin.getText().toString().trim();
 
-        //validacion de campos email y password
-        if (emailLogin.isEmpty()){
-            editEmailLogin.setError(getResources().getString(R.string.errorEmail));
-            editEmailLogin.requestFocus();
-            return;
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches()){
-            editEmailLogin.setError(getResources().getString(R.string.errorEmailValid));
-            editEmailLogin.requestFocus();
-            return;
-        }
-        if (passLogin.isEmpty()){
-            editpasswordLogin.setError(getResources().getString(R.string.errorPassword));
-            editpasswordLogin.requestFocus();
-            return;
-        }
-        if (passLogin.length() < 6){
-            editpasswordLogin.setError(getResources().getString(R.string.errorPasswordValid));
-            editpasswordLogin.requestFocus();
-            return;
-        }
-
-        progressBar.setVisibility(View.VISIBLE);
+        validacionLogueo();
 
         //logueo firebase
         mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -178,6 +157,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+    }
+
+    private void validacionLogueo() {
+        emailLogin = editEmailLogin.getText().toString().trim();
+        passLogin = editpasswordLogin.getText().toString().trim();
+
+        //validacion de campos email y password
+        if (emailLogin.isEmpty()){
+            editEmailLogin.setError(getResources().getString(R.string.errorEmail));
+            editEmailLogin.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches()){
+            editEmailLogin.setError(getResources().getString(R.string.errorEmailValid));
+            editEmailLogin.requestFocus();
+            return;
+        }
+        if (passLogin.isEmpty()){
+            editpasswordLogin.setError(getResources().getString(R.string.errorPassword));
+            editpasswordLogin.requestFocus();
+            return;
+        }
+        if (passLogin.length() < 6){
+            editpasswordLogin.setError(getResources().getString(R.string.errorPasswordValid));
+            editpasswordLogin.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     //Manejo de sesion iniciada
