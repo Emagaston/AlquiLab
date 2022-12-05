@@ -1,20 +1,12 @@
 package com.example.alquilab;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.alquilab.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,25 +26,23 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.Tag;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView register, forgotPassword;
     private EditText editEmailLogin, editpasswordLogin;
     private Button btnLogin;
-
     private FirebaseAuth mAuth;
-
     private ProgressBar progressBar;
-
     private FirebaseDatabase db =FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private String rol="";
     private User user2;
-    
+    SharedPreferences sharedPreferences;
+    String passLogin,emailLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,26 +51,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
 
         register = findViewById(R.id.register);
-        register.setOnClickListener(this);
-
+        forgotPassword = findViewById(R.id.forgotPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(this);
 
+        forgotPassword.setOnClickListener(this);
+        register.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
 
         editEmailLogin = findViewById(R.id.emailLogin);
         editpasswordLogin = findViewById(R.id.passwordLogin);
-
         progressBar = findViewById(R.id.progressBar);
-
-        forgotPassword = findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(this);
 
         cargarPreferencias();
     }
 
-
+    //SharedPreferences
+    //manejo de idioma
     private void cargarPreferencias() {
-        SharedPreferences sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Opcion",Context.MODE_PRIVATE);
         String language = sharedPreferences.getString("opcion","");
         if (language.equals(getString(R.string.idiomaES))) {
             Locale idiom_es = new Locale("es", "ES");
@@ -103,25 +95,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //opciones Registrarse/loguearse/recuperar constraseña
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.register:
-                startActivity(new Intent(this,RegisterUser.class));
+                startActivity(new Intent(this, RegisterUserActivity.class));
                 break;
             case R.id.btnLogin:
-                userLogin();
+                userLogin();//
                 break;
             case R.id.forgotPassword:
-                startActivity(new Intent(this, ForgotPassword.class));
+                startActivity(new Intent(this, ForgotPasswordActivity.class));
                 break;
         }
     }
 
+    //loguearse
     private void userLogin() {
-        String emailLogin = editEmailLogin.getText().toString().trim();
-        String passLogin = editpasswordLogin.getText().toString().trim();
 
+        validacionLogueo();
+
+        //logueo firebase
+        mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            }
+                            else {
+                                //capturamos el usuario logueado para verificar el rol
+                                //si es propietario, cargamos el homepropietario
+                                user2 = task.getResult().getValue(User.class);
+                                rol = user2.getRol();
+                                if (rol.equals("2")){
+                                    startActivity(new Intent(LoginActivity.this, HomePropietarioActivity.class));
+                                    finish();
+                                }else{
+                                    //si no es propietario se desloguea y cierra.
+                                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
+                        }
+                    });
+                    editEmailLogin.setText("");
+                    editpasswordLogin.setText("");
+
+                }else {
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    private void validacionLogueo() {
+        emailLogin = editEmailLogin.getText().toString().trim();
+        passLogin = editpasswordLogin.getText().toString().trim();
+
+        //validacion de campos email y password
         if (emailLogin.isEmpty()){
             editEmailLogin.setError(getResources().getString(R.string.errorEmail));
             editEmailLogin.requestFocus();
@@ -144,51 +186,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         progressBar.setVisibility(View.VISIBLE);
-
-        mAuth.signInWithEmailAndPassword(emailLogin,passLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if (task.isSuccessful()){
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    mDatabase.child("Users").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) {
-                                Log.e("firebase", "Error getting data", task.getException());
-                            }
-                            else {
-                                user2 = task.getResult().getValue(User.class);
-                                rol = user2.getRol();
-                                if (rol.equals("2")){
-                                    startActivity(new Intent(MainActivity.this, HomePropietario.class));
-                                    finish();
-                                }else{
-                                    Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastPropietario), Toast.LENGTH_LONG).show();
-                                    FirebaseAuth.getInstance().signOut();
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                            }
-                        }
-                    });
-                    editEmailLogin.setText("");
-                    editpasswordLogin.setText("");
-
-                }else {
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.ToastLogin), Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
     }
 
+    //Manejo de sesion iniciada
+    //redirecciona a home propietario
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(MainActivity.this,HomePropietario.class));
+            startActivity(new Intent(LoginActivity.this, HomePropietarioActivity.class));
             finish();
         }
     }

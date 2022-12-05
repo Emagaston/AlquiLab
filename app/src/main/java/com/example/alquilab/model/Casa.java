@@ -14,20 +14,6 @@ public class Casa {
     private String latitud="";
     private String longitud="";
 
-    /*public Casa(){
-        setId("");
-        setNombre("");
-        setEstado("");
-        setDescripcion("");
-        setDireccion("");
-        setBarrio("");
-        setHabitaciones("");
-        setPrecio("");
-        setIdUser("");
-        setUrlFoto("");
-        setLatitud("");
-        setLongitud("");
-    }*/
     public String getId() {return id;}
     public String getNombre() {return nombre;}
     public String getEstado() {return estado;}

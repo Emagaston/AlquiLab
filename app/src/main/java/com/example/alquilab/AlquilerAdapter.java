@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,13 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.alquilab.model.Casa;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHolder> {
@@ -44,11 +39,19 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         this.list = list;
     }
 
+    //busqueda
     public void filterList(ArrayList<Casa> filterlist) {
         list = filterlist;
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+
+    //generamos cada item de propiedad
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,6 +73,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         String opc1 = context.getString(R.string.opc1);
         String opc2 = context.getString(R.string.opc2);
 
+        //modificamos el color del estado basado en el valor del mismo
         switch (estado){
             case "0":
                 estadoView = opc0;
@@ -117,13 +121,12 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         String habitaciones = casa.getHabitaciones();
         String latitud = casa.getLatitud();
         String longitud = casa.getLongitud();
-        //String estado = casa.getEstado();
 
         //llamada a DETALLEALQUILER
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetalleAlquiler.class);
+                Intent intent = new Intent(context, DetalleAlquilerActivity.class);
                 intent.putExtra("nom", holder.nombre.getText());
                 intent.putExtra("barrio", holder.barrio.getText());
                 intent.putExtra("precio", holder.precio.getText());
@@ -141,7 +144,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EditarAlquiler.class);
+                Intent intent = new Intent(context, EditarAlquilerActivity.class);
                 intent.putExtra("Mid", Mid);
                 intent.putExtra("nom", holder.nombre.getText());
                 intent.putExtra("precioM", holder.precio.getText());
@@ -150,12 +153,6 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
                 context.startActivity(intent);
             }
         });
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return list.size();
     }
 
 

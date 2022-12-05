@@ -1,26 +1,23 @@
 package com.example.alquilab;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alquilab.model.Casa;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class HomePropietario extends AppCompatActivity {
+public class HomePropietarioActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     SharedPreferences sharedPreferences;
@@ -58,6 +55,7 @@ public class HomePropietario extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TextListVacia = findViewById(R.id.textListVacia);
 
+        //creo el listado de alquileres
         list = new ArrayList<>();
         adapter = new AlquilerAdapter(this,list);
 
@@ -68,7 +66,9 @@ public class HomePropietario extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
+                //lista completa de los alquileres
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    //verificamos que el userid sea el propio.
                     Casa casa = dataSnapshot.getValue(Casa.class);
                     if (user1.getUid().contains(casa.getIdUser())) {
                         list.add(casa);
@@ -84,12 +84,11 @@ public class HomePropietario extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
         cargarPreferencias();
-}
+    }
+
 
     private void listaVacia() {
         String sms = getString(R.string.listVacia);
@@ -97,6 +96,7 @@ public class HomePropietario extends AppCompatActivity {
         TextListVacia.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
+
 
     private void cargarPreferencias() {
         sharedPreferences = getSharedPreferences("Opcion", Context.MODE_PRIVATE);
@@ -126,6 +126,28 @@ public class HomePropietario extends AppCompatActivity {
         }
     }
 
+
+
+    //búsqueda
+    private void filter(String text) {
+        ArrayList<Casa> filteredlist = new ArrayList<Casa>();
+        for (Casa item: list){
+            if (item.getNombre().toLowerCase().contains(text.toLowerCase())){
+                filteredlist.add(item);
+            }
+            else if (item.getBarrio().toLowerCase().contains(text.toLowerCase())){
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()){
+            Toast.makeText(this, getString(R.string.Searchempty), Toast.LENGTH_SHORT).show();
+        }else {
+            adapter.filterList(filteredlist);
+        }
+
+    }
+
+    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -144,40 +166,23 @@ public class HomePropietario extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-    private void filter(String text) {
-        ArrayList<Casa> filteredlist = new ArrayList<Casa>();
-        for (Casa item: list){
-            if (item.getNombre().toLowerCase().contains(text.toLowerCase())){
-                filteredlist.add(item);
-            }
-            else if (item.getBarrio().toLowerCase().contains(text.toLowerCase())){
-                filteredlist.add(item);
-            }
-        }
-        if (filteredlist.isEmpty()){
-            Toast.makeText(this, "No se encontró", Toast.LENGTH_SHORT).show();
-        }else {
-            adapter.filterList(filteredlist);
-        }
-
-    }
-
-
+    //menu agregar,logout,filter
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.btnAdd:
-                startActivity(new Intent(this,NuevoAlquiler.class));
+                startActivity(new Intent(this, NuevoAlquilerActivity.class));
                 break;
             case R.id.btnLogout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(this,MainActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btnSettings:
-                startActivity(new Intent(this,Ajustes.class));
+                startActivity(new Intent(this, AjustesActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

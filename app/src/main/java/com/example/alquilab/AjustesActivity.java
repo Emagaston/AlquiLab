@@ -1,9 +1,5 @@
 package com.example.alquilab;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,14 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.behavior.SwipeDismissBehavior;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Locale;
 
 
-public class Ajustes extends AppCompatActivity {
+public class AjustesActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     TextView textToolbar, textLanguage;
@@ -31,25 +28,17 @@ public class Ajustes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
-        mToolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(mToolbar);
+        setearToolbar();
 
-        textToolbar = findViewById(R.id.titleToolbar);
-        String titleToolbar = getString(R.string.settings);
-        textToolbar.setText(titleToolbar);
-
-        imageToolbar=findViewById(R.id.imageToolbar1);
-        imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(Ajustes.this,HomePropietario.class));
-        });
-
-
+        //Listener del lenguaje
         textLanguage=findViewById(R.id.textLenguaje);
         textLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final CharSequence[] opciones = {getString(R.string.idiomaES), getString(R.string.idiomaEN), getString(R.string.idiomaFR)};
-                final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(Ajustes.this);
+
+                final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(AjustesActivity.this);
+
                 alertaOpciones.setTitle(getString(R.string.selectIdioma));
                 alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
                             @Override
@@ -95,9 +84,23 @@ public class Ajustes extends AppCompatActivity {
             }
         });
 }
+
+    private void setearToolbar() {
+        //toolbar
+        mToolbar = findViewById(R.id.toolbar1);
+        setSupportActionBar(mToolbar);
+        textToolbar = findViewById(R.id.titleToolbar);
+        String titleToolbar = getString(R.string.settings);
+        textToolbar.setText(titleToolbar);
+        imageToolbar=findViewById(R.id.imageToolbar1);
+        imageToolbar.setOnClickListener(view -> {
+            startActivity(new Intent(AjustesActivity.this, HomePropietarioActivity.class));
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(Ajustes.this,HomePropietario.class));
+        startActivity(new Intent(AjustesActivity.this, HomePropietarioActivity.class));
     }
 }

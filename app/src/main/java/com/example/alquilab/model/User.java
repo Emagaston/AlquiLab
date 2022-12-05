@@ -1,13 +1,15 @@
-package com.example.alquilab;
+package com.example.alquilab.model;
 
 public class User {
 
     public String nombre, email, rol, number;
 
     public User(){
-
+        this.nombre = "";
+        this.email = "";
+        this.rol = "";
+        this.number = "";
     }
-
     public User(String nombre, String email, String rol, String number){
         this.nombre = nombre;
         this.email = email;

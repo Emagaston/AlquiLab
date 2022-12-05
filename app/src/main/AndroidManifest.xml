@@ -23,14 +23,14 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".EditarAlquiler"
+            android:name=".EditarAlquilerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DetalleAlquiler"
+            android:name=".DetalleAlquilerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -59,14 +59,14 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".Ajustes"
+            android:name=".AjustesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NuevoAlquiler"
+            android:name=".NuevoAlquilerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -77,24 +77,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AlquilerOfertaDetailHostActivity"
-            android:exported="false"
-            android:label="@string/title_activity_alquiler_oferta_detail_host"
-            android:resizeableActivity="true"
-            tools:targetApi="24">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".HomePropietario"
+            android:name=".HomePropietarioActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -102,7 +85,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ForgotPassword"
+            android:name=".ForgotPasswordActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -110,7 +93,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterUser"
+            android:name=".RegisterUserActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -118,7 +101,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

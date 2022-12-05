@@ -1,40 +1,33 @@
 package com.example.alquilab;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.alquilab.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
-public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
+public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView banner, registerUser;
     private EditText editTextRegisterName, editTextRegisterEmail, editTextRegisterPassword, editTextRegisterNumber;
     private Spinner spinnerRol;
     private ProgressBar progressBar;
-
+    private String nombre, email,password,number,rol;
     private FirebaseAuth mAuth;
 
     @Override
@@ -59,7 +52,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         spinnerRol = findViewById(R.id.spinnerRol);
 
-
         ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(this,R.array.OpcionesRol, R.layout.spinnerstyle);
         adapter.setDropDownViewResource(R.layout.spinnerstyle);
         spinnerRol.setAdapter(adapter);
@@ -69,30 +61,26 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.banner:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btnRegister:
                 registerUser();
                 break;
         }
-
     }
 
     private void registerUser() {
-        String nombre = editTextRegisterName.getText().toString().trim();
-        String email = editTextRegisterEmail.getText().toString().trim();
-        String password = editTextRegisterPassword.getText().toString().trim();
-        String number = editTextRegisterNumber.getText().toString().trim();
-        String rol="1";
-        //= spinnerRol.getSelectedItem().toString();
-
+        nombre = editTextRegisterName.getText().toString().trim();
+        email = editTextRegisterEmail.getText().toString().trim();
+        password = editTextRegisterPassword.getText().toString().trim();
+        number = editTextRegisterNumber.getText().toString().trim();
+        rol="";
         switch ((int) spinnerRol.getSelectedItemId()){
-//            case 0: rol="0"; break;
             case 1: rol="1"; break;
             case 2: rol="2"; break;
         }
 
-
+        //Validaciones
         if (nombre.isEmpty()){
             editTextRegisterName.setError(getResources().getString(R.string.errorName));
             editTextRegisterName.requestFocus();
@@ -131,12 +119,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         if (spinnerRol.getSelectedItemId()==0){
             //
-            Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastSelectRole), Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastSelectRole), Toast.LENGTH_LONG).show();
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
         String finalRol = rol;
+
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -150,34 +139,32 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-                                                Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegister), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastRegister), Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                                 editTextRegisterName.setText("");
                                                 editTextRegisterEmail.setText("");
                                                 editTextRegisterPassword.setText("");
-                                                Intent intent = new Intent(RegisterUser.this,MainActivity.class);
+                                                Intent intent = new Intent(RegisterUserActivity.this, LoginActivity.class);
                                                 intent.putExtra("idRol",finalRol);
                                                 startActivity(intent);
                                             }else {
-                                                Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegisterError), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastRegisterError), Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         }
                                     });
                             FirebaseAuth.getInstance().signOut();
                         }else {
-                            Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegisterExistent), Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastRegisterExistent), Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
-
-
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(RegisterUser.this,MainActivity.class));
+        startActivity(new Intent(RegisterUserActivity.this, LoginActivity.class));
     }
 }

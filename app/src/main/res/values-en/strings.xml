@@ -33,9 +33,7 @@
         <item>Offer rent</item>
     </string-array>
 
-    <string name="title_activity_alquiler_oferta_detail_host">AlquilerOfertaDetailHostActivity
-    </string>
-
+    <string name="toolbartitleNewRent">New Rent</string>
     <string name="title_alquileroferta_list">AlquilerOfertas</string>
     <string name="title_alquileroferta_detail">AlquilerOferta Detail</string>
     <string name="title_new">New rent</string>
@@ -81,6 +79,11 @@
     <string name="errorName">Enter a name!</string>
     <string name="errorNumber">Enter a number!</string>
     <string name="errorNumberValid">It has to contain more than 8 numbers!</string>
+    <string name="errorDescript">Enter a description!</string>
+    <string name="errorAdress">Enter an address!</string>
+    <string name="errorBarrio">Enter a neighborhood!</string>
+    <string name="errorRooms">Enter a number of rooms!</string>
+    <string name="errorPrice">Enter a price!</string>
 
     <string name="ToastLogin">Error when logging in!, Please verify your data!</string>
     <string name="ToastForgot">Verify your email!</string>
@@ -122,11 +125,26 @@
     <string name="TextNotificacion">Image has been downloaded!</string>
     <string name="TextDescargaCompletada">Saved successfully</string>
 
+<<<<<<< HEAD
+    <string name="Searchempty">It was not found</string>
+
+    <string name="firstMap">First the map!!</string>
+    <string name="loadImage">Upload image!!</string>
+
+    <string name="AddRent">Rent added!!</string>
+    <string name="AddLoadImage">You must upload an image!!</string>
+
+    <string name="listVacia">You haven\'t registered any property yet! \nAdd one!</string>
+=======
 
     <string name="listVacia">He has no property! \n Add one!</string>
+>>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
     <string name="selectIdioma">Select a language</string>
     <string name="idiomaES">Spanish</string>
     <string name="idiomaEN">English</string>
     <string name="idiomaFR">French</string>
+<<<<<<< HEAD
+=======
 
+>>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
 </resources>
