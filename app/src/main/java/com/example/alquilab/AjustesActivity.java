@@ -17,7 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Locale;
 
 
-public class Ajustes extends AppCompatActivity {
+public class AjustesActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     TextView textToolbar, textLanguage;
@@ -36,7 +36,7 @@ public class Ajustes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final CharSequence[] opciones = {getString(R.string.idiomaES), getString(R.string.idiomaEN), getString(R.string.idiomaFR)};
-                final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(Ajustes.this);
+                final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(AjustesActivity.this);
                 alertaOpciones.setTitle(getString(R.string.selectIdioma));
                 alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
                             @Override
@@ -92,13 +92,13 @@ public class Ajustes extends AppCompatActivity {
         textToolbar.setText(titleToolbar);
         imageToolbar=findViewById(R.id.imageToolbar1);
         imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(Ajustes.this,HomePropietario.class));
+            startActivity(new Intent(AjustesActivity.this, HomePropietarioActivity.class));
         });
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(Ajustes.this,HomePropietario.class));
+        startActivity(new Intent(AjustesActivity.this, HomePropietarioActivity.class));
     }
 }

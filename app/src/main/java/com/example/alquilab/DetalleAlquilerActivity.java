@@ -46,7 +46,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCallback {
+public class DetalleAlquilerActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_CODE = 1;
     private static final String CHANNEL_ID = "NOTIFICACION";
@@ -75,13 +75,13 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 askPermission();
-                new AlertDialog.Builder(DetalleAlquiler.this)
+                new AlertDialog.Builder(DetalleAlquilerActivity.this)
                         .setTitle(R.string.TitleAlertDescarga)
                         .setMessage(R.string.TextAlertDescarga)
                         .setPositiveButton(R.string.AlertDeleteYes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if (ContextCompat.checkSelfPermission(DetalleAlquiler.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                                if (ContextCompat.checkSelfPermission(DetalleAlquilerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                                     testsave();
                                     crearCanalNotificacion();
                                     crearNotifcacion();
@@ -115,7 +115,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
 
         imageToolbar = findViewById(R.id.imageToolbar1);
         imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(DetalleAlquiler.this, HomePropietario.class));
+            startActivity(new Intent(DetalleAlquilerActivity.this, HomePropietarioActivity.class));
         });
 
         mToolbar = findViewById(R.id.toolbar);
@@ -185,7 +185,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
 
     //solicitamos permiso (no necesario, por flujo, primero NuevoAlquiler)
     private void askPermission () {
-        ActivityCompat.requestPermissions(DetalleAlquiler.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        ActivityCompat.requestPermissions(DetalleAlquilerActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
     }
 
     //obtenemos la respuesta de la solicitud de permisos
@@ -246,7 +246,7 @@ public class DetalleAlquiler extends AppCompatActivity implements OnMapReadyCall
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-        LocationManager locationManager = (LocationManager) DetalleAlquiler.this.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) DetalleAlquilerActivity.this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {

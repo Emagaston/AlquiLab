@@ -34,7 +34,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.OutputStream;
 import java.util.UUID;
 
-public class NuevoAlquiler extends AppCompatActivity {
+public class NuevoAlquilerActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
 
     private Double latitudP;
@@ -88,11 +88,11 @@ public class NuevoAlquiler extends AppCompatActivity {
                     if (uriG != null){
                         crearCasa();
                         databaseReference.child("Casa").child(casa.getId()).setValue(casa);
-                        Toast.makeText(NuevoAlquiler.this, getString(R.string.AddRent), Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(NuevoAlquiler.this, LoginActivity.class));
+                        Toast.makeText(NuevoAlquilerActivity.this, getString(R.string.AddRent), Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(NuevoAlquilerActivity.this, LoginActivity.class));
                     }
                     else{
-                        Toast.makeText(NuevoAlquiler.this, getString(R.string.AddLoadImage), Toast.LENGTH_LONG).show();
+                        Toast.makeText(NuevoAlquilerActivity.this, getString(R.string.AddLoadImage), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -132,11 +132,11 @@ public class NuevoAlquiler extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (longitudP == 0.0){
-                    Toast.makeText(NuevoAlquiler.this, getString(R.string.firstMap), Toast.LENGTH_LONG).show();
+                    Toast.makeText(NuevoAlquilerActivity.this, getString(R.string.firstMap), Toast.LENGTH_LONG).show();
                 }else {
                     askPermission ();
 
-                    Toast.makeText(NuevoAlquiler.this, getString(R.string.loadImage), Toast.LENGTH_LONG).show();
+                    Toast.makeText(NuevoAlquilerActivity.this, getString(R.string.loadImage), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/jpg");
                     intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
@@ -150,10 +150,10 @@ public class NuevoAlquiler extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (ActivityCompat.checkSelfPermission(NuevoAlquiler.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(NuevoAlquiler.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(NuevoAlquilerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(NuevoAlquilerActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     //no tengo el permiso
-                    ActivityCompat.requestPermissions(NuevoAlquiler.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
+                    ActivityCompat.requestPermissions(NuevoAlquilerActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
                     //return;
                 }else{
                     nom = nombre.getText().toString();
@@ -162,7 +162,7 @@ public class NuevoAlquiler extends AppCompatActivity {
                     bar = barrio.getText().toString();
                     hab = habitaciones.getText().toString();
                     pre = precio.getText().toString();
-                    Intent intent =new Intent(NuevoAlquiler.this, MapsActivity.class);
+                    Intent intent =new Intent(NuevoAlquilerActivity.this, MapsActivity.class);
                     intent.putExtra("nomp",nom);//es el contenido del edit
                     intent.putExtra("desp", des);
                     intent.putExtra("dirp", dir);
@@ -205,7 +205,7 @@ public class NuevoAlquiler extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.btnAdd:
-                startActivity(new Intent(this,NuevoAlquiler.class));
+                startActivity(new Intent(this, NuevoAlquilerActivity.class));
                 finish();
                 break;
             case R.id.btnLogout:
@@ -213,7 +213,7 @@ public class NuevoAlquiler extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btnSettings:
-                startActivity(new Intent(this,Ajustes.class));
+                startActivity(new Intent(this, AjustesActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -299,7 +299,7 @@ public class NuevoAlquiler extends AppCompatActivity {
 
         imageToolbar = findViewById(R.id.imageToolbar1);
         imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(NuevoAlquiler.this, HomePropietario.class));
+            startActivity(new Intent(NuevoAlquilerActivity.this, HomePropietarioActivity.class));
         });
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -307,7 +307,7 @@ public class NuevoAlquiler extends AppCompatActivity {
 
     //desde el onclic IMG
     private void askPermission () {
-        ActivityCompat.requestPermissions(NuevoAlquiler.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        ActivityCompat.requestPermissions(NuevoAlquilerActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
     }
 
     //desde el onclic ADD
@@ -336,7 +336,7 @@ public class NuevoAlquiler extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(NuevoAlquiler.this,HomePropietario.class));
+        startActivity(new Intent(NuevoAlquilerActivity.this, HomePropietarioActivity.class));
         finish();
     }
 }

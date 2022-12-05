@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
+public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView banner;
     private EditText emailReset;
@@ -77,11 +77,11 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this, getResources().getString(R.string.ToastForgot), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getResources().getString(R.string.ToastForgot), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
-                    startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
+                    startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
                 }else {
-                    Toast.makeText(ForgotPassword.this, getResources().getString(R.string.ToastErrorForgot), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getResources().getString(R.string.ToastErrorForgot), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
@@ -91,6 +91,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
+        startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
     }
 }

@@ -12,11 +12,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -32,7 +29,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.OutputStream;
 import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -82,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         View.OnClickListener saveUbication = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, NuevoAlquiler.class);
+                Intent intent = new Intent(MapsActivity.this, NuevoAlquilerActivity.class);
                 intent.putExtra("latitud",latitud);
                 intent.putExtra("longitud", longitud);
                 intent.putExtra("nomp", nomp);
@@ -167,7 +163,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(MapsActivity.this,NuevoAlquiler.class));
+        startActivity(new Intent(MapsActivity.this, NuevoAlquilerActivity.class));
         finish();
     }
 

@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.OutputStream;
 import java.util.HashMap;
 
-public class EditarAlquiler extends AppCompatActivity {
+public class EditarAlquilerActivity extends AppCompatActivity {
 
     String midp, nomp, desp, estp, prep;
     private EditText nombre, descripcion, precio;
@@ -75,7 +75,7 @@ public class EditarAlquiler extends AppCompatActivity {
 
         imageToolbar = findViewById(R.id.imageToolbar1);
         imageToolbar.setOnClickListener(view -> {
-            startActivity(new Intent(EditarAlquiler.this, HomePropietario.class));
+            startActivity(new Intent(EditarAlquilerActivity.this, HomePropietarioActivity.class));
         });
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -153,10 +153,10 @@ public class EditarAlquiler extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(EditarAlquiler.this, "Alquiler editado!!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(EditarAlquiler.this, HomePropietario.class));
+                    Toast.makeText(EditarAlquilerActivity.this, "Alquiler editado!!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(EditarAlquilerActivity.this, HomePropietarioActivity.class));
                 }else{
-                    Toast.makeText(EditarAlquiler.this, "Error:Alquiler NO editado.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarAlquilerActivity.this, "Error:Alquiler NO editado.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -173,7 +173,7 @@ public class EditarAlquiler extends AppCompatActivity {
     public boolean onOptionsItemSelected(@androidx.annotation.NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.btnAdd:
-                startActivity(new Intent(this,NuevoAlquiler.class));
+                startActivity(new Intent(this, NuevoAlquilerActivity.class));
                 finish();
                 break;
             case R.id.btnLogout:
@@ -181,7 +181,7 @@ public class EditarAlquiler extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btnSettings:
-                startActivity(new Intent(this,Ajustes.class));
+                startActivity(new Intent(this, AjustesActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -190,7 +190,7 @@ public class EditarAlquiler extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(EditarAlquiler.this,HomePropietario.class));
+        startActivity(new Intent(EditarAlquilerActivity.this, HomePropietarioActivity.class));
         finish();
     }
 

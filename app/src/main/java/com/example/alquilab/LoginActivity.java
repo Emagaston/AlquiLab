@@ -100,13 +100,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.register:
-                startActivity(new Intent(this,RegisterUser.class));
+                startActivity(new Intent(this, RegisterUserActivity.class));
                 break;
             case R.id.btnLogin:
                 userLogin();//
                 break;
             case R.id.forgotPassword:
-                startActivity(new Intent(this, ForgotPassword.class));
+                startActivity(new Intent(this, ForgotPasswordActivity.class));
                 break;
         }
     }
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 user2 = task.getResult().getValue(User.class);
                                 rol = user2.getRol();
                                 if (rol.equals("2")){
-                                    startActivity(new Intent(LoginActivity.this, HomePropietario.class));
+                                    startActivity(new Intent(LoginActivity.this, HomePropietarioActivity.class));
                                     finish();
                                 }else{
                                     //si no es propietario se desloguea y cierra.
@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(LoginActivity.this,HomePropietario.class));
+            startActivity(new Intent(LoginActivity.this, HomePropietarioActivity.class));
             finish();
         }
     }

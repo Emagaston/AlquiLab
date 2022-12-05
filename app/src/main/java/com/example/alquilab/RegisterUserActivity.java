@@ -21,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
+public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView banner, registerUser;
     private EditText editTextRegisterName, editTextRegisterEmail, editTextRegisterPassword, editTextRegisterNumber;
@@ -119,7 +119,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         if (spinnerRol.getSelectedItemId()==0){
             //
-            Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastSelectRole), Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastSelectRole), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -139,23 +139,23 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
-                                                Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegister), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastRegister), Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                                 editTextRegisterName.setText("");
                                                 editTextRegisterEmail.setText("");
                                                 editTextRegisterPassword.setText("");
-                                                Intent intent = new Intent(RegisterUser.this, LoginActivity.class);
+                                                Intent intent = new Intent(RegisterUserActivity.this, LoginActivity.class);
                                                 intent.putExtra("idRol",finalRol);
                                                 startActivity(intent);
                                             }else {
-                                                Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegisterError), Toast.LENGTH_LONG).show();
+                                                Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastRegisterError), Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         }
                                     });
                             FirebaseAuth.getInstance().signOut();
                         }else {
-                            Toast.makeText(RegisterUser.this, getResources().getString(R.string.ToastRegisterExistent), Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterUserActivity.this, getResources().getString(R.string.ToastRegisterExistent), Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -165,6 +165,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(RegisterUser.this, LoginActivity.class));
+        startActivity(new Intent(RegisterUserActivity.this, LoginActivity.class));
     }
 }

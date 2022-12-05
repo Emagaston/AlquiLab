@@ -126,7 +126,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetalleAlquiler.class);
+                Intent intent = new Intent(context, DetalleAlquilerActivity.class);
                 intent.putExtra("nom", holder.nombre.getText());
                 intent.putExtra("barrio", holder.barrio.getText());
                 intent.putExtra("precio", holder.precio.getText());
@@ -144,7 +144,7 @@ public class AlquilerAdapter extends RecyclerView.Adapter<AlquilerAdapter.ViewHo
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EditarAlquiler.class);
+                Intent intent = new Intent(context, EditarAlquilerActivity.class);
                 intent.putExtra("Mid", Mid);
                 intent.putExtra("nom", holder.nombre.getText());
                 intent.putExtra("precioM", holder.precio.getText());

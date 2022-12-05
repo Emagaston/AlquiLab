@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class HomePropietario extends AppCompatActivity {
+public class HomePropietarioActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     SharedPreferences sharedPreferences;
@@ -171,14 +171,14 @@ public class HomePropietario extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.btnAdd:
-                startActivity(new Intent(this,NuevoAlquiler.class));
+                startActivity(new Intent(this, NuevoAlquilerActivity.class));
                 break;
             case R.id.btnLogout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.btnSettings:
-                startActivity(new Intent(this,Ajustes.class));
+                startActivity(new Intent(this, AjustesActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
