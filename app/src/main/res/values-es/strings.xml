@@ -124,7 +124,7 @@
     <string name="TextNotificacion">Se ha descargado la imagen!</string>
     <string name="TextDescargaCompletada">Se guardó exitosamente</string>
 
-<<<<<<< HEAD
+
     <string name="Searchempty">No se encontró</string>
 
     <string name="firstMap">Primero el mapa!!</string>
@@ -134,16 +134,10 @@
     <string name="AddLoadImage">Debe cargar una imagen!!</string>
 
     <string name="listVacia">Aún no registró ninguna propiedad! \n Agregue una!</string>
-=======
-    <string name="listVacia">No tiene ninguna propiedad! \n Agregue uno!</string>
->>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
+
     <string name="selectIdioma">Seleccione un idioma</string>
     <string name="idiomaES">Español</string>
     <string name="idiomaEN">Inglés</string>
     <string name="idiomaFR">Francés</string>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
 </resources>
