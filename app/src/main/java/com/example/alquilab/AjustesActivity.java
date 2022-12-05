@@ -36,7 +36,9 @@ public class AjustesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final CharSequence[] opciones = {getString(R.string.idiomaES), getString(R.string.idiomaEN), getString(R.string.idiomaFR)};
+
                 final AlertDialog.Builder alertaOpciones = new AlertDialog.Builder(AjustesActivity.this);
+
                 alertaOpciones.setTitle(getString(R.string.selectIdioma));
                 alertaOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
                             @Override

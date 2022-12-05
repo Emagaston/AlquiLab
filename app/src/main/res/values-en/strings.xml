@@ -125,6 +125,7 @@
     <string name="TextNotificacion">Image has been downloaded!</string>
     <string name="TextDescargaCompletada">Saved successfully</string>
 
+<<<<<<< HEAD
     <string name="Searchempty">It was not found</string>
 
     <string name="firstMap">First the map!!</string>
@@ -134,8 +135,16 @@
     <string name="AddLoadImage">You must upload an image!!</string>
 
     <string name="listVacia">You haven\'t registered any property yet! \nAdd one!</string>
+=======
+
+    <string name="listVacia">He has no property! \n Add one!</string>
+>>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
     <string name="selectIdioma">Select a language</string>
     <string name="idiomaES">Spanish</string>
     <string name="idiomaEN">English</string>
     <string name="idiomaFR">French</string>
+<<<<<<< HEAD
+=======
+
+>>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
 </resources>

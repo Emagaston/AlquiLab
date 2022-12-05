@@ -147,4 +147,11 @@
     <string name="idiomaFR">Francés</string>
 
 
+
+    <string name="listVacia">No tiene ninguna propiedad! \n Agregue uno!</string>
+    <string name="selectIdioma">Seleccione un idioma</string>
+    <string name="idiomaES">Español</string>
+    <string name="idiomaEN">Inglés</string>
+    <string name="idiomaFR">Francés</string>
+
 </resources>

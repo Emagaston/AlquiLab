@@ -126,6 +126,7 @@
     <string name="RequierePermisos">Nécessite des autorisations</string>
     <string name="TextDescargaCompletada">Enregistré avec succès</string>
 
+<<<<<<< HEAD
     <string name="Searchempty">Il na pas été trouvé</string>
 
     <string name="firstMap">Dabord la carte!!</string>
@@ -135,6 +136,9 @@
     <string name="AddLoadImage">Vous devez télécharger une image!!</string>
 
     <string name="listVacia">Vous n\'avez pas encore enregistré de propriété ! \nAjoutez-en un!</string>
+=======
+    <string name="listVacia">Il na pas de propriété! \n Ajoute un!</string>
+>>>>>>> bfd97e04efd0411b7b07ea6598db760729a365c1
     <string name="selectIdioma">Sélectionnez une langue</string>
     <string name="idiomaES">Espagnol</string>
     <string name="idiomaEN">Anglais</string>
