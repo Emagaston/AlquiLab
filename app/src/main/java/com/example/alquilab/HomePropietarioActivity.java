@@ -126,8 +126,6 @@ public class HomePropietarioActivity extends AppCompatActivity {
         }
     }
 
-
-
     //búsqueda
     private void filter(String text) {
         ArrayList<Casa> filteredlist = new ArrayList<Casa>();
